@@ -22,7 +22,7 @@ import {
  *  - 3D A* Synaptic Bridging (`findBridge`) with anti-pareidolia + Privacy Firewall
  */
 
-export const VERSION = '1.0.0-HebbMesh-4D';
+export const VERSION = '1.2.0-HebbMesh-4D';
 
 const STOPWORDS = new Set([
   // English
@@ -492,7 +492,8 @@ export function parseMemoryDirectory(memoryDir, options = {}) {
   return neurons;
 }
 
-function weaveEdgesAndDendrites(neurons, prevNet = null, decay = false, disablePrivacyFirewall = false) {
+function weaveEdgesAndDendrites(neurons, prevNet = null, decay = false, disablePrivacyFirewall = false, options = {}) {
+  const m0Topology = options.m0Topology !== false;
   const list = [...neurons.values()];
   const tagToIds = new Map();
   for (const n of list) {
@@ -505,15 +506,59 @@ function weaveEdgesAndDendrites(neurons, prevNet = null, decay = false, disableP
   const N = Math.max(1, list.length);
   const pairScores = new Map();
 
-  // Shared-tag IDF edge weighting
-  for (const [, ids] of tagToIds.entries()) {
-    if (ids.length < 2 || ids.length > 24) continue;
-    const idf = Math.min(1, Math.log10(N / ids.length) / 1.4);
-    for (let i = 0; i < ids.length; i++) {
-      for (let j = i + 1; j < ids.length; j++) {
-        const a = ids[i], b = ids[j];
-        const key = a < b ? `${a}|${b}` : `${b}|${a}`;
-        pairScores.set(key, (pairScores.get(key) || 0) + 0.30 * idf);
+  if (m0Topology) {
+    // M0: Semantic Synaptogenesis (tags + concepts + | sem:) & Clique Pruning (df <= max(6, 5% N))
+    const dfMax = Math.max(6, Math.round(N * 0.05));
+    const tokToEntries = new Map();
+    const registerTok = (tok, id, factor) => {
+      let m = tokToEntries.get(tok);
+      if (!m) { m = new Map(); tokToEntries.set(tok, m); }
+      const prev = m.get(id) || 0;
+      if (factor > prev) m.set(id, factor);
+    };
+
+    for (const n of list) {
+      for (const tag of n.tags) registerTok(tag, n.id, 1.0);
+      if (Array.isArray(n.concepts)) {
+        for (const c of n.concepts) {
+          for (const tok of tokenize(c)) registerTok(tok, n.id, 0.90);
+        }
+      }
+      if (Array.isArray(n.sem)) {
+        for (const phrase of n.sem) {
+          for (const tok of tokenize(phrase)) registerTok(tok, n.id, 0.85);
+        }
+      }
+    }
+
+    for (const [, entryMap] of tokToEntries.entries()) {
+      const df = entryMap.size;
+      if (df < 2 || df > dfMax) continue;
+      const idf = Math.min(1, Math.log10(N / df) / 1.4);
+      const idfSq = idf * idf;
+      const entries = [...entryMap.entries()];
+      for (let i = 0; i < entries.length; i++) {
+        const [a, fa] = entries[i];
+        const privA = Boolean(neurons.get(a)?.private);
+        for (let j = i + 1; j < entries.length; j++) {
+          const [b, fb] = entries[j];
+          if (!disablePrivacyFirewall && privA !== Boolean(neurons.get(b)?.private)) continue;
+          const key = a < b ? `${a}|${b}` : `${b}|${a}`;
+          pairScores.set(key, (pairScores.get(key) || 0) + 0.30 * idfSq * Math.sqrt(fa * fb));
+        }
+      }
+    }
+  } else {
+    // Legacy v1.1: shared-tag IDF edge weighting (df <= 24)
+    for (const [, ids] of tagToIds.entries()) {
+      if (ids.length < 2 || ids.length > 24) continue;
+      const idf = Math.min(1, Math.log10(N / ids.length) / 1.4);
+      for (let i = 0; i < ids.length; i++) {
+        for (let j = i + 1; j < ids.length; j++) {
+          const a = ids[i], b = ids[j];
+          const key = a < b ? `${a}|${b}` : `${b}|${a}`;
+          pairScores.set(key, (pairScores.get(key) || 0) + 0.30 * idf);
+        }
       }
     }
   }
@@ -599,7 +644,7 @@ export function compileNetwork(memoryDir, options = {}) {
   const t0 = performance.now();
   const prevNet = options.fresh ? null : loadNetwork(memoryDir);
   const map = parseMemoryDirectory(memoryDir, options);
-  weaveEdgesAndDendrites(map, prevNet, Boolean(options.decay), Boolean(options.disablePrivacyFirewall));
+  weaveEdgesAndDendrites(map, prevNet, Boolean(options.decay), Boolean(options.disablePrivacyFirewall), options);
 
   const neuronsObj = Object.fromEntries(map.entries());
   let totalEdges = 0;
@@ -739,6 +784,31 @@ export function findBridge(net, queryA, queryB, options = {}) {
   return { found: false, ms: round2(performance.now() - t0), reason: 'no_strong_bridge' };
 }
 
+function computeLogicalVsAffectivePole(seeds, neurons) {
+  let wSum = 0;
+  let poleSum = 0;
+  for (const [id, e] of seeds) {
+    const d = neurons[id]?.dim4;
+    if (!d) continue;
+    const logical = Math.max(d.exploration || 0, d.execution || 0);
+    const affective = Math.max(d.support || 0, (d.daily || 0) * 0.85);
+    poleSum += (logical - affective) * e;
+    wSum += e;
+  }
+  return wSum > 0 ? poleSum / wSum : 0;
+}
+
+function interLobeFirewall(seedPole, dstDim4) {
+  if (!dstDim4) return 1.0;
+  const logical = Math.max(dstDim4.exploration || 0, dstDim4.execution || 0);
+  const affective = Math.max(dstDim4.support || 0, (dstDim4.daily || 0) * 0.85);
+  const dstPole = logical - affective;
+  if ((seedPole >= 0.30 && dstPole <= -0.25) || (seedPole <= -0.30 && dstPole >= 0.25)) {
+    return 0.55;
+  }
+  return 1.0;
+}
+
 export function activateNetworkInMemory(net, query = '', options = {}) {
   const t0 = performance.now();
   const topK = options.topK ?? 6;
@@ -803,22 +873,137 @@ export function activateNetworkInMemory(net, query = '', options = {}) {
     }
   }
 
-  // 2. Spreading Activation (2–3 hops with damping)
-  const damping = 0.52;
-  for (let hop = 0; hop < maxHops; hop++) {
-    const snapshot = [...energy.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12);
-    for (const [srcId, srcE] of snapshot) {
-      const nSrc = neurons[srcId];
-      if (!nSrc) continue;
-      for (const [dstId, edgeW] of Object.entries(nSrc.edges || {})) {
+  // 2. Spreading Activation (v1.2: M1 Sparse Out-Fan + Regularized Sub-stochastic + Refractory,
+  //    M2 AMPA/NMDA Coincidence Gating + Parental Dominance, M3 k-WTA Lateral Inhibition, M4 4D Inter-Lobe Firewall)
+  const direct = new Map(energy);
+  const maxDirect = direct.size ? Math.max(...direct.values()) : 0;
+
+  if (maxHops > 0 && maxDirect > 0) {
+    const useM2Gating = options.useM2Gating !== false;
+    const useM3KWta = options.useM3KWta !== false;
+    const useM4Firewall = options.useM4Firewall !== false;
+    const useGabaSoft = Boolean(options.useGabaSoft);
+
+    const topEmit = useM3KWta ? (options.topEmit ?? 4) : (options.topEmit ?? 12);
+    const relWta = useM3KWta ? (options.relWta ?? 0.45) : 0;
+    const outFan = options.outFan ?? 3;
+    const minEdgeW = options.minEdgeW ?? 0.58;
+    const kRef = options.kRef ?? 1.8;
+    const damping = options.damping ?? 0.55;
+
+    if (!useM2Gating) {
+      // M1 only (or M1 + M3/M4 without AMPA/NMDA gating): multi-hop sparse out-fan with refractory period
+      const fired = new Set();
+      for (let hop = 0; hop < maxHops; hop++) {
+        const curMax = energy.size ? Math.max(...energy.values()) : 0;
+        const snapshot = [...energy.entries()]
+          .filter(([id, e]) => !fired.has(id) && e >= relWta * curMax)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, topEmit);
+        if (!snapshot.length) break;
+
+        const hopPole = useM4Firewall ? computeLogicalVsAffectivePole(snapshot, neurons) : 0;
+        for (const [srcId, srcE] of snapshot) {
+          fired.add(srcId);
+          const nSrc = neurons[srcId];
+          if (!nSrc) continue;
+
+          const topEdges = Object.entries(nSrc.edges || {})
+            .map(([dstId, w]) => [dstId, Number(w)])
+            .filter(([dstId, w]) => {
+              if (w < minEdgeW || dstId === srcId || fired.has(dstId)) return false;
+              const nDst = neurons[dstId];
+              return nDst && (!nDst.private || allowPrivate);
+            })
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, outFan);
+
+          if (!topEdges.length) continue;
+          const sumTopM = topEdges.reduce((s, [, w]) => s + w, 0);
+          const denom = Math.max(kRef, sumTopM);
+
+          for (const [dstId, edgeW] of topEdges) {
+            const nDst = neurons[dstId];
+            const lobeMod = useM4Firewall ? interLobeFirewall(hopPole, nDst.dim4) : 1.0;
+            const imp = srcE * (edgeW / denom) * damping * lobeMod * (nDst.valid ? 1.0 : 0.45);
+            if (imp < 0.12) continue;
+            energy.set(dstId, (energy.get(dstId) || 0) + imp);
+            if (!trace.has(dstId)) {
+              trace.set(dstId, `hop${hop + 1} <- ${nSrc.code} (${edgeW})`);
+            }
+          }
+        }
+      }
+    } else {
+      // M1 + M2 (+ optional M3 k-WTA, M4 4D Firewall, GABA soft)
+      const seeds = [...direct.entries()]
+        .filter(([, e]) => e >= relWta * maxDirect)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, topEmit);
+
+      const seedPole = useM4Firewall ? computeLogicalVsAffectivePole(seeds, neurons) : 0;
+
+      const propSum = new Map();
+      const parentsOf = new Map();
+      const maxParentE = new Map();
+      const seedIds = new Set(seeds.map(([id]) => id));
+
+      for (const [srcId, srcE] of seeds) {
+        const nSrc = neurons[srcId];
+        if (!nSrc) continue;
+
+        const topEdges = Object.entries(nSrc.edges || {})
+          .map(([dstId, w]) => [dstId, Number(w)])
+          .filter(([dstId, w]) => {
+            if (w < minEdgeW || dstId === srcId) return false;
+            const nDst = neurons[dstId];
+            return nDst && (!nDst.private || allowPrivate);
+          })
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, outFan);
+
+        if (!topEdges.length) continue;
+        const sumTopM = topEdges.reduce((s, [, w]) => s + w, 0);
+        const denom = Math.max(kRef, sumTopM);
+
+        for (const [dstId, edgeW] of topEdges) {
+          const nDst = neurons[dstId];
+          const lobeMod = useM4Firewall ? interLobeFirewall(seedPole, nDst.dim4) : 1.0;
+          const imp = srcE * (edgeW / denom) * damping * lobeMod * (nDst.valid ? 1.0 : 0.45);
+          if (imp < 0.12) continue;
+
+          propSum.set(dstId, (propSum.get(dstId) || 0) + imp);
+          if (!parentsOf.has(dstId)) parentsOf.set(dstId, new Set());
+          parentsOf.get(dstId).add(srcId);
+          maxParentE.set(dstId, Math.max(maxParentE.get(dstId) || 0, srcE));
+
+          if (!trace.has(dstId)) {
+            trace.set(dstId, `hop1 <- ${nSrc.code} (${edgeW})`);
+          }
+        }
+      }
+
+      // M2: Post-synaptic AMPA vs. NMDA integration + Parental Dominance (+ optional GABA soft hub brake)
+      for (const [dstId, rawProp] of propSum.entries()) {
+        const dE = direct.get(dstId) || 0;
+        const kParents = parentsOf.get(dstId)?.size || 0;
+        const pMax = maxParentE.get(dstId) || 0;
         const nDst = neurons[dstId];
-        if (!nDst || (nDst.private && !allowPrivate)) continue;
-        const impulse = srcE * Number(edgeW) * damping * (nDst.valid ? 1.0 : 0.45);
-        if (impulse < 0.18) continue;
-        const nextE = (energy.get(dstId) || 0) + impulse;
-        energy.set(dstId, nextE);
-        if (!trace.has(dstId)) {
-          trace.set(dstId, `hop ${hop + 1} <- ${nSrc.code} (${edgeW})`);
+        const dstDeg = Object.keys(nDst.edges || {}).length;
+        const gabaBrake = useGabaSoft && dstDeg > 4 ? 1 / (1 + 0.08 * (dstDeg - 4)) : 1.0;
+        const effProp = rawProp * gabaBrake;
+
+        if (dE > 0) {
+          let boosted = dE + 0.45 * effProp;
+          if (kParents === 1 && !seedIds.has(dstId)) {
+            boosted = Math.min(boosted, pMax - 0.01);
+          }
+          energy.set(dstId, boosted);
+        } else if (kParents >= 2) {
+          const nmdaGain = (nDst.type === 'episodic' ? 1.15 : 0.95) * (1 + 0.35 * Math.log(kParents));
+          const nmdaE = Math.min(effProp * nmdaGain, 0.92 * pMax);
+          energy.set(dstId, nmdaE);
+          trace.set(dstId, `nmda(${kParents}x) <- ${[...parentsOf.get(dstId)].map((id) => neurons[id].code).join('+')}`);
         }
       }
     }

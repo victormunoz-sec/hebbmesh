@@ -1,0 +1,1576 @@
+{
+  "protocol": "PROTOCOLO_ESCALABILIDAD_SEGUNDO_DOMINIO_v1.2",
+  "timestamp": "2026-11-23T15:13:01.378Z",
+  "seed": 20261123,
+  "totalBenchmarkMs": 50817.39,
+  "partA_stressTest": {
+    "N_1000": {
+      "scaleN": 1000,
+      "totalNeurons": 1000,
+      "totalEdges": 8000,
+      "avgDegree": 8,
+      "stageBreakdownMs": {
+        "parseMs": 101.13,
+        "weaveMs": 146.47,
+        "persistMs": 73.93,
+        "compileTotalMs": 321.53,
+        "coldLoadMs": 43.89
+      },
+      "resourceMetrics": {
+        "sqliteSizeKB": 1532,
+        "rssMB": 81.71,
+        "heapUsedMB": 23.21
+      },
+      "latencyMs": {
+        "fts5_sem": {
+          "mean": 0.85,
+          "p50": 0.73,
+          "p95": 1.62,
+          "p99": 1.72
+        },
+        "hebb_no_prop": {
+          "mean": 11.07,
+          "p50": 9.28,
+          "p95": 18.74,
+          "p99": 23.19
+        },
+        "hebb_v12_a4": {
+          "mean": 10.53,
+          "p50": 9.42,
+          "p95": 15.5,
+          "p99": 19.99
+        }
+      },
+      "bottlenecks": {
+        "compileBottleneck": false,
+        "latencyBottleneck": false
+      }
+    },
+    "N_5000": {
+      "scaleN": 5000,
+      "totalNeurons": 5000,
+      "totalEdges": 40000,
+      "avgDegree": 8,
+      "stageBreakdownMs": {
+        "parseMs": 206.8,
+        "weaveMs": 1724.19,
+        "persistMs": 267.62,
+        "compileTotalMs": 2198.61,
+        "coldLoadMs": 136.89
+      },
+      "resourceMetrics": {
+        "sqliteSizeKB": 5216,
+        "rssMB": 276.71,
+        "heapUsedMB": 172.64
+      },
+      "latencyMs": {
+        "fts5_sem": {
+          "mean": 1.19,
+          "p50": 1.03,
+          "p95": 2.13,
+          "p99": 2.17
+        },
+        "hebb_no_prop": {
+          "mean": 36.77,
+          "p50": 34.71,
+          "p95": 45.1,
+          "p99": 52.15
+        },
+        "hebb_v12_a4": {
+          "mean": 36.77,
+          "p50": 35.49,
+          "p95": 44.63,
+          "p99": 50.46
+        }
+      },
+      "bottlenecks": {
+        "compileBottleneck": false,
+        "latencyBottleneck": true
+      }
+    },
+    "N_10000": {
+      "scaleN": 10000,
+      "totalNeurons": 10000,
+      "totalEdges": 80000,
+      "avgDegree": 8,
+      "stageBreakdownMs": {
+        "parseMs": 307.16,
+        "weaveMs": 8434.3,
+        "persistMs": 585.12,
+        "compileTotalMs": 9326.58,
+        "coldLoadMs": 311.17
+      },
+      "resourceMetrics": {
+        "sqliteSizeKB": 10360,
+        "rssMB": 693.23,
+        "heapUsedMB": 541.36
+      },
+      "latencyMs": {
+        "fts5_sem": {
+          "mean": 1.77,
+          "p50": 1.55,
+          "p95": 2.6,
+          "p99": 3.04
+        },
+        "hebb_no_prop": {
+          "mean": 84.13,
+          "p50": 81.98,
+          "p95": 98.55,
+          "p99": 104.36
+        },
+        "hebb_v12_a4": {
+          "mean": 85.06,
+          "p50": 82.44,
+          "p95": 100.33,
+          "p99": 105.04
+        }
+      },
+      "bottlenecks": {
+        "compileBottleneck": false,
+        "latencyBottleneck": true
+      }
+    }
+  },
+  "partB_secondDomain": {
+    "dataset": {
+      "totalNeurons": 2020,
+      "publicNeurons": 2000,
+      "privateNeurons": 20,
+      "totalEdges": 15860,
+      "avgDegree": 7.85,
+      "queriesTotal": 200,
+      "clustersTotal": 200,
+      "byCategory": {
+        "direct": 50,
+        "semantic": 50,
+        "multihop_convergent": 50,
+        "episodic_convergent": 50
+      }
+    },
+    "lexicalGap": {
+      "totalSemantic": 50,
+      "zeroOverlapCount": 50,
+      "zeroOverlapPct": 100,
+      "meanOverlapTokens": 0,
+      "details": [
+        {
+          "id": "q_sem_001",
+          "cluster": "c_051",
+          "expected": [
+            "G-51"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_002",
+          "cluster": "c_052",
+          "expected": [
+            "G-52"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_003",
+          "cluster": "c_053",
+          "expected": [
+            "G-53"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_004",
+          "cluster": "c_054",
+          "expected": [
+            "G-54"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_005",
+          "cluster": "c_055",
+          "expected": [
+            "G-55"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_006",
+          "cluster": "c_056",
+          "expected": [
+            "G-56"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_007",
+          "cluster": "c_057",
+          "expected": [
+            "G-57"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_008",
+          "cluster": "c_058",
+          "expected": [
+            "G-58"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_009",
+          "cluster": "c_059",
+          "expected": [
+            "G-59"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_010",
+          "cluster": "c_060",
+          "expected": [
+            "G-60"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_011",
+          "cluster": "c_061",
+          "expected": [
+            "G-61"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_012",
+          "cluster": "c_062",
+          "expected": [
+            "G-62"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_013",
+          "cluster": "c_063",
+          "expected": [
+            "G-63"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_014",
+          "cluster": "c_064",
+          "expected": [
+            "G-64"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_015",
+          "cluster": "c_065",
+          "expected": [
+            "G-65"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_016",
+          "cluster": "c_066",
+          "expected": [
+            "G-66"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_017",
+          "cluster": "c_067",
+          "expected": [
+            "G-67"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_018",
+          "cluster": "c_068",
+          "expected": [
+            "G-68"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_019",
+          "cluster": "c_069",
+          "expected": [
+            "G-69"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_020",
+          "cluster": "c_070",
+          "expected": [
+            "G-70"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_021",
+          "cluster": "c_071",
+          "expected": [
+            "G-71"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_022",
+          "cluster": "c_072",
+          "expected": [
+            "G-72"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_023",
+          "cluster": "c_073",
+          "expected": [
+            "G-73"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_024",
+          "cluster": "c_074",
+          "expected": [
+            "G-74"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_025",
+          "cluster": "c_075",
+          "expected": [
+            "G-75"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_026",
+          "cluster": "c_076",
+          "expected": [
+            "G-76"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_027",
+          "cluster": "c_077",
+          "expected": [
+            "G-77"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_028",
+          "cluster": "c_078",
+          "expected": [
+            "G-78"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_029",
+          "cluster": "c_079",
+          "expected": [
+            "G-79"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_030",
+          "cluster": "c_080",
+          "expected": [
+            "G-80"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_031",
+          "cluster": "c_081",
+          "expected": [
+            "G-81"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_032",
+          "cluster": "c_082",
+          "expected": [
+            "G-82"
+          ],
+          "qTokensCount": 6,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_033",
+          "cluster": "c_083",
+          "expected": [
+            "G-83"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_034",
+          "cluster": "c_084",
+          "expected": [
+            "G-84"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_035",
+          "cluster": "c_085",
+          "expected": [
+            "G-85"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_036",
+          "cluster": "c_086",
+          "expected": [
+            "G-86"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_037",
+          "cluster": "c_087",
+          "expected": [
+            "G-87"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_038",
+          "cluster": "c_088",
+          "expected": [
+            "G-88"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_039",
+          "cluster": "c_089",
+          "expected": [
+            "G-89"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_040",
+          "cluster": "c_090",
+          "expected": [
+            "G-90"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_041",
+          "cluster": "c_091",
+          "expected": [
+            "G-91"
+          ],
+          "qTokensCount": 6,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_042",
+          "cluster": "c_092",
+          "expected": [
+            "G-92"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_043",
+          "cluster": "c_093",
+          "expected": [
+            "G-93"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_044",
+          "cluster": "c_094",
+          "expected": [
+            "G-94"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_045",
+          "cluster": "c_095",
+          "expected": [
+            "G-95"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_046",
+          "cluster": "c_096",
+          "expected": [
+            "G-96"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_047",
+          "cluster": "c_097",
+          "expected": [
+            "G-97"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_048",
+          "cluster": "c_098",
+          "expected": [
+            "G-98"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_049",
+          "cluster": "c_099",
+          "expected": [
+            "G-99"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        },
+        {
+          "id": "q_sem_050",
+          "cluster": "c_100",
+          "expected": [
+            "G-100"
+          ],
+          "qTokensCount": 7,
+          "overlapTokensCount": 0,
+          "matchingTokens": []
+        }
+      ]
+    },
+    "variants": [
+      {
+        "id": "fts5_pure",
+        "label": "1. SQLite FTS5 (BM25 pure)",
+        "n": 200,
+        "byCat": {
+          "direct": {
+            "n": 50,
+            "hit1Pct": 100,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "semantic": {
+            "n": 50,
+            "hit1Pct": 0,
+            "hit3Pct": 0,
+            "hit5Pct": 0
+          },
+          "multihop_convergent": {
+            "n": 50,
+            "hit1Pct": 0,
+            "hit3Pct": 0,
+            "hit5Pct": 0
+          },
+          "episodic_convergent": {
+            "n": 50,
+            "hit1Pct": 0,
+            "hit3Pct": 0,
+            "hit5Pct": 0
+          }
+        },
+        "overall": {
+          "hit1Pct": 25,
+          "hit3Pct": 25,
+          "hit5Pct": 25
+        },
+        "episodicControl": {
+          "n": 10,
+          "superHubViolations": 0,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0,
+          "avgEpisodicInTop5": 0
+        },
+        "latencyMs": {
+          "mean": 0.99,
+          "p50": 0.97,
+          "p95": 1.66,
+          "p99": 2.32
+        }
+      },
+      {
+        "id": "fts5_sem",
+        "label": "2. SQLite FTS5 + | sem:",
+        "n": 200,
+        "byCat": {
+          "direct": {
+            "n": 50,
+            "hit1Pct": 100,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "semantic": {
+            "n": 50,
+            "hit1Pct": 100,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "multihop_convergent": {
+            "n": 50,
+            "hit1Pct": 0,
+            "hit3Pct": 0,
+            "hit5Pct": 0
+          },
+          "episodic_convergent": {
+            "n": 50,
+            "hit1Pct": 0,
+            "hit3Pct": 0,
+            "hit5Pct": 0
+          }
+        },
+        "overall": {
+          "hit1Pct": 50,
+          "hit3Pct": 50,
+          "hit5Pct": 50
+        },
+        "episodicControl": {
+          "n": 10,
+          "superHubViolations": 0,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0,
+          "avgEpisodicInTop5": 0
+        },
+        "latencyMs": {
+          "mean": 1.21,
+          "p50": 1.05,
+          "p95": 2.18,
+          "p99": 2.68
+        }
+      },
+      {
+        "id": "hebb_no_prop",
+        "label": "3. HebbMesh v1.2 sin propagacion",
+        "n": 200,
+        "byCat": {
+          "direct": {
+            "n": 50,
+            "hit1Pct": 100,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "semantic": {
+            "n": 50,
+            "hit1Pct": 100,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "multihop_convergent": {
+            "n": 50,
+            "hit1Pct": 0,
+            "hit3Pct": 0,
+            "hit5Pct": 0
+          },
+          "episodic_convergent": {
+            "n": 50,
+            "hit1Pct": 0,
+            "hit3Pct": 0,
+            "hit5Pct": 0
+          }
+        },
+        "overall": {
+          "hit1Pct": 50,
+          "hit3Pct": 50,
+          "hit5Pct": 50
+        },
+        "episodicControl": {
+          "n": 10,
+          "superHubViolations": 0,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0,
+          "avgEpisodicInTop5": 0
+        },
+        "latencyMs": {
+          "mean": 30.75,
+          "p50": 30.28,
+          "p95": 44.1,
+          "p99": 54.59
+        }
+      },
+      {
+        "id": "hebb_v12_a4",
+        "label": "4. HebbMesh v1.2 A4",
+        "n": 200,
+        "byCat": {
+          "direct": {
+            "n": 50,
+            "hit1Pct": 100,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "semantic": {
+            "n": 50,
+            "hit1Pct": 100,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "multihop_convergent": {
+            "n": 50,
+            "hit1Pct": 0,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "episodic_convergent": {
+            "n": 50,
+            "hit1Pct": 0,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          }
+        },
+        "overall": {
+          "hit1Pct": 50,
+          "hit3Pct": 100,
+          "hit5Pct": 100
+        },
+        "episodicControl": {
+          "n": 10,
+          "superHubViolations": 0,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0,
+          "avgEpisodicInTop5": 0
+        },
+        "latencyMs": {
+          "mean": 28.58,
+          "p50": 28.52,
+          "p95": 39.6,
+          "p99": 50.39
+        }
+      },
+      {
+        "id": "hebb_v12_a4_gaba",
+        "label": "5. HebbMesh v1.2 A4 + GABA Soft",
+        "n": 200,
+        "byCat": {
+          "direct": {
+            "n": 50,
+            "hit1Pct": 100,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "semantic": {
+            "n": 50,
+            "hit1Pct": 100,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "multihop_convergent": {
+            "n": 50,
+            "hit1Pct": 0,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "episodic_convergent": {
+            "n": 50,
+            "hit1Pct": 0,
+            "hit3Pct": 0,
+            "hit5Pct": 0
+          }
+        },
+        "overall": {
+          "hit1Pct": 50,
+          "hit3Pct": 75,
+          "hit5Pct": 75
+        },
+        "episodicControl": {
+          "n": 10,
+          "superHubViolations": 0,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0,
+          "avgEpisodicInTop5": 0
+        },
+        "latencyMs": {
+          "mean": 29.86,
+          "p50": 23.86,
+          "p95": 68.78,
+          "p99": 98.6
+        }
+      }
+    ],
+    "bootstrap": {
+      "iterations": 10000,
+      "seed": 20261123,
+      "perVariant": {
+        "fts5_pure": {
+          "direct": {
+            "clusters": 50,
+            "n": 50,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "semantic": {
+            "clusters": 50,
+            "n": 50,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ]
+          },
+          "multihop_convergent": {
+            "clusters": 50,
+            "n": 50,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ]
+          },
+          "episodic_convergent": {
+            "clusters": 50,
+            "n": 50,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ]
+          },
+          "overall": {
+            "clusters": 200,
+            "n": 200,
+            "point": 25,
+            "ci95": [
+              19,
+              31
+            ]
+          }
+        },
+        "fts5_sem": {
+          "direct": {
+            "clusters": 50,
+            "n": 50,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "semantic": {
+            "clusters": 50,
+            "n": 50,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "multihop_convergent": {
+            "clusters": 50,
+            "n": 50,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ]
+          },
+          "episodic_convergent": {
+            "clusters": 50,
+            "n": 50,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ]
+          },
+          "overall": {
+            "clusters": 200,
+            "n": 200,
+            "point": 50,
+            "ci95": [
+              43,
+              57
+            ]
+          }
+        },
+        "hebb_no_prop": {
+          "direct": {
+            "clusters": 50,
+            "n": 50,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "semantic": {
+            "clusters": 50,
+            "n": 50,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "multihop_convergent": {
+            "clusters": 50,
+            "n": 50,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ]
+          },
+          "episodic_convergent": {
+            "clusters": 50,
+            "n": 50,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ]
+          },
+          "overall": {
+            "clusters": 200,
+            "n": 200,
+            "point": 50,
+            "ci95": [
+              43,
+              57
+            ]
+          }
+        },
+        "hebb_v12_a4": {
+          "direct": {
+            "clusters": 50,
+            "n": 50,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "semantic": {
+            "clusters": 50,
+            "n": 50,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "multihop_convergent": {
+            "clusters": 50,
+            "n": 50,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "episodic_convergent": {
+            "clusters": 50,
+            "n": 50,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "overall": {
+            "clusters": 200,
+            "n": 200,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          }
+        },
+        "hebb_v12_a4_gaba": {
+          "direct": {
+            "clusters": 50,
+            "n": 50,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "semantic": {
+            "clusters": 50,
+            "n": 50,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "multihop_convergent": {
+            "clusters": 50,
+            "n": 50,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "episodic_convergent": {
+            "clusters": 50,
+            "n": 50,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ]
+          },
+          "overall": {
+            "clusters": 200,
+            "n": 200,
+            "point": 75,
+            "ci95": [
+              69,
+              81
+            ]
+          }
+        }
+      },
+      "pairedDeltas": {
+        "a4_minus_noProp": {
+          "direct": {
+            "clusters": 50,
+            "n": 50,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ],
+            "verdict": "PARIDAD_+-5"
+          },
+          "semantic": {
+            "clusters": 50,
+            "n": 50,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ],
+            "verdict": "PARIDAD_+-5"
+          },
+          "multihop_convergent": {
+            "clusters": 50,
+            "n": 50,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ],
+            "verdict": "SUPERIOR"
+          },
+          "episodic_convergent": {
+            "clusters": 50,
+            "n": 50,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ],
+            "verdict": "SUPERIOR"
+          },
+          "overall": {
+            "clusters": 200,
+            "n": 200,
+            "point": 50,
+            "ci95": [
+              43,
+              57
+            ],
+            "verdict": "SUPERIOR"
+          }
+        },
+        "a4_minus_fts5Sem": {
+          "direct": {
+            "clusters": 50,
+            "n": 50,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ],
+            "verdict": "PARIDAD_+-5"
+          },
+          "semantic": {
+            "clusters": 50,
+            "n": 50,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ],
+            "verdict": "PARIDAD_+-5"
+          },
+          "multihop_convergent": {
+            "clusters": 50,
+            "n": 50,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ],
+            "verdict": "SUPERIOR"
+          },
+          "episodic_convergent": {
+            "clusters": 50,
+            "n": 50,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ],
+            "verdict": "SUPERIOR"
+          },
+          "overall": {
+            "clusters": 200,
+            "n": 200,
+            "point": 50,
+            "ci95": [
+              43,
+              57
+            ],
+            "verdict": "SUPERIOR"
+          }
+        }
+      }
+    },
+    "privacyFirewall": {
+      "totalProbes": 20,
+      "positiveControlTriggered": 20,
+      "firewallOnLeaks": 0,
+      "lateralDendriteLeaks": 0,
+      "pass": true,
+      "details": [
+        {
+          "id": "P01",
+          "vector": "literal_token_activate",
+          "mode": "activate",
+          "target": "PRIV-1",
+          "positiveControlHit": true,
+          "firewallOnLeak": false,
+          "posObserved": [
+            "PRIV-1",
+            "PRIV-2",
+            "PRIV-3",
+            "PRIV-10",
+            "PRIV-11"
+          ],
+          "safeObserved": []
+        },
+        {
+          "id": "P02",
+          "vector": "literal_token_activate",
+          "mode": "activate",
+          "target": "PRIV-2",
+          "positiveControlHit": true,
+          "firewallOnLeak": false,
+          "posObserved": [
+            "PRIV-2",
+            "PRIV-1",
+            "PRIV-3",
+            "PRIV-4",
+            "PRIV-5"
+          ],
+          "safeObserved": []
+        },
+        {
+          "id": "P03",
+          "vector": "literal_token_activate",
+          "mode": "activate",
+          "target": "PRIV-3",
+          "positiveControlHit": true,
+          "firewallOnLeak": false,
+          "posObserved": [
+            "PRIV-3",
+            "PRIV-1",
+            "PRIV-2",
+            "PRIV-4",
+            "PRIV-5"
+          ],
+          "safeObserved": []
+        },
+        {
+          "id": "P04",
+          "vector": "literal_token_activate",
+          "mode": "activate",
+          "target": "PRIV-4",
+          "positiveControlHit": true,
+          "firewallOnLeak": false,
+          "posObserved": [
+            "PRIV-4",
+            "PRIV-1",
+            "PRIV-2",
+            "PRIV-3",
+            "PRIV-5"
+          ],
+          "safeObserved": []
+        },
+        {
+          "id": "P05",
+          "vector": "literal_token_activate",
+          "mode": "activate",
+          "target": "PRIV-5",
+          "positiveControlHit": true,
+          "firewallOnLeak": false,
+          "posObserved": [
+            "PRIV-5",
+            "PRIV-1",
+            "PRIV-2",
+            "PRIV-3",
+            "PRIV-4"
+          ],
+          "safeObserved": []
+        },
+        {
+          "id": "P06",
+          "vector": "literal_token_activate",
+          "mode": "activate",
+          "target": "PRIV-6",
+          "positiveControlHit": true,
+          "firewallOnLeak": false,
+          "posObserved": [
+            "PRIV-6",
+            "PRIV-1",
+            "PRIV-2",
+            "PRIV-3",
+            "PRIV-4"
+          ],
+          "safeObserved": []
+        },
+        {
+          "id": "P07",
+          "vector": "literal_token_activate",
+          "mode": "activate",
+          "target": "PRIV-7",
+          "positiveControlHit": true,
+          "firewallOnLeak": false,
+          "posObserved": [
+            "PRIV-7",
+            "PRIV-1",
+            "PRIV-2",
+            "PRIV-3",
+            "PRIV-4"
+          ],
+          "safeObserved": []
+        },
+        {
+          "id": "P08",
+          "vector": "literal_token_activate",
+          "mode": "activate",
+          "target": "PRIV-8",
+          "positiveControlHit": true,
+          "firewallOnLeak": false,
+          "posObserved": [
+            "PRIV-8",
+            "PRIV-1",
+            "PRIV-2",
+            "PRIV-3",
+            "PRIV-4"
+          ],
+          "safeObserved": []
+        },
+        {
+          "id": "P09",
+          "vector": "literal_token_activate",
+          "mode": "activate",
+          "target": "PRIV-9",
+          "positiveControlHit": true,
+          "firewallOnLeak": false,
+          "posObserved": [
+            "PRIV-9",
+            "PRIV-1",
+            "PRIV-2",
+            "PRIV-3",
+            "PRIV-4"
+          ],
+          "safeObserved": []
+        },
+        {
+          "id": "P10",
+          "vector": "literal_token_activate",
+          "mode": "activate",
+          "target": "PRIV-10",
+          "positiveControlHit": true,
+          "firewallOnLeak": false,
+          "posObserved": [
+            "PRIV-10",
+            "PRIV-1",
+            "PRIV-2",
+            "PRIV-3",
+            "PRIV-4"
+          ],
+          "safeObserved": []
+        },
+        {
+          "id": "P11",
+          "vector": "literal_token_activate",
+          "mode": "activate",
+          "target": "PRIV-11",
+          "positiveControlHit": true,
+          "firewallOnLeak": false,
+          "posObserved": [
+            "PRIV-11",
+            "PRIV-1",
+            "PRIV-2",
+            "PRIV-3",
+            "PRIV-4"
+          ],
+          "safeObserved": []
+        },
+        {
+          "id": "P12",
+          "vector": "literal_token_activate",
+          "mode": "activate",
+          "target": "PRIV-12",
+          "positiveControlHit": true,
+          "firewallOnLeak": false,
+          "posObserved": [
+            "PRIV-12",
+            "PRIV-1",
+            "PRIV-2",
+            "PRIV-3",
+            "PRIV-4"
+          ],
+          "safeObserved": []
+        },
+        {
+          "id": "P13",
+          "vector": "literal_token_activate",
+          "mode": "activate",
+          "target": "PRIV-13",
+          "positiveControlHit": true,
+          "firewallOnLeak": false,
+          "posObserved": [
+            "PRIV-13",
+            "PRIV-1",
+            "PRIV-2",
+            "PRIV-3",
+            "PRIV-4"
+          ],
+          "safeObserved": []
+        },
+        {
+          "id": "P14",
+          "vector": "literal_token_activate",
+          "mode": "activate",
+          "target": "PRIV-14",
+          "positiveControlHit": true,
+          "firewallOnLeak": false,
+          "posObserved": [
+            "PRIV-14",
+            "PRIV-1",
+            "PRIV-2",
+            "PRIV-3",
+            "PRIV-4"
+          ],
+          "safeObserved": []
+        },
+        {
+          "id": "P15",
+          "vector": "astar_bridge_priv_to_public",
+          "mode": "bridge",
+          "target": "PRIV-15",
+          "positiveControlHit": true,
+          "firewallOnLeak": false,
+          "posObserved": [
+            "PRIV-15",
+            "G-815"
+          ],
+          "safeObserved": [
+            "endpoint_not_found"
+          ]
+        },
+        {
+          "id": "P16",
+          "vector": "astar_bridge_priv_to_public",
+          "mode": "bridge",
+          "target": "PRIV-16",
+          "positiveControlHit": true,
+          "firewallOnLeak": false,
+          "posObserved": [
+            "PRIV-16",
+            "G-816"
+          ],
+          "safeObserved": [
+            "endpoint_not_found"
+          ]
+        },
+        {
+          "id": "P17",
+          "vector": "astar_bridge_priv_to_public",
+          "mode": "bridge",
+          "target": "PRIV-17",
+          "positiveControlHit": true,
+          "firewallOnLeak": false,
+          "posObserved": [
+            "PRIV-17",
+            "G-817"
+          ],
+          "safeObserved": [
+            "endpoint_not_found"
+          ]
+        },
+        {
+          "id": "P18",
+          "vector": "astar_bridge_priv_to_public",
+          "mode": "bridge",
+          "target": "PRIV-18",
+          "positiveControlHit": true,
+          "firewallOnLeak": false,
+          "posObserved": [
+            "PRIV-18",
+            "G-818"
+          ],
+          "safeObserved": [
+            "endpoint_not_found"
+          ]
+        },
+        {
+          "id": "P19",
+          "vector": "astar_bridge_priv_to_public",
+          "mode": "bridge",
+          "target": "PRIV-19",
+          "positiveControlHit": true,
+          "firewallOnLeak": false,
+          "posObserved": [
+            "PRIV-19",
+            "G-819"
+          ],
+          "safeObserved": [
+            "endpoint_not_found"
+          ]
+        },
+        {
+          "id": "P20",
+          "vector": "astar_bridge_priv_to_public",
+          "mode": "bridge",
+          "target": "PRIV-20",
+          "positiveControlHit": true,
+          "firewallOnLeak": false,
+          "posObserved": [
+            "PRIV-20",
+            "G-820"
+          ],
+          "safeObserved": [
+            "endpoint_not_found"
+          ]
+        }
+      ]
+    }
+  }
+}

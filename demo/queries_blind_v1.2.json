@@ -1,0 +1,906 @@
+[
+  {
+    "id": "V2-S01",
+    "cat": "direct",
+    "cluster": "offline_storage",
+    "source_model": "sonnet-5.5",
+    "query": "How should I store hiking map data locally in a mobile web app so it keeps working with no signal, without fighting IndexedDB?",
+    "expected": [
+      "A-05",
+      "DOC-3"
+    ]
+  },
+  {
+    "id": "V2-S02",
+    "cat": "direct",
+    "cluster": "voice_barge_in",
+    "source_model": "sonnet-5.5",
+    "query": "What should a voice assistant do with its in-flight TTS audio when the user interrupts mid-sentence?",
+    "expected": [
+      "A-22",
+      "A-55"
+    ]
+  },
+  {
+    "id": "V2-S03",
+    "cat": "direct",
+    "cluster": "licensing_choice",
+    "source_model": "sonnet-5.5",
+    "query": "Which open-source license did Alex pick for the memory engine, and what was the reasoning?",
+    "expected": [
+      "INBOX-3",
+      "A-30"
+    ]
+  },
+  {
+    "id": "V2-S04",
+    "cat": "direct",
+    "cluster": "outdoor_contrast",
+    "source_model": "sonnet-5.5",
+    "query": "How should I verify dark-mode OLED palettes for a field app used in direct daylight?",
+    "expected": [
+      "A-53",
+      "HITO-5"
+    ]
+  },
+  {
+    "id": "V2-S05",
+    "cat": "direct",
+    "cluster": "dlp_release_check",
+    "source_model": "sonnet-5.5",
+    "query": "What automated privacy check runs before Alex pushes a public repository to GitHub?",
+    "expected": [
+      "A-50",
+      "G-38"
+    ]
+  },
+  {
+    "id": "V2-S06",
+    "cat": "direct",
+    "cluster": "keyboard_hardware",
+    "source_model": "sonnet-5.5",
+    "query": "Which mechanical keyboard switch type does Alex prefer for long coding marathons?",
+    "expected": [
+      "G-33"
+    ]
+  },
+  {
+    "id": "V2-S07",
+    "cat": "direct",
+    "cluster": "zenodo_publishing",
+    "source_model": "sonnet-5.5",
+    "query": "Why does Alex plan to upload papers to Zenodo before posting on Hacker News and Reddit?",
+    "expected": [
+      "G-40",
+      "INBOX-5"
+    ]
+  },
+  {
+    "id": "V2-S08",
+    "cat": "direct",
+    "cluster": "sponsor_slots",
+    "source_model": "sonnet-5.5",
+    "query": "How can I increase B2B sponsor inquiries on desktop instead of using a generic mailto button?",
+    "expected": [
+      "A-59",
+      "A-28"
+    ]
+  },
+  {
+    "id": "V2-S09",
+    "cat": "direct",
+    "cluster": "privacy_firewall",
+    "source_model": "sonnet-5.5",
+    "query": "How does the graph-layer privacy firewall keep private vault nodes from leaking during retrieval?",
+    "expected": [
+      "A-13",
+      "HITO-36"
+    ],
+    "maxEpisodicAllowed": 1
+  },
+  {
+    "id": "V2-S10",
+    "cat": "direct",
+    "cluster": "report_format_pref",
+    "source_model": "sonnet-5.5",
+    "query": "How does Alex want technical reports structured: conclusions first or long preamble?",
+    "expected": [
+      "PERFIL-9"
+    ]
+  },
+  {
+    "id": "V2-S11",
+    "cat": "semantic",
+    "cluster": "no_signal_notes",
+    "source_model": "sonnet-5.5",
+    "query": "People using our outdoor app far from any cell tower still need to jot things down and never lose them. What did the testing show?",
+    "expected": [
+      "G-13",
+      "HITO-26"
+    ]
+  },
+  {
+    "id": "V2-S12",
+    "cat": "semantic",
+    "cluster": "sunlight_legibility",
+    "source_model": "sonnet-5.5",
+    "query": "Pale gray text on my phone vanishes when I stand under the midday sun on a ridge. What was done about this?",
+    "expected": [
+      "A-53",
+      "HITO-5"
+    ]
+  },
+  {
+    "id": "V2-S13",
+    "cat": "semantic",
+    "cluster": "dusk_nudge",
+    "source_model": "sonnet-5.5",
+    "query": "What gently pulls Alex away from the desk as the day winds down?",
+    "expected": [
+      "G-34"
+    ]
+  },
+  {
+    "id": "V2-S14",
+    "cat": "semantic",
+    "cluster": "morning_ritual",
+    "source_model": "sonnet-5.5",
+    "query": "Why does Alex begin each day with something hot to drink and a stroll before looking at any screen?",
+    "expected": [
+      "G-02",
+      "PERFIL-3"
+    ]
+  },
+  {
+    "id": "V2-S15",
+    "cat": "semantic",
+    "cluster": "talk_over_assistant",
+    "source_model": "sonnet-5.5",
+    "query": "When a person starts speaking over the talking assistant, its voice should cut off right away. How is that handled?",
+    "expected": [
+      "A-22",
+      "A-55"
+    ]
+  },
+  {
+    "id": "V2-S16",
+    "cat": "semantic",
+    "cluster": "free_but_paid",
+    "source_model": "sonnet-5.5",
+    "query": "How can a project be free for everyone to read yet still earn money from companies that want to keep their changes secret?",
+    "expected": [
+      "A-30",
+      "INBOX-3"
+    ]
+  },
+  {
+    "id": "V2-S17",
+    "cat": "semantic",
+    "cluster": "localhost_exposure",
+    "source_model": "sonnet-5.5",
+    "query": "Why shouldn't random websites open in another browser tab be able to peek at Alex's local visual dashboard?",
+    "expected": [
+      "A-31"
+    ]
+  },
+  {
+    "id": "V2-S18",
+    "cat": "semantic",
+    "cluster": "inner_thoughts_offline",
+    "source_model": "sonnet-5.5",
+    "query": "Where do Alex's money worries and inner reflections live so that no AI vendor ever sees them?",
+    "expected": [
+      "PERFIL-12",
+      "G-27"
+    ]
+  },
+  {
+    "id": "V2-S19",
+    "cat": "semantic",
+    "cluster": "decompress_hobby",
+    "source_model": "sonnet-5.5",
+    "query": "What does Alex do with his hands to calm down after a brutal bug hunt?",
+    "expected": [
+      "G-03"
+    ]
+  },
+  {
+    "id": "V2-S20",
+    "cat": "semantic",
+    "cluster": "laptop_limits",
+    "source_model": "sonnet-5.5",
+    "query": "Why does Alex refuse to launch that whale-logo virtualization app on his thin laptop?",
+    "expected": [
+      "G-07",
+      "PERFIL-2"
+    ]
+  },
+  {
+    "id": "V2-S21",
+    "cat": "semantic",
+    "cluster": "short_papers",
+    "source_model": "sonnet-5.5",
+    "query": "Why release two brief write-ups instead of one giant opus if you want people to actually read and pass them around?",
+    "expected": [
+      "A-34"
+    ]
+  },
+  {
+    "id": "V2-S22",
+    "cat": "semantic",
+    "cluster": "doc_tone_dislikes",
+    "source_model": "sonnet-5.5",
+    "query": "What kind of empty management jargon in manuals makes Alex roll his eyes?",
+    "expected": [
+      "PERFIL-8"
+    ]
+  },
+  {
+    "id": "V2-S23",
+    "cat": "semantic",
+    "cluster": "future_proof_notes",
+    "source_model": "sonnet-5.5",
+    "query": "Why does Alex insist his notes stay in a format that will still open decades from now, no matter which company folds?",
+    "expected": [
+      "PERFIL-10"
+    ]
+  },
+  {
+    "id": "V2-S24",
+    "cat": "semantic",
+    "cluster": "signup_friction",
+    "source_model": "sonnet-5.5",
+    "query": "Why let solo freelancers join without asking for company paperwork, given that they may later bring their employers along?",
+    "expected": [
+      "A-29"
+    ]
+  },
+  {
+    "id": "V2-S25",
+    "cat": "semantic",
+    "cluster": "concentration_breakers",
+    "source_model": "sonnet-5.5",
+    "query": "What shatters Alex's long stretches of intense concentration, and how are interruptions handled?",
+    "expected": [
+      "G-25",
+      "A-60"
+    ]
+  },
+  {
+    "id": "V2-S26",
+    "cat": "multihop",
+    "cluster": "outdoor_ui_design",
+    "source_model": "sonnet-5.5",
+    "query": "Who designed the sunlight-readable interface for the hiking app, and what contrast rule backs that design?",
+    "expected": [
+      "G-11",
+      "HITO-5",
+      "A-53"
+    ]
+  },
+  {
+    "id": "V2-S27",
+    "cat": "multihop",
+    "cluster": "agpl_decisions",
+    "source_model": "sonnet-5.5",
+    "query": "Which licensing decision covers both the main memory engine and its companion token-saving repository, and what rule underlies it?",
+    "expected": [
+      "INBOX-3",
+      "HITO-37",
+      "A-30"
+    ],
+    "maxEpisodicAllowed": 1
+  },
+  {
+    "id": "V2-S28",
+    "cat": "multihop",
+    "cluster": "paid_kit_strategy",
+    "source_model": "sonnet-5.5",
+    "query": "How does the paid developer starter package fit with the principle of keeping the core engine open, and where is it being sold?",
+    "expected": [
+      "G-41",
+      "A-33",
+      "INBOX-8"
+    ]
+  },
+  {
+    "id": "V2-S29",
+    "cat": "multihop",
+    "cluster": "mountain_field_test",
+    "source_model": "sonnet-5.5",
+    "query": "What was the real-world mountain loop test for the hiking app, and which storage approach made it succeed?",
+    "expected": [
+      "HITO-26",
+      "A-05",
+      "DOC-3"
+    ]
+  },
+  {
+    "id": "V2-S30",
+    "cat": "multihop",
+    "cluster": "personal_data_protection",
+    "source_model": "sonnet-5.5",
+    "query": "How do the pre-push keyword scan, the graph-level exclusion of private nodes, and Alex's offline-journal habit work together to protect personal data?",
+    "expected": [
+      "A-50",
+      "A-13",
+      "PERFIL-12"
+    ]
+  },
+  {
+    "id": "V2-S31",
+    "cat": "multihop",
+    "cluster": "branch_mismatch",
+    "source_model": "sonnet-5.5",
+    "query": "Which hiking-app deployment problem was caused by a branch naming mismatch, and what audit rule prevents it?",
+    "expected": [
+      "HITO-11",
+      "A-24"
+    ]
+  },
+  {
+    "id": "V2-S32",
+    "cat": "multihop",
+    "cluster": "voice_on_small_hardware",
+    "source_model": "sonnet-5.5",
+    "query": "Which rules govern speech interruption and running local speech workers, given Alex's modest laptop?",
+    "expected": [
+      "A-55",
+      "A-22",
+      "PERFIL-2"
+    ]
+  },
+  {
+    "id": "V2-S33",
+    "cat": "multihop",
+    "cluster": "paper_launch_plan",
+    "source_model": "sonnet-5.5",
+    "query": "How do splitting the thesis into focused papers and timestamping them on Zenodo combine before the social launch?",
+    "expected": [
+      "A-34",
+      "INBOX-5",
+      "G-40"
+    ]
+  },
+  {
+    "id": "V2-S34",
+    "cat": "multihop",
+    "cluster": "open_benchmark_design",
+    "source_model": "sonnet-5.5",
+    "query": "How do the fictional-persona dataset, the neutral head-to-head benchmark practice, and the full-text-search baseline test fit together for open evaluation?",
+    "expected": [
+      "A-58",
+      "A-32",
+      "INBOX-1"
+    ]
+  },
+  {
+    "id": "V2-S35",
+    "cat": "multihop",
+    "cluster": "morning_focus_routine",
+    "source_model": "sonnet-5.5",
+    "query": "How do Alex's dog walk and pour-over routine connect to his rule about quiet hours and silencing non-critical alerts?",
+    "expected": [
+      "PERFIL-3",
+      "G-45",
+      "A-60"
+    ]
+  },
+  {
+    "id": "V2-S36",
+    "cat": "episodic",
+    "cluster": "w44_life",
+    "source_model": "sonnet-5.5",
+    "query": "What did Alex celebrate outside of work during week W44?",
+    "expected": [
+      "S-W44-F1"
+    ]
+  },
+  {
+    "id": "V2-S37",
+    "cat": "episodic",
+    "cluster": "w44_telemetry",
+    "source_model": "sonnet-5.5",
+    "query": "In week W44, what did the audit of agent transcripts uncover, and what was built in response?",
+    "expected": [
+      "S-W44-F2",
+      "HITO-30"
+    ]
+  },
+  {
+    "id": "V2-S38",
+    "cat": "episodic",
+    "cluster": "w45_execution",
+    "source_model": "sonnet-5.5",
+    "query": "What got unblocked and deployed during week W45 on the hiking app and the sponsor banners?",
+    "expected": [
+      "S-W45-F3",
+      "HITO-11",
+      "HITO-12"
+    ]
+  },
+  {
+    "id": "V2-S39",
+    "cat": "episodic",
+    "cluster": "w45_feelings",
+    "source_model": "sonnet-5.5",
+    "query": "How did Alex feel in week W45 after showing early findings to close friends?",
+    "expected": [
+      "S-W45-F4",
+      "G-44"
+    ]
+  },
+  {
+    "id": "V2-S40",
+    "cat": "episodic",
+    "cluster": "w45_validation",
+    "source_model": "sonnet-5.5",
+    "query": "What experiment was validated in week W45 comparing a clean UI specialist with a polluted agent?",
+    "expected": [
+      "S-W45-F2",
+      "HITO-32"
+    ]
+  },
+  {
+    "id": "V2-D01",
+    "cat": "direct",
+    "cluster": "stripe_idempotency",
+    "source_model": "deepseek-v4-flash",
+    "query": "How should a Stripe webhook handler persist event IDs so duplicate deliveries never mutate invoice balances twice?",
+    "expected": [
+      "A-01",
+      "DOC-2",
+      "G-12"
+    ]
+  },
+  {
+    "id": "V2-D02",
+    "cat": "direct",
+    "cluster": "edge_waf",
+    "source_model": "deepseek-v4-flash",
+    "query": "Which Cloudflare WAF rules block datacenter ASN scrapers before they hit a D1-backed public page?",
+    "expected": [
+      "A-04",
+      "HITO-6",
+      "DOC-4"
+    ],
+    "maxEpisodicAllowed": 1
+  },
+  {
+    "id": "V2-D03",
+    "cat": "direct",
+    "cluster": "sqlite_wal",
+    "source_model": "deepseek-v4-flash",
+    "query": "How do I configure SQLite WAL mode and busy_timeout so dashboard reads don't hit SQLITE_BUSY during Hebbian edge writes?",
+    "expected": [
+      "A-02",
+      "DOC-1"
+    ]
+  },
+  {
+    "id": "V2-D04",
+    "cat": "direct",
+    "cluster": "branch_drift",
+    "source_model": "deepseek-v4-flash",
+    "query": "Why did commits stay stuck in preview after the repo rename, and how was the Cloudflare Pages production_branch mismatch fixed?",
+    "expected": [
+      "A-24",
+      "HITO-11"
+    ]
+  },
+  {
+    "id": "V2-D05",
+    "cat": "direct",
+    "cluster": "auth_hardening",
+    "source_model": "deepseek-v4-flash",
+    "query": "What replaced static admin tokens with HMAC-SHA256 signed cookies and timingSafeEqual verification on the PulseBill admin routes?",
+    "expected": [
+      "A-08",
+      "HITO-13"
+    ]
+  },
+  {
+    "id": "V2-D06",
+    "cat": "direct",
+    "cluster": "cdn_cache",
+    "source_model": "deepseek-v4-flash",
+    "query": "Which headers must be excluded from CDN cache rules so Next.js authenticated pages never leak and Vary collisions don't occur?",
+    "expected": [
+      "A-09",
+      "A-46"
+    ]
+  },
+  {
+    "id": "V2-D07",
+    "cat": "direct",
+    "cluster": "conn_pooling",
+    "source_model": "deepseek-v4-flash",
+    "query": "How do serverless edge APIs avoid TCP connection pool exhaustion during traffic bursts?",
+    "expected": [
+      "A-36",
+      "G-10"
+    ]
+  },
+  {
+    "id": "V2-D08",
+    "cat": "direct",
+    "cluster": "slm_pitfalls",
+    "source_model": "deepseek-v4-flash",
+    "query": "Why do 3B local models fall into repetition loops when loaded with multi-persona system prompts, and what limits fix it?",
+    "expected": [
+      "G-19",
+      "A-06",
+      "HITO-8"
+    ]
+  },
+  {
+    "id": "V2-D09",
+    "cat": "direct",
+    "cluster": "token_pareto",
+    "source_model": "deepseek-v4-flash",
+    "query": "How did the structural code outliner cut read_file input tokens after the 261-session telemetry audit?",
+    "expected": [
+      "A-03",
+      "HITO-9",
+      "DOC-5"
+    ]
+  },
+  {
+    "id": "V2-D10",
+    "cat": "direct",
+    "cluster": "hmas_orchestration",
+    "source_model": "deepseek-v4-flash",
+    "query": "How does the 3-tier HMAS delegation chain with a telegraphic DSL keep swarm coordination token costs down?",
+    "expected": [
+      "G-17",
+      "HITO-16",
+      "A-16"
+    ]
+  },
+  {
+    "id": "V2-D11",
+    "cat": "semantic",
+    "cluster": "duplicate_billing",
+    "source_model": "deepseek-v4-flash",
+    "query": "Two customers were billed twice for a single purchase because the same payment notice kept arriving more than once. How do we stop that repeating?",
+    "expected": [
+      "A-01",
+      "G-12"
+    ]
+  },
+  {
+    "id": "V2-D12",
+    "cat": "semantic",
+    "cluster": "bot_traffic",
+    "source_model": "deepseek-v4-flash",
+    "query": "Automated crawlers hosted on cloud providers keep hammering one public page and our metered storage bill spikes overnight. What is the least invasive way to keep them out?",
+    "expected": [
+      "A-04",
+      "G-15",
+      "DOC-4"
+    ]
+  },
+  {
+    "id": "V2-D13",
+    "cat": "semantic",
+    "cluster": "concurrent_db",
+    "source_model": "deepseek-v4-flash",
+    "query": "Our dashboards sometimes throw a temporary lock error whenever someone saves while a report is loading. How can both operations happen at the same time?",
+    "expected": [
+      "A-02",
+      "DOC-1"
+    ]
+  },
+  {
+    "id": "V2-D14",
+    "cat": "semantic",
+    "cluster": "stale_credentials",
+    "source_model": "deepseek-v4-flash",
+    "query": "The internal admin area still trusts one fixed password that never ages out. What should replace it so sessions expire and tampered values are detectable?",
+    "expected": [
+      "A-08",
+      "A-25"
+    ]
+  },
+  {
+    "id": "V2-D15",
+    "cat": "semantic",
+    "cluster": "deploy_stuck",
+    "source_model": "deepseek-v4-flash",
+    "query": "After we renamed the project repository, pushes to the main line stopped appearing on the live site even though every build succeeded. Which setting slipped?",
+    "expected": [
+      "A-24",
+      "HITO-11"
+    ]
+  },
+  {
+    "id": "V2-D16",
+    "cat": "semantic",
+    "cluster": "cache_leak",
+    "source_model": "deepseek-v4-flash",
+    "query": "Signed-out visitors occasionally receive a page personalized for an existing customer. How does that happen and what has to change at the delivery layer?",
+    "expected": [
+      "A-09",
+      "A-46"
+    ]
+  },
+  {
+    "id": "V2-D17",
+    "cat": "semantic",
+    "cluster": "small_model_loops",
+    "source_model": "deepseek-v4-flash",
+    "query": "A tiny model running on our own laptop starts repeating itself and loses the thread whenever we hand it several roles at once. What is the real limit being crossed?",
+    "expected": [
+      "G-19",
+      "A-06",
+      "A-56"
+    ]
+  },
+  {
+    "id": "V2-D18",
+    "cat": "semantic",
+    "cluster": "reading_cost",
+    "source_model": "deepseek-v4-flash",
+    "query": "Most of our assistant's input budget disappears just opening entire source files before it changes anything. How do we shrink that before editing?",
+    "expected": [
+      "A-03",
+      "HITO-30"
+    ]
+  },
+  {
+    "id": "V2-D19",
+    "cat": "semantic",
+    "cluster": "agent_chatter",
+    "source_model": "deepseek-v4-flash",
+    "query": "Our helper agents burn a lot of money being courteous to each other. How do we make their handoffs terse and status-driven instead?",
+    "expected": [
+      "A-16",
+      "G-17"
+    ]
+  },
+  {
+    "id": "V2-D20",
+    "cat": "semantic",
+    "cluster": "context_pollution",
+    "source_model": "deepseek-v4-flash",
+    "query": "After hours of chasing backend logs inside one conversation, the assistant's page styling turns sloppy even though the underlying model never changed. Why?",
+    "expected": [
+      "A-07",
+      "G-21",
+      "HITO-32"
+    ]
+  },
+  {
+    "id": "V2-D21",
+    "cat": "semantic",
+    "cluster": "windows_file_writes",
+    "source_model": "deepseek-v4-flash",
+    "query": "On our dev laptops a JSON state file is sometimes read half-written, or the rename is blocked by antivirus mid-save. How do we make those writes safe?",
+    "expected": [
+      "A-27",
+      "A-47"
+    ]
+  },
+  {
+    "id": "V2-D22",
+    "cat": "semantic",
+    "cluster": "hung_automation",
+    "source_model": "deepseek-v4-flash",
+    "query": "A scheduled repository check hangs all night instead of failing, so the pipeline never finishes. What setting makes it give up immediately?",
+    "expected": [
+      "A-35"
+    ]
+  },
+  {
+    "id": "V2-D23",
+    "cat": "semantic",
+    "cluster": "unbounded_queries",
+    "source_model": "deepseek-v4-flash",
+    "query": "An internal listing page pulls an entire table into memory and the function crashes on our largest accounts. How should that listing be constrained?",
+    "expected": [
+      "A-10",
+      "HITO-13"
+    ]
+  },
+  {
+    "id": "V2-D24",
+    "cat": "semantic",
+    "cluster": "error_leakage",
+    "source_model": "deepseek-v4-flash",
+    "query": "When a request fails, our API dumps internal database text and a full trace back to the caller. What should go out to the browser instead?",
+    "expected": [
+      "A-43"
+    ]
+  },
+  {
+    "id": "V2-D25",
+    "cat": "semantic",
+    "cluster": "summary_dominance",
+    "source_model": "deepseek-v4-flash",
+    "query": "Broad recap entries keep outranking precise one-line lessons whenever we search, burying the useful detail. How do we stop them from taking over?",
+    "expected": [
+      "G-20",
+      "A-12"
+    ]
+  },
+  {
+    "id": "V2-D26",
+    "cat": "multihop",
+    "cluster": "waf_outcome",
+    "source_model": "deepseek-v4-flash",
+    "query": "Trace how the October bot wave on the public invoice lookup went from a 40x storage-read spike to a 94% reduction in billing exposure, and which reference guide documents the playbook.",
+    "expected": [
+      "HITO-6",
+      "G-36",
+      "DOC-4"
+    ]
+  },
+  {
+    "id": "V2-D27",
+    "cat": "multihop",
+    "cluster": "payment_postmortem",
+    "source_model": "deepseek-v4-flash",
+    "query": "Which incident drove the introduction of the stripe_events ledger and signature verification, which rules govern safe replays, and how should historical invoice records be preserved for accounting?",
+    "expected": [
+      "HITO-2",
+      "A-01",
+      "A-40"
+    ]
+  },
+  {
+    "id": "V2-D28",
+    "cat": "multihop",
+    "cluster": "admin_security_pass",
+    "source_model": "deepseek-v4-flash",
+    "query": "What four protections were bundled into the admin route AppSec pass, and which bounded-query rule keeps serverless memory safe?",
+    "expected": [
+      "HITO-13",
+      "A-08",
+      "A-10"
+    ],
+    "maxEpisodicAllowed": 1
+  },
+  {
+    "id": "V2-D29",
+    "cat": "multihop",
+    "cluster": "token_diet_stack",
+    "source_model": "deepseek-v4-flash",
+    "query": "Connect the 70.1% read_file finding, the structural outliner, and the inter-agent protocol into one account of where the token savings came from.",
+    "expected": [
+      "HITO-30",
+      "A-03",
+      "A-16",
+      "DOC-5"
+    ]
+  },
+  {
+    "id": "V2-D30",
+    "cat": "multihop",
+    "cluster": "slm_guardrails",
+    "source_model": "deepseek-v4-flash",
+    "query": "What did the 8 GB laptop PR-triage experiment reveal about small models, and which two rules define the safe operating envelope for 3B–7B local models?",
+    "expected": [
+      "HITO-8",
+      "A-06",
+      "A-56"
+    ]
+  },
+  {
+    "id": "V2-D31",
+    "cat": "multihop",
+    "cluster": "deploy_pipeline_audit",
+    "source_model": "deepseek-v4-flash",
+    "query": "A repo rename, a silent preview-deployment trap, and a background git check that never returns — which three lessons and milestone explain the CI audit?",
+    "expected": [
+      "HITO-11",
+      "A-24",
+      "A-35"
+    ]
+  },
+  {
+    "id": "V2-D32",
+    "cat": "multihop",
+    "cluster": "persistence_upgrade",
+    "source_model": "deepseek-v4-flash",
+    "query": "How did moving from flat JSON rewrites to native node:sqlite WAL, together with incremental edge updates, change concurrency behaviour for readers?",
+    "expected": [
+      "HITO-15",
+      "A-15",
+      "DOC-1"
+    ]
+  },
+  {
+    "id": "V2-D33",
+    "cat": "multihop",
+    "cluster": "cache_hardening_pair",
+    "source_model": "deepseek-v4-flash",
+    "query": "Which cache-key hygiene rule and which authenticated-page exclusion rule combine to prevent CDN responses from crossing between anonymous and signed-in visitors?",
+    "expected": [
+      "A-46",
+      "A-09",
+      "HITO-13"
+    ]
+  },
+  {
+    "id": "V2-D34",
+    "cat": "multihop",
+    "cluster": "local_viewer_security",
+    "source_model": "deepseek-v4-flash",
+    "query": "The 3D brain viewer runs locally — which binding rule, which CSP rule, and which build milestone keep that dashboard unreachable from foreign browser tabs?",
+    "expected": [
+      "A-31",
+      "A-37",
+      "HITO-17"
+    ]
+  },
+  {
+    "id": "V2-D35",
+    "cat": "multihop",
+    "cluster": "hmas_validation",
+    "source_model": "deepseek-v4-flash",
+    "query": "Combine the zero-hallucination delegation run, the telegraphic protocol, and the spawn-threshold rule into the full criterion for when multi-agent work pays off.",
+    "expected": [
+      "HITO-16",
+      "A-16",
+      "A-17",
+      "DOC-5"
+    ]
+  },
+  {
+    "id": "V2-D36",
+    "cat": "episodic",
+    "cluster": "w46_security_sprint",
+    "source_model": "deepseek-v4-flash",
+    "query": "During week 46, which security work on the billing product's admin area was completed, and which milestone records it?",
+    "expected": [
+      "S-W46-F3",
+      "HITO-13"
+    ]
+  },
+  {
+    "id": "V2-D37",
+    "cat": "episodic",
+    "cluster": "w46_morale",
+    "source_model": "deepseek-v4-flash",
+    "query": "In week 46, how did the founder's energy move across the security sprint, and what revenue news eased the Friday dip?",
+    "expected": [
+      "S-W46-F4",
+      "HITO-7"
+    ]
+  },
+  {
+    "id": "V2-D38",
+    "cat": "episodic",
+    "cluster": "w47_persistence",
+    "source_model": "deepseek-v4-flash",
+    "query": "What storage-engine upgrade shipped in week 47, and which rule describes the write complexity it enabled?",
+    "expected": [
+      "S-W47-F2",
+      "HITO-15",
+      "A-15"
+    ]
+  },
+  {
+    "id": "V2-D39",
+    "cat": "episodic",
+    "cluster": "w47_viewer",
+    "source_model": "deepseek-v4-flash",
+    "query": "Which visualization and multi-agent validation landed in week 47, and what task was still pending when the week closed?",
+    "expected": [
+      "S-W47-F3",
+      "HITO-17",
+      "HITO-16"
+    ]
+  },
+  {
+    "id": "V2-D40",
+    "cat": "episodic",
+    "cluster": "w47_cashflow",
+    "source_model": "deepseek-v4-flash",
+    "query": "What did the founder feel about money in week 47, and which inbox note echoes that month-end pressure?",
+    "expected": [
+      "S-W47-F4",
+      "INBOX-7"
+    ]
+  }
+]

@@ -1,0 +1,387 @@
+{
+  "protocol": "PROTOCOLO_QUANTUM_v1.3",
+  "timestamp": "2026-11-23T15:55:18.656Z",
+  "seed": 20261123,
+  "totalBenchmarkMs": 12295.55,
+  "block1_turboScale": {
+    "N_1000": {
+      "N": 1000,
+      "totalEdges": 6648,
+      "parseMs": 78.11,
+      "weaveMs": 122.19,
+      "compileTotalMs": 200.3,
+      "sqliteSizeKB": 1148,
+      "rssMB": 92.91,
+      "heapUsedMB": 29.94,
+      "latencyMs": {
+        "mean": 3.75,
+        "p50": 2.58,
+        "p95": 12,
+        "p99": 15.09
+      },
+      "v12Baseline": {
+        "compileTotalMs": 321.53,
+        "weaveMs": 146.47,
+        "latencyMean": 10.53,
+        "liveSanityN1000": {
+          "v12LiveCompileMs": 316.85,
+          "v12LiveLatencyMean": 10.03
+        }
+      },
+      "speedup": {
+        "latencyRatio": "2.8x faster",
+        "weaveRatio": "1.2x faster"
+      }
+    },
+    "N_5000": {
+      "N": 5000,
+      "totalEdges": 8240,
+      "parseMs": 231.53,
+      "weaveMs": 200.35,
+      "compileTotalMs": 431.88,
+      "sqliteSizeKB": 3456,
+      "rssMB": 151.39,
+      "heapUsedMB": 47.83,
+      "latencyMs": {
+        "mean": 11.47,
+        "p50": 9.08,
+        "p95": 21.01,
+        "p99": 26.47
+      },
+      "v12Baseline": {
+        "compileTotalMs": 2198.61,
+        "weaveMs": 1724.19,
+        "latencyMean": 36.77
+      },
+      "speedup": {
+        "latencyRatio": "3.2x faster",
+        "weaveRatio": "8.6x faster"
+      }
+    },
+    "N_10000": {
+      "N": 10000,
+      "totalEdges": 15840,
+      "parseMs": 289.79,
+      "weaveMs": 429.87,
+      "compileTotalMs": 719.66,
+      "sqliteSizeKB": 6680,
+      "rssMB": 237.02,
+      "heapUsedMB": 139.26,
+      "latencyMs": {
+        "mean": 27,
+        "p50": 21.78,
+        "p95": 50.88,
+        "p99": 56.7
+      },
+      "v12Baseline": {
+        "compileTotalMs": 9326.58,
+        "weaveMs": 8434.3,
+        "latencyMean": 85.06
+      },
+      "speedup": {
+        "latencyRatio": "3.2x faster",
+        "weaveRatio": "19.6x faster"
+      }
+    }
+  },
+  "block2_blindNoRegression": {
+    "v11_blind_80": {
+      "nQueries": 80,
+      "v12_a4": {
+        "hit1": 68.8,
+        "hit3": 75,
+        "hit5": 77.5,
+        "meanMs": 12.2,
+        "p95Ms": 24.08
+      },
+      "v13_turbo": {
+        "hit1": 68.8,
+        "hit3": 75,
+        "hit5": 77.5,
+        "meanMs": 2.71,
+        "p95Ms": 7.31
+      },
+      "v13_full": {
+        "hit1": 68.8,
+        "hit3": 75,
+        "hit5": 77.5,
+        "meanMs": 1.83,
+        "p95Ms": 4.4
+      },
+      "deltaTurboVsV12": {
+        "hit1": 0,
+        "hit3": 0,
+        "hit5": 0,
+        "latencySpeedup": 4.5
+      },
+      "deltaFullVsV12": {
+        "hit1": 0,
+        "hit3": 0,
+        "hit5": 0,
+        "latencySpeedup": 6.7
+      },
+      "zeroRegression": true
+    },
+    "v12_blind_80": {
+      "nQueries": 80,
+      "v12_a4": {
+        "hit1": 78.8,
+        "hit3": 91.3,
+        "hit5": 91.3,
+        "meanMs": 12.48,
+        "p95Ms": 25.42
+      },
+      "v13_turbo": {
+        "hit1": 78.8,
+        "hit3": 91.3,
+        "hit5": 91.3,
+        "meanMs": 3.13,
+        "p95Ms": 10.87
+      },
+      "v13_full": {
+        "hit1": 78.8,
+        "hit3": 91.3,
+        "hit5": 91.3,
+        "meanMs": 2.65,
+        "p95Ms": 5.04
+      },
+      "deltaTurboVsV12": {
+        "hit1": 0,
+        "hit3": 0,
+        "hit5": 0,
+        "latencySpeedup": 4
+      },
+      "deltaFullVsV12": {
+        "hit1": 0,
+        "hit3": 0,
+        "hit5": 0,
+        "latencySpeedup": 4.7
+      },
+      "zeroRegression": true
+    }
+  },
+  "block3_quantumStar": {
+    "part3A_polysemicInterference": {
+      "totalQueries": 40,
+      "v12_baseline": {
+        "nmdaHit1": 0,
+        "hit5": 0,
+        "fellForDistractorPct": 100
+      },
+      "v13_m6a_on": {
+        "nmdaHit1": 100,
+        "hit5": 100
+      },
+      "v13_full": {
+        "nmdaHit1": 100,
+        "hit5": 100
+      },
+      "meanCoherenceTargetTrue": 2,
+      "meanCoherenceHubNoise": 0.08,
+      "distractorsBlockedPct": 100
+    },
+    "part3B_synapticMassVolatility": {
+      "totalQueries": 40,
+      "v12_baseline": {
+        "precision1": 0,
+        "hit3": 100
+      },
+      "v13_m6b_synaptic_mass": {
+        "precision1": 100,
+        "hit3": 100
+      },
+      "deltaPrecision1": 100
+    }
+  },
+  "block4_turrigianoHomeostasis": {
+    "streamQueriesCount": 500,
+    "initial": {
+      "edgeStats": {
+        "edgeCount": 1468,
+        "saturatedCount": 0,
+        "saturatedPct": 0,
+        "meanWeight": 0.68,
+        "maxOutDegreeSum": 6.86,
+        "gini": 0.1204
+      },
+      "accuracy": {
+        "hit1": 78.8,
+        "hit3": 91.3
+      }
+    },
+    "classicHebb_v12": {
+      "edgeStats": {
+        "edgeCount": 1653,
+        "saturatedCount": 172,
+        "saturatedPct": 10.4,
+        "meanWeight": 0.69,
+        "maxOutDegreeSum": 13.11,
+        "maxOutDegreeSumTouched": 13.11,
+        "touchedNeurons": 122,
+        "gini": 0.1346
+      },
+      "accuracy": {
+        "hit1": 76.3,
+        "hit3": 91.3
+      }
+    },
+    "turrigianoHomeostasis_v13": {
+      "edgeStats": {
+        "edgeCount": 1667,
+        "saturatedCount": 49,
+        "saturatedPct": 2.9,
+        "meanWeight": 0.57,
+        "maxOutDegreeSum": 6.71,
+        "maxOutDegreeSumTouched": 5.23,
+        "touchedNeurons": 121,
+        "gini": 0.1799
+      },
+      "accuracy": {
+        "hit1": 76.3,
+        "hit3": 91.3
+      }
+    },
+    "deltas": {
+      "saturatedEdgesAvoided": 123,
+      "maxOutDegreeTouchedReduction": 7.88,
+      "accuracyPreservedHit3": 0
+    }
+  },
+  "block5_privacyFirewall": {
+    "totalProbes": 16,
+    "positiveControlTriggered": 16,
+    "firewallOnLeaks": 0,
+    "lateralDendriteLeaks": 0,
+    "pass": true,
+    "details": [
+      {
+        "id": "P01",
+        "vector": "literal_token",
+        "mode": "activate",
+        "target": "PRIV-1",
+        "positiveControlHit": true,
+        "firewallOnLeak": false
+      },
+      {
+        "id": "P02",
+        "vector": "literal_token",
+        "mode": "activate",
+        "target": "PRIV-2",
+        "positiveControlHit": true,
+        "firewallOnLeak": false
+      },
+      {
+        "id": "P03",
+        "vector": "literal_token",
+        "mode": "activate",
+        "target": "PRIV-3",
+        "positiveControlHit": true,
+        "firewallOnLeak": false
+      },
+      {
+        "id": "P04",
+        "vector": "literal_token",
+        "mode": "activate",
+        "target": "PRIV-4",
+        "positiveControlHit": true,
+        "firewallOnLeak": false
+      },
+      {
+        "id": "P05",
+        "vector": "partial_fragment",
+        "mode": "activate",
+        "target": "PRIV-1",
+        "positiveControlHit": true,
+        "firewallOnLeak": false
+      },
+      {
+        "id": "P06",
+        "vector": "partial_fragment",
+        "mode": "activate",
+        "target": "PRIV-2",
+        "positiveControlHit": true,
+        "firewallOnLeak": false
+      },
+      {
+        "id": "P07",
+        "vector": "partial_fragment",
+        "mode": "activate",
+        "target": "PRIV-3",
+        "positiveControlHit": true,
+        "firewallOnLeak": false
+      },
+      {
+        "id": "P08",
+        "vector": "partial_fragment",
+        "mode": "activate",
+        "target": "PRIV-4",
+        "positiveControlHit": true,
+        "firewallOnLeak": false
+      },
+      {
+        "id": "P09",
+        "vector": "semantic_paraphrase",
+        "mode": "activate",
+        "target": "PRIV-1",
+        "positiveControlHit": true,
+        "firewallOnLeak": false
+      },
+      {
+        "id": "P10",
+        "vector": "semantic_paraphrase",
+        "mode": "activate",
+        "target": "PRIV-2",
+        "positiveControlHit": true,
+        "firewallOnLeak": false
+      },
+      {
+        "id": "P11",
+        "vector": "semantic_paraphrase",
+        "mode": "activate",
+        "target": "PRIV-3",
+        "positiveControlHit": true,
+        "firewallOnLeak": false
+      },
+      {
+        "id": "P12",
+        "vector": "semantic_paraphrase",
+        "mode": "activate",
+        "target": "PRIV-4",
+        "positiveControlHit": true,
+        "firewallOnLeak": false
+      },
+      {
+        "id": "P13",
+        "vector": "astar_bridge_by_id",
+        "mode": "bridge",
+        "target": "PRIV-2",
+        "positiveControlHit": true,
+        "firewallOnLeak": false
+      },
+      {
+        "id": "P14",
+        "vector": "astar_bridge_by_id",
+        "mode": "bridge",
+        "target": "PRIV-1",
+        "positiveControlHit": true,
+        "firewallOnLeak": false
+      },
+      {
+        "id": "P15",
+        "vector": "astar_bridge_by_query",
+        "mode": "bridge",
+        "target": "PRIV-1",
+        "positiveControlHit": true,
+        "firewallOnLeak": false
+      },
+      {
+        "id": "P16",
+        "vector": "astar_bridge_by_query",
+        "mode": "bridge",
+        "target": "PRIV-1",
+        "positiveControlHit": true,
+        "firewallOnLeak": false
+      }
+    ]
+  }
+}

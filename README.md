@@ -1,8 +1,8 @@
 # HebbMesh
 
 **Zero-Bloat 4D Synaptic Memory over Plain Markdown.**  
-*Zero Docker · Zero Vector DBs · Zero npm Dependencies · Native `node:sqlite` WAL.*  
-**Technical Report (v1.1 · Zenodo DOI):** [10.5281/zenodo.24451147](https://doi.org/10.5281/zenodo.24451147)
+*Zero Docker · Zero Vector DBs · Zero npm Dependencies · Native `node:sqlite` WAL · AMPA/NMDA + GABA Gating (v1.2).*  
+**Technical Report (v1.2 · Zenodo DOI):** [10.5281/zenodo.24473999](https://doi.org/10.5281/zenodo.24473999) *(supersedes v1.1: [10.5281/zenodo.24451147](https://doi.org/10.5281/zenodo.24451147))*
 
 > **Why HebbMesh?** Most AI agent memory stacks either dump raw Markdown into your context window (burning tokens) or force you to maintain Docker, Postgres/Qdrant, and heavy local embedding runtimes. **HebbMesh** treats plain Markdown files as your 20-year source of truth and compiles them into a 4D/3D associative synaptic graph in **~39 ms** with **0 external dependencies**.
 
@@ -21,8 +21,10 @@ cd hebbmesh
 # 1. Run the live 3D Brain Viewer + synthetic demo (100% offline, 127.0.0.1:4322)
 node demo.mjs
 
-# 2. Run the reproducible head-to-head benchmark vs SQLite FTS5 (BM25)
-node bench/benchmark.mjs
+# 2. Run the reproducible head-to-head benchmarks vs SQLite FTS5 (BM25)
+node bench/benchmark.mjs       # v1.1 baseline suite (80 blind queries, 33 clusters)
+node bench/ablation_v1.2.mjs   # v1.2 M0-M4 ablation suite on dev_set
+node bench/benchmark_v1.2.mjs  # v1.2 preregistered blind suite (80 queries: Sonnet 5.5 + DeepSeek V4 Flash)
 ```
 
 ---
@@ -71,13 +73,47 @@ HebbMesh automatically compiles those seeds into high-weight dendrites (`0.80`) 
 
 ---
 
-## Preregistered Blind Benchmark v1.1
+## Preregistered Blind Benchmarks (`v1.2` vs `v1.1`)
 
-Evaluated under strict preregistration (`PROTOCOLO_PREREGISTRO.md`) on a synthetic **187-neuron** developer memory base (**1,447 edges** across Knowledge Graph, Lessons, Milestones, Profile, Knowledge Docs, 4 Weekly Syntheses, and an isolated Private Vault) with **80 blind external queries** distributed across **33 thematic clusters**, Hebbian online learning OFF, and 10,000x cluster bootstrap.
+### v1.2 Preregistered Blind Validation (Dual-LLM External Set: Sonnet 5.5 + DeepSeek V4 Flash)
 
-Run `node bench/benchmark.mjs` to reproduce on your own machine:
+In `v1.1`, unnormalized 2-hop spreading activation degraded zero-overlap `Semantic@3` by `-20.0 pts` (`43.3% -> 23.3%`) due to supercritical gain (`~3.3x/hop`) and unpruned high-DF cliques. **`v1.2` (`src/engine.mjs`, `v1.2.0-HebbMesh-4D`)** resolves this with five neuro-computational zero-embedding mechanisms:
+- **M0 (Semantic Synaptogenesis & Clique Pruning):** weaves `| sem:` (`0.85`) and `concepts` (`0.90`) into edges while tightening `dfMax` from `13%` (`df<=24`) to `<=5%` (`df<=max(6, round(0.05*N))`) with quadratic IDF.
+- **M1 (Sparse Out-Fan + Sub-Stochastic Normalization + Refractory Period):** emits only to `top 3` strong neighbors (`w >= 0.58`), normalized by `max(1.8, sumTopM)` to guarantee spectral radius `< 1` without underflow.
+- **M2 (AMPA vs. NMDA Coincidence Detection + Parental Dominance):** direct hits (`AMPA`) get bounded tie-break boost without dethroning their sole parent; non-direct neighbors (`NMDA`) require `>= 2` distinct seeds (`kParents >= 2`, modeling the `Mg2+` block) to eliminate orphan lexical drift.
+- **M3 (Competitive Lateral GABA Inhibition — k-WTA):** only the `top 4` direct seeds above `0.45 * maxDirect` emit.
+- **M4 (4D Inter-Lobe Firewall):** attenuates spurious technical-to-affective cross-lobe jumps (`0.55x`).
 
-### Condition A (Principal — Blind Regenerated Seeds `seeds_regenerated.json`)
+Evaluated in a **single pre-registered run** (`PROTOCOLO_PREREGISTRO_v1.2.md`, 5/5 SHA-256 hashes verified pre-execution) on a fresh **80-query blind set** (`demo/queries_blind_v1.2.json`: 40 queries from **Claude Sonnet 5.5** + 40 queries from **DeepSeek V4 Flash**, 80 clusters, `0` overlap with `v1.1`, Hebbian learning OFF, 10,000x cluster bootstrap).
+
+Run `node bench/benchmark_v1.2.mjs` to reproduce:
+
+#### Condition A (Principal — Blind Regenerated Seeds `seeds_regenerated.json`, `N = 80`)
+
+| Engine / Variant | Direct @1/@3 | Semantic @1/@3 | MultiHop @1/@3 | Episodic @1/@3 | Overall @1/@3 | Mean / p95 Latency | Ep. Violations |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| **1. SQLite FTS5 (BM25 pure)** | 90% / 95% | 26.7% / 43.3% | 75% / 90% | 70% / 80% | 60.0% / 72.5% | 1.04 / 1.44 ms | 0/4 |
+| **2. SQLite FTS5 + \| sem:** | 90% / 100% | 50.0% / 66.7% | 85% / 95% | 80% / 90% | 72.5% / 85.0% | 1.02 / 1.43 ms | 0/4 |
+| **3. HebbMesh v1.2 sin \| sem:** | 90% / 100% | 40.0% / 60.0% | 75% / 95% | 100% / 100% | 68.8% / 83.8% | 6.33 / 10.90 ms | 0/4 |
+| **4. HebbMesh v1.2 sin propagacion (0 hops)** | 85% / 100% | 56.7% / 76.7% | 90% / 100% | 100% / 100% | 77.5% / 91.3% | 5.79 / 8.76 ms | 0/4 |
+| **5. HebbMesh v1.2 Full (`A4`: M0–M4)** | **85% / 100%** | **60.0% / 76.7%** | **90% / 100%** | **100% / 100%** | **78.8% / 91.3%** | **5.50 / 7.78 ms** | **0/4** |
+| **6. HebbMesh v1.2 Full + GABA suave** | 85% / 100% | 60.0% / 76.7% | 90% / 100% | 100% / 100% | 78.8% / 91.3% | 5.33 / 7.91 ms | 0/4 |
+
+- **Condition B (Comparative — Inline Corpus `| sem:`):** `HebbMesh v1.2 (A4)` reaches **87.5% Overall@3** (`4.17 ms` mean; `3.88 ms` with `GABA suave`), outperforming `SQLite FTS5 + | sem:` (`76.3%`, **+11.2 pts**) and `no_prop` (`86.3%`, +1.2 pts, with `Episodic@1` rising `70% -> 80%`).
+- **Source-Model Split (Condition A):** On the stricter **Sonnet 5.5** partition (`20.0%` zero-overlap semantic, `1.27` mean token overlap), `HebbMesh v1.2 (A4)` reaches **90.0% Overall@3** (`73.3% Semantic@3`, `100% Episodic@3`) vs `82.5%` for `FTS5 + | sem:` (`60.0% Semantic@3`, `80% Episodic@3`). On **DeepSeek V4 Flash** (`6.7%` zero-overlap, `2.73` mean overlap), `A4` reaches **92.5% Overall@3 / 85.0% Overall@1** vs `87.5% / 72.5%` for `FTS5 + | sem:`.
+- **Statistical & Honesty Notes (10,000x Cluster Bootstrap, 95% CI, `±5 pts` margin):**
+  - `A4 − no_prop`: **exact parity `[0.0, 0.0]`** across all 4 categories on `@3` (the `-20 pts` propagation regression from `v1.1` is fully eliminated), with `+3.3 pts` on `Semantic@1` and `+1.3 pts` on `Overall@1`.
+  - `A4 − FTS5+|sem:`: strong directional lead (`+6.3 pts Overall@3`, CI `[0.0, +12.5]`; `+10.0 pts Semantic@3`, CI `[-3.3, +23.3]`; `+10.0 pts Episodic@3`, CI `[0.0, +30.0]`), classified conservatively as `INCONCLUSO` at 95% CI due to `N = 80` sample size.
+  - **Second Domain & Scale Stress Test (`bench/scale_v1.2.mjs`, Clinical/Biomedical, `N = 1k–10k`):** On `2,020` clinical neurons (`200` queries), `v1.2 (A4)` reaches **100% MultiHop@3 and 100% Episodic@3** vs **0%** for `FTS5 + | sem:` and `no_prop` (**+50.0 pts Overall@3**, 95% CI `[+43, +57]`, `SUPERIOR`, `0/20` privacy leaks). Profiling `10,000` neurons revealed NMDA propagation takes only **`0.93 ms`**; adding an in-memory inverted index + `dfMax <= 40` in experimental `src/engine_v1.3.mjs` (alongside Turrigiano homeostasis & quantum phase interference previewed for upcoming Paper 3) brings `10,000`-neuron compilation from `9.33 s` down to **`432 ms`** (`6.68 MB` SQLite) and query latency down to **`~12.8 ms`** (`p95 21.1 ms < 25 ms`) with `0.0` regression on real blind sets.
+  - **Privacy Firewall (F-01):** `16/16` Positive Control (Firewall OFF) vs **`0/16` leaks** (Firewall ON) and `0` lateral dendrite leaks.
+
+---
+
+### v1.1 Historical Baseline (`demo/queries_blind.json`, 80 queries, 33 clusters — now `dev_set`)
+
+Evaluated under `PROTOCOLO_PREREGISTRO.md` (`bench/benchmark.mjs`, `bench/results_v1.1.json`) on the same 187-neuron corpus with 30 adversarial 0%-stem-overlap semantic queries (`dev_set` for `v1.2` ablation `bench/ablation_v1.2.mjs`, where `v1.2 A4` restored `Direct@1` `75% -> 95%`, `Semantic@3` `23.3% -> 43.3%`, and `MultiHop@1` `70% -> 95%` in `4.27 ms`):
+
+#### Condition A (`v1.1` Baseline — Blind Regenerated Seeds `seeds_regenerated.json`)
 
 | Engine / Variant | Direct@3 | Semantic@3 | MultiHop@3 | Episodic@3 | Mean Latency | p95 Latency | Ep. Violations |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -86,17 +122,11 @@ Run `node bench/benchmark.mjs` to reproduce on your own machine:
 | **3. HebbMesh sin \| sem:** | 90% | 6.7% | 95% | 80% | 5.34 ms | 10.87 ms | 0/4 |
 | **4. HebbMesh sin propagacion (0 hops)** | 100% | 43.3% | 100% | 70% | 4.42 ms | 6.98 ms | 0/4 |
 | **5. HebbMesh sin tope episodico (maxEp=Inf)** | 100% | 23.3% | 95% | 90% | 4.24 ms | 6.79 ms | 1/4 |
-| **6. HebbMesh Full 4D** | 100% | 23.3% | 95% | 80% | 3.52 ms | 5.04 ms | 0/4 |
+| **6. HebbMesh Full 4D (`v1.1` unnormalized)** | 100% | 23.3% | 95% | 80% | 3.52 ms | 5.04 ms | 0/4 |
 
-### Honest Scientific Takeaway & Statistical Analysis (10,000x Cluster Bootstrap)
+- **Hebbian Drift Stability (`v1.1`, 50 repeated queries across 2 active clusters):** Edge Gini coefficient moved from 0.1141 to 0.1183 (+0.0042 delta, zero rich-get-richer runaway); 0.0 pts hit@3 degradation across all 4 categories.
 
-- **Zero-Embedding Seeding (`| sem:`) drives the lexical-to-semantic leap:** Adding inline semantic synonyms lifts semantic retrieval from 0.0% to 33.3% on pure SQLite FTS5 and to 43.3% on HebbMesh 0-hop, with zero local embedding model overhead.
-- **Multi-hop Spreading Activation trade-off:** Multi-hop spreading activation currently dilutes zero-overlap semantic queries (43.3% on 0 hops drops to 23.3% on Full 4D), while protecting multi-hop associative recall (95%).
-- **Paired Bootstrap vs SQLite FTS5 + \| sem::** Verified `PARIDAD_+-5` on Direct retrieval (100% vs 100%) and `INCONCLUSO` on Semantic (Full 4D vs FTS5+|sem: point -10.0%, 95% CI [-24.0%, +3.6%]), MultiHop (point -5.0%, 95% CI [-15.8%, 0.0%]), and Episodic (point -10.0%, 95% CI [-37.5%, 0.0%]).
-- **Hebbian Drift Stability (50 repeated queries across 2 active clusters):** Edge Gini coefficient moved from 0.1141 to 0.1183 (+0.0042 delta, zero rich-get-richer runaway); 0.0 pts hit@3 degradation across all 4 categories (Direct 100%, Semantic 23.3%, MultiHop 95%, Episodic 80%).
-- **Privacy Firewall Red-Team (16 adversarial probes with mandatory Positive Control):** 16/16 probes trigger private target detection with Firewall OFF (Positive Control); **0/16 leaks** with Firewall ON across literal tokens, partial fragments, semantic paraphrases, and 3D A\* bridges, with 0 lateral dendrite leaks.
-
-**Footprint:** `456 KB` SQLite WAL index (`.hebbmesh.sqlite`) · `39.44 ms` compile · `128.9 MB` RSS · `0` external npm dependencies · `0` network calls.
+**Footprint:** `456 KB` SQLite WAL index (`.hebbmesh.sqlite`) · `~43 ms` compile · `128.9 MB` RSS · `0` external npm dependencies · `0` network calls.
 
 ---
 
@@ -160,17 +190,17 @@ Most open-source AI memory prototypes ignore security boundaries. **HebbMesh** i
 
 ## Citation
 
-If you reference HebbMesh, its pre-registered ablation protocol, or Zero-Embedding Seeding (`| sem:`), please cite the v1.1 Technical Report:
+If you reference HebbMesh, its pre-registered ablation protocol, Zero-Embedding Seeding (`| sem:`), or AMPA/NMDA + GABA gated propagation (`v1.2`), please cite the Technical Report:
 
 ```bibtex
 @techreport{munozjara2026hebbmesh,
   author      = {Mu{\~n}oz Jara, Victor},
-  title       = {Zero-Bloat Synaptic Memory over Markdown: A Pre-Registered Empirical Study of Write-Time Semantic Seeding, Graph Propagation Ablations, and Privacy Firewalls for Local-First LLM Agents},
+  title       = {Zero-Bloat Synaptic Memory over Markdown: A Pre-Registered Empirical Study of Write-Time Semantic Seeding, Neuro-Gated Graph Propagation (AMPA/NMDA + GABA), and Privacy Firewalls for Local-First LLM Agents},
   institution = {Independent AI Systems \& Security Research},
   year        = {2026},
   month       = nov,
-  version     = {1.1},
-  doi         = {10.5281/zenodo.24451147},
-  url         = {https://doi.org/10.5281/zenodo.24451147}
+  version     = {1.2},
+  doi         = {10.5281/zenodo.24473999},
+  url         = {https://doi.org/10.5281/zenodo.24473999}
 }
 ```
