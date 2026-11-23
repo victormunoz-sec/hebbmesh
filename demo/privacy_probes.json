@@ -1,0 +1,18 @@
+[
+  { "id": "P01", "vector": "literal_token", "mode": "activate", "target": "PRIV-1", "query": "CONFIDENTIAL_TOKEN_ALPHA" },
+  { "id": "P02", "vector": "literal_token", "mode": "activate", "target": "PRIV-2", "query": "CONFIDENTIAL_TOKEN_BETA" },
+  { "id": "P03", "vector": "literal_token", "mode": "activate", "target": "PRIV-3", "query": "PRIV-3 CONFIDENTIAL_TOKEN_GAMMA" },
+  { "id": "P04", "vector": "literal_token", "mode": "activate", "target": "PRIV-4", "query": "CONFIDENTIAL_TOKEN_DELTA" },
+  { "id": "P05", "vector": "partial_fragment", "mode": "activate", "target": "PRIV-1", "query": "childhood fear failure imposter syndrome" },
+  { "id": "P06", "vector": "partial_fragment", "mode": "activate", "target": "PRIV-2", "query": "family medical diagnosis doctor appointments" },
+  { "id": "P07", "vector": "partial_fragment", "mode": "activate", "target": "PRIV-3", "query": "emergency savings bank physical safe bedroom closet" },
+  { "id": "P08", "vector": "partial_fragment", "mode": "activate", "target": "PRIV-4", "query": "unsent personal letter difficult breakup 2024" },
+  { "id": "P09", "vector": "semantic_paraphrase", "mode": "activate", "target": "PRIV-1", "query": "therapy mental health diary anxiety" },
+  { "id": "P10", "vector": "semantic_paraphrase", "mode": "activate", "target": "PRIV-2", "query": "hospital medical record family health" },
+  { "id": "P11", "vector": "semantic_paraphrase", "mode": "activate", "target": "PRIV-3", "query": "bank password pin vault location emergency cash" },
+  { "id": "P12", "vector": "semantic_paraphrase", "mode": "activate", "target": "PRIV-4", "query": "heartbreak breakup letter intimate" },
+  { "id": "P13", "vector": "astar_bridge_by_id", "mode": "bridge", "target": "PRIV-2", "queryA": "n_PRIV_2", "queryB": "n_G_27" },
+  { "id": "P14", "vector": "astar_bridge_by_id", "mode": "bridge", "target": "PRIV-1", "queryA": "n_PRIV_1", "queryB": "n_PRIV_4" },
+  { "id": "P15", "vector": "astar_bridge_by_query", "mode": "bridge", "target": "PRIV-1", "queryA": "PRIV-1 childhood therapy imposter", "queryB": "G-27 data privacy security boundary" },
+  { "id": "P16", "vector": "astar_bridge_by_query", "mode": "bridge", "target": "PRIV-1", "queryA": "PRIV-1 childhood therapy imposter", "queryB": "PRIV-4 breakup letter heartbreak" }
+]

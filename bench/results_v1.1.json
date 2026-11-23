@@ -1,0 +1,1685 @@
+{
+  "protocol": "PROTOCOLO_PREREGISTRO_v1.1",
+  "timestamp": "2026-11-23T00:41:05.095Z",
+  "hashes": {
+    "PROTOCOLO_PREREGISTRO_md": "5029CE012630E2D585FF901C1DBD9F8715F10373A1802C05C13F700A7065FAE9",
+    "engine_mjs": "8FB93F687CA3251D60ACE3098C1815351F3B8E165F128F6173303019CC1ACC24",
+    "seeds_regenerated_json": "2FFB17B31C84C5356D63749D6642F32BB085BDC083813BC82021B8DA538EC0A6",
+    "queries_blind_json": "2EEBED3C73BA7772D215B6AD3606B8902A542169B4A8DB4CE94DEC7F57E11C7E",
+    "privacy_probes_json": "9C664E018589998D0AA5E2A3E384EB0A81EA48BF00699F83D6C8D79F23D4F0DA"
+  },
+  "dataset": {
+    "totalNeurons": 187,
+    "publicNeurons": 183,
+    "privateNeurons": 4,
+    "totalEdges": 1447,
+    "queriesTotal": 80,
+    "clustersTotal": 33
+  },
+  "footprint": {
+    "compileMs": 88.95,
+    "sqliteDiskKb": 456,
+    "sqliteFile": ".hebbmesh.sqlite",
+    "processRssMb": 138.6,
+    "externalNpmDeps": 0
+  },
+  "conditionA_regenerated_blind": {
+    "variants": [
+      {
+        "id": "fts5_pure",
+        "label": "1. SQLite FTS5 (BM25 pure)",
+        "n": 80,
+        "byCat": {
+          "direct": {
+            "n": 20,
+            "hit1Pct": 80,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "semantic": {
+            "n": 30,
+            "hit1Pct": 0,
+            "hit3Pct": 0,
+            "hit5Pct": 0
+          },
+          "multihop": {
+            "n": 20,
+            "hit1Pct": 70,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "episodic": {
+            "n": 10,
+            "hit1Pct": 70,
+            "hit3Pct": 90,
+            "hit5Pct": 90
+          }
+        },
+        "exploratoryOverall": {
+          "hit1Pct": 46.3,
+          "hit3Pct": 61.3,
+          "hit5Pct": 61.3
+        },
+        "episodicControl": {
+          "n": 4,
+          "superHubViolations": 0,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0.25,
+          "avgEpisodicInTop5": 0.25
+        },
+        "latencyMs": {
+          "mean": 0.97,
+          "p95": 2.31
+        }
+      },
+      {
+        "id": "fts5_plus_sem",
+        "label": "2. SQLite FTS5 + | sem:",
+        "n": 80,
+        "byCat": {
+          "direct": {
+            "n": 20,
+            "hit1Pct": 90,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "semantic": {
+            "n": 30,
+            "hit1Pct": 30,
+            "hit3Pct": 33.3,
+            "hit5Pct": 36.7
+          },
+          "multihop": {
+            "n": 20,
+            "hit1Pct": 75,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "episodic": {
+            "n": 10,
+            "hit1Pct": 60,
+            "hit3Pct": 90,
+            "hit5Pct": 90
+          }
+        },
+        "exploratoryOverall": {
+          "hit1Pct": 60,
+          "hit3Pct": 73.8,
+          "hit5Pct": 75
+        },
+        "episodicControl": {
+          "n": 4,
+          "superHubViolations": 0,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0.5,
+          "avgEpisodicInTop5": 0.5
+        },
+        "latencyMs": {
+          "mean": 0.97,
+          "p95": 2.75
+        }
+      },
+      {
+        "id": "hebbmesh_no_sem",
+        "label": "3. HebbMesh sin | sem:",
+        "n": 80,
+        "byCat": {
+          "direct": {
+            "n": 20,
+            "hit1Pct": 80,
+            "hit3Pct": 90,
+            "hit5Pct": 100
+          },
+          "semantic": {
+            "n": 30,
+            "hit1Pct": 3.3,
+            "hit3Pct": 6.7,
+            "hit5Pct": 10
+          },
+          "multihop": {
+            "n": 20,
+            "hit1Pct": 55,
+            "hit3Pct": 95,
+            "hit5Pct": 95
+          },
+          "episodic": {
+            "n": 10,
+            "hit1Pct": 80,
+            "hit3Pct": 80,
+            "hit5Pct": 80
+          }
+        },
+        "exploratoryOverall": {
+          "hit1Pct": 45,
+          "hit3Pct": 58.8,
+          "hit5Pct": 62.5
+        },
+        "episodicControl": {
+          "n": 4,
+          "superHubViolations": 0,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0.25,
+          "avgEpisodicInTop5": 0.5
+        },
+        "latencyMs": {
+          "mean": 5.39,
+          "p95": 11.34
+        }
+      },
+      {
+        "id": "hebbmesh_no_prop",
+        "label": "4. HebbMesh sin propagacion",
+        "n": 80,
+        "byCat": {
+          "direct": {
+            "n": 20,
+            "hit1Pct": 95,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "semantic": {
+            "n": 30,
+            "hit1Pct": 30,
+            "hit3Pct": 43.3,
+            "hit5Pct": 46.7
+          },
+          "multihop": {
+            "n": 20,
+            "hit1Pct": 85,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "episodic": {
+            "n": 10,
+            "hit1Pct": 70,
+            "hit3Pct": 70,
+            "hit5Pct": 70
+          }
+        },
+        "exploratoryOverall": {
+          "hit1Pct": 65,
+          "hit3Pct": 75,
+          "hit5Pct": 76.3
+        },
+        "episodicControl": {
+          "n": 4,
+          "superHubViolations": 0,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0,
+          "avgEpisodicInTop5": 0.25
+        },
+        "latencyMs": {
+          "mean": 4,
+          "p95": 5.99
+        }
+      },
+      {
+        "id": "hebbmesh_no_ep_cap",
+        "label": "5. HebbMesh sin tope episodico",
+        "n": 80,
+        "byCat": {
+          "direct": {
+            "n": 20,
+            "hit1Pct": 75,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "semantic": {
+            "n": 30,
+            "hit1Pct": 13.3,
+            "hit3Pct": 23.3,
+            "hit5Pct": 26.7
+          },
+          "multihop": {
+            "n": 20,
+            "hit1Pct": 70,
+            "hit3Pct": 95,
+            "hit5Pct": 100
+          },
+          "episodic": {
+            "n": 10,
+            "hit1Pct": 70,
+            "hit3Pct": 90,
+            "hit5Pct": 90
+          }
+        },
+        "exploratoryOverall": {
+          "hit1Pct": 50,
+          "hit3Pct": 68.8,
+          "hit5Pct": 71.3
+        },
+        "episodicControl": {
+          "n": 4,
+          "superHubViolations": 1,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0.5,
+          "avgEpisodicInTop5": 0.75
+        },
+        "latencyMs": {
+          "mean": 4.43,
+          "p95": 7.16
+        }
+      },
+      {
+        "id": "hebbmesh_full_4d",
+        "label": "6. HebbMesh Full 4D",
+        "n": 80,
+        "byCat": {
+          "direct": {
+            "n": 20,
+            "hit1Pct": 75,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "semantic": {
+            "n": 30,
+            "hit1Pct": 13.3,
+            "hit3Pct": 23.3,
+            "hit5Pct": 26.7
+          },
+          "multihop": {
+            "n": 20,
+            "hit1Pct": 70,
+            "hit3Pct": 95,
+            "hit5Pct": 100
+          },
+          "episodic": {
+            "n": 10,
+            "hit1Pct": 70,
+            "hit3Pct": 80,
+            "hit5Pct": 80
+          }
+        },
+        "exploratoryOverall": {
+          "hit1Pct": 50,
+          "hit3Pct": 67.5,
+          "hit5Pct": 70
+        },
+        "episodicControl": {
+          "n": 4,
+          "superHubViolations": 0,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0.5,
+          "avgEpisodicInTop5": 0.5
+        },
+        "latencyMs": {
+          "mean": 3.74,
+          "p95": 5.65
+        }
+      }
+    ],
+    "bootstrap": {
+      "iterations": 10000,
+      "seed": 20261122,
+      "perVariant": {
+        "fts5_pure": {
+          "direct": {
+            "clusters": 20,
+            "n": 20,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "semantic": {
+            "clusters": 19,
+            "n": 30,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ]
+          },
+          "multihop": {
+            "clusters": 19,
+            "n": 20,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "episodic": {
+            "clusters": 8,
+            "n": 10,
+            "point": 90,
+            "ci95": [
+              78.6,
+              100
+            ]
+          }
+        },
+        "fts5_plus_sem": {
+          "direct": {
+            "clusters": 20,
+            "n": 20,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "semantic": {
+            "clusters": 19,
+            "n": 30,
+            "point": 33.3,
+            "ci95": [
+              16.7,
+              50
+            ]
+          },
+          "multihop": {
+            "clusters": 19,
+            "n": 20,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "episodic": {
+            "clusters": 8,
+            "n": 10,
+            "point": 90,
+            "ci95": [
+              78.6,
+              100
+            ]
+          }
+        },
+        "hebbmesh_no_sem": {
+          "direct": {
+            "clusters": 20,
+            "n": 20,
+            "point": 90,
+            "ci95": [
+              75,
+              100
+            ]
+          },
+          "semantic": {
+            "clusters": 19,
+            "n": 30,
+            "point": 6.7,
+            "ci95": [
+              0,
+              16.7
+            ]
+          },
+          "multihop": {
+            "clusters": 19,
+            "n": 20,
+            "point": 95,
+            "ci95": [
+              84.2,
+              100
+            ]
+          },
+          "episodic": {
+            "clusters": 8,
+            "n": 10,
+            "point": 80,
+            "ci95": [
+              60,
+              100
+            ]
+          }
+        },
+        "hebbmesh_no_prop": {
+          "direct": {
+            "clusters": 20,
+            "n": 20,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "semantic": {
+            "clusters": 19,
+            "n": 30,
+            "point": 43.3,
+            "ci95": [
+              23.7,
+              63.3
+            ]
+          },
+          "multihop": {
+            "clusters": 19,
+            "n": 20,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "episodic": {
+            "clusters": 8,
+            "n": 10,
+            "point": 70,
+            "ci95": [
+              43.8,
+              100
+            ]
+          }
+        },
+        "hebbmesh_no_ep_cap": {
+          "direct": {
+            "clusters": 20,
+            "n": 20,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "semantic": {
+            "clusters": 19,
+            "n": 30,
+            "point": 23.3,
+            "ci95": [
+              10.3,
+              38.5
+            ]
+          },
+          "multihop": {
+            "clusters": 19,
+            "n": 20,
+            "point": 95,
+            "ci95": [
+              84.2,
+              100
+            ]
+          },
+          "episodic": {
+            "clusters": 8,
+            "n": 10,
+            "point": 90,
+            "ci95": [
+              78.6,
+              100
+            ]
+          }
+        },
+        "hebbmesh_full_4d": {
+          "direct": {
+            "clusters": 20,
+            "n": 20,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "semantic": {
+            "clusters": 19,
+            "n": 30,
+            "point": 23.3,
+            "ci95": [
+              10,
+              38.5
+            ]
+          },
+          "multihop": {
+            "clusters": 19,
+            "n": 20,
+            "point": 95,
+            "ci95": [
+              84.2,
+              100
+            ]
+          },
+          "episodic": {
+            "clusters": 8,
+            "n": 10,
+            "point": 80,
+            "ci95": [
+              60,
+              100
+            ]
+          }
+        }
+      },
+      "pairedDeltas": {
+        "full4d_minus_fts5Sem": {
+          "direct": {
+            "clusters": 20,
+            "n": 20,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ],
+            "verdict": "PARIDAD_+-5"
+          },
+          "semantic": {
+            "clusters": 19,
+            "n": 30,
+            "point": -10,
+            "ci95": [
+              -24,
+              3.6
+            ],
+            "verdict": "INCONCLUSO"
+          },
+          "multihop": {
+            "clusters": 19,
+            "n": 20,
+            "point": -5,
+            "ci95": [
+              -15.8,
+              0
+            ],
+            "verdict": "INCONCLUSO"
+          },
+          "episodic": {
+            "clusters": 8,
+            "n": 10,
+            "point": -10,
+            "ci95": [
+              -37.5,
+              0
+            ],
+            "verdict": "INCONCLUSO"
+          }
+        },
+        "full4d_minus_noProp": {
+          "direct": {
+            "clusters": 20,
+            "n": 20,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ],
+            "verdict": "PARIDAD_+-5"
+          },
+          "semantic": {
+            "clusters": 19,
+            "n": 30,
+            "point": -20,
+            "ci95": [
+              -36.1,
+              -6.2
+            ],
+            "verdict": "INFERIOR"
+          },
+          "multihop": {
+            "clusters": 19,
+            "n": 20,
+            "point": -5,
+            "ci95": [
+              -15.8,
+              0
+            ],
+            "verdict": "INCONCLUSO"
+          },
+          "episodic": {
+            "clusters": 8,
+            "n": 10,
+            "point": 10,
+            "ci95": [
+              0,
+              21.4
+            ],
+            "verdict": "INCONCLUSO"
+          }
+        },
+        "full4d_minus_noEpCap": {
+          "direct": {
+            "clusters": 20,
+            "n": 20,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ],
+            "verdict": "PARIDAD_+-5"
+          },
+          "semantic": {
+            "clusters": 19,
+            "n": 30,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ],
+            "verdict": "PARIDAD_+-5"
+          },
+          "multihop": {
+            "clusters": 19,
+            "n": 20,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ],
+            "verdict": "PARIDAD_+-5"
+          },
+          "episodic": {
+            "clusters": 8,
+            "n": 10,
+            "point": -10,
+            "ci95": [
+              -37.5,
+              0
+            ],
+            "verdict": "INCONCLUSO"
+          }
+        }
+      }
+    }
+  },
+  "conditionB_original_corpus": {
+    "variants": [
+      {
+        "id": "fts5_pure",
+        "label": "1. SQLite FTS5 (BM25 pure)",
+        "n": 80,
+        "byCat": {
+          "direct": {
+            "n": 20,
+            "hit1Pct": 80,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "semantic": {
+            "n": 30,
+            "hit1Pct": 0,
+            "hit3Pct": 0,
+            "hit5Pct": 0
+          },
+          "multihop": {
+            "n": 20,
+            "hit1Pct": 70,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "episodic": {
+            "n": 10,
+            "hit1Pct": 70,
+            "hit3Pct": 90,
+            "hit5Pct": 90
+          }
+        },
+        "exploratoryOverall": {
+          "hit1Pct": 46.3,
+          "hit3Pct": 61.3,
+          "hit5Pct": 61.3
+        },
+        "episodicControl": {
+          "n": 4,
+          "superHubViolations": 0,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0.25,
+          "avgEpisodicInTop5": 0.25
+        },
+        "latencyMs": {
+          "mean": 1.11,
+          "p95": 2.85
+        }
+      },
+      {
+        "id": "fts5_plus_sem",
+        "label": "2. SQLite FTS5 + | sem:",
+        "n": 80,
+        "byCat": {
+          "direct": {
+            "n": 20,
+            "hit1Pct": 85,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "semantic": {
+            "n": 30,
+            "hit1Pct": 0,
+            "hit3Pct": 6.7,
+            "hit5Pct": 13.3
+          },
+          "multihop": {
+            "n": 20,
+            "hit1Pct": 75,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "episodic": {
+            "n": 10,
+            "hit1Pct": 60,
+            "hit3Pct": 90,
+            "hit5Pct": 90
+          }
+        },
+        "exploratoryOverall": {
+          "hit1Pct": 47.5,
+          "hit3Pct": 63.7,
+          "hit5Pct": 66.3
+        },
+        "episodicControl": {
+          "n": 4,
+          "superHubViolations": 0,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0.25,
+          "avgEpisodicInTop5": 0.5
+        },
+        "latencyMs": {
+          "mean": 1.28,
+          "p95": 3.29
+        }
+      },
+      {
+        "id": "hebbmesh_no_sem",
+        "label": "3. HebbMesh sin | sem:",
+        "n": 80,
+        "byCat": {
+          "direct": {
+            "n": 20,
+            "hit1Pct": 80,
+            "hit3Pct": 90,
+            "hit5Pct": 100
+          },
+          "semantic": {
+            "n": 30,
+            "hit1Pct": 3.3,
+            "hit3Pct": 6.7,
+            "hit5Pct": 10
+          },
+          "multihop": {
+            "n": 20,
+            "hit1Pct": 55,
+            "hit3Pct": 95,
+            "hit5Pct": 95
+          },
+          "episodic": {
+            "n": 10,
+            "hit1Pct": 80,
+            "hit3Pct": 80,
+            "hit5Pct": 80
+          }
+        },
+        "exploratoryOverall": {
+          "hit1Pct": 45,
+          "hit3Pct": 58.8,
+          "hit5Pct": 62.5
+        },
+        "episodicControl": {
+          "n": 4,
+          "superHubViolations": 0,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0.25,
+          "avgEpisodicInTop5": 0.5
+        },
+        "latencyMs": {
+          "mean": 3.62,
+          "p95": 5.18
+        }
+      },
+      {
+        "id": "hebbmesh_no_prop",
+        "label": "4. HebbMesh sin propagacion",
+        "n": 80,
+        "byCat": {
+          "direct": {
+            "n": 20,
+            "hit1Pct": 95,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "semantic": {
+            "n": 30,
+            "hit1Pct": 3.3,
+            "hit3Pct": 13.3,
+            "hit5Pct": 20
+          },
+          "multihop": {
+            "n": 20,
+            "hit1Pct": 90,
+            "hit3Pct": 95,
+            "hit5Pct": 100
+          },
+          "episodic": {
+            "n": 10,
+            "hit1Pct": 60,
+            "hit3Pct": 60,
+            "hit5Pct": 60
+          }
+        },
+        "exploratoryOverall": {
+          "hit1Pct": 55,
+          "hit3Pct": 61.3,
+          "hit5Pct": 65
+        },
+        "episodicControl": {
+          "n": 4,
+          "superHubViolations": 0,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0,
+          "avgEpisodicInTop5": 0.25
+        },
+        "latencyMs": {
+          "mean": 4.22,
+          "p95": 5.88
+        }
+      },
+      {
+        "id": "hebbmesh_no_ep_cap",
+        "label": "5. HebbMesh sin tope episodico",
+        "n": 80,
+        "byCat": {
+          "direct": {
+            "n": 20,
+            "hit1Pct": 70,
+            "hit3Pct": 85,
+            "hit5Pct": 95
+          },
+          "semantic": {
+            "n": 30,
+            "hit1Pct": 3.3,
+            "hit3Pct": 6.7,
+            "hit5Pct": 6.7
+          },
+          "multihop": {
+            "n": 20,
+            "hit1Pct": 70,
+            "hit3Pct": 95,
+            "hit5Pct": 100
+          },
+          "episodic": {
+            "n": 10,
+            "hit1Pct": 70,
+            "hit3Pct": 90,
+            "hit5Pct": 90
+          }
+        },
+        "exploratoryOverall": {
+          "hit1Pct": 45,
+          "hit3Pct": 58.8,
+          "hit5Pct": 62.5
+        },
+        "episodicControl": {
+          "n": 4,
+          "superHubViolations": 1,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0.5,
+          "avgEpisodicInTop5": 0.75
+        },
+        "latencyMs": {
+          "mean": 4.54,
+          "p95": 8.03
+        }
+      },
+      {
+        "id": "hebbmesh_full_4d",
+        "label": "6. HebbMesh Full 4D",
+        "n": 80,
+        "byCat": {
+          "direct": {
+            "n": 20,
+            "hit1Pct": 70,
+            "hit3Pct": 85,
+            "hit5Pct": 95
+          },
+          "semantic": {
+            "n": 30,
+            "hit1Pct": 3.3,
+            "hit3Pct": 6.7,
+            "hit5Pct": 6.7
+          },
+          "multihop": {
+            "n": 20,
+            "hit1Pct": 70,
+            "hit3Pct": 95,
+            "hit5Pct": 100
+          },
+          "episodic": {
+            "n": 10,
+            "hit1Pct": 70,
+            "hit3Pct": 70,
+            "hit5Pct": 70
+          }
+        },
+        "exploratoryOverall": {
+          "hit1Pct": 45,
+          "hit3Pct": 56.3,
+          "hit5Pct": 60
+        },
+        "episodicControl": {
+          "n": 4,
+          "superHubViolations": 0,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0.5,
+          "avgEpisodicInTop5": 0.5
+        },
+        "latencyMs": {
+          "mean": 4.27,
+          "p95": 7.36
+        }
+      }
+    ],
+    "bootstrap": {
+      "iterations": 10000,
+      "seed": 20261122,
+      "perVariant": {
+        "fts5_pure": {
+          "direct": {
+            "clusters": 20,
+            "n": 20,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "semantic": {
+            "clusters": 19,
+            "n": 30,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ]
+          },
+          "multihop": {
+            "clusters": 19,
+            "n": 20,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "episodic": {
+            "clusters": 8,
+            "n": 10,
+            "point": 90,
+            "ci95": [
+              78.6,
+              100
+            ]
+          }
+        },
+        "fts5_plus_sem": {
+          "direct": {
+            "clusters": 20,
+            "n": 20,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "semantic": {
+            "clusters": 19,
+            "n": 30,
+            "point": 6.7,
+            "ci95": [
+              0,
+              15.6
+            ]
+          },
+          "multihop": {
+            "clusters": 19,
+            "n": 20,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "episodic": {
+            "clusters": 8,
+            "n": 10,
+            "point": 90,
+            "ci95": [
+              78.6,
+              100
+            ]
+          }
+        },
+        "hebbmesh_no_sem": {
+          "direct": {
+            "clusters": 20,
+            "n": 20,
+            "point": 90,
+            "ci95": [
+              75,
+              100
+            ]
+          },
+          "semantic": {
+            "clusters": 19,
+            "n": 30,
+            "point": 6.7,
+            "ci95": [
+              0,
+              16.7
+            ]
+          },
+          "multihop": {
+            "clusters": 19,
+            "n": 20,
+            "point": 95,
+            "ci95": [
+              84.2,
+              100
+            ]
+          },
+          "episodic": {
+            "clusters": 8,
+            "n": 10,
+            "point": 80,
+            "ci95": [
+              60,
+              100
+            ]
+          }
+        },
+        "hebbmesh_no_prop": {
+          "direct": {
+            "clusters": 20,
+            "n": 20,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "semantic": {
+            "clusters": 19,
+            "n": 30,
+            "point": 13.3,
+            "ci95": [
+              3.1,
+              26.1
+            ]
+          },
+          "multihop": {
+            "clusters": 19,
+            "n": 20,
+            "point": 95,
+            "ci95": [
+              84.2,
+              100
+            ]
+          },
+          "episodic": {
+            "clusters": 8,
+            "n": 10,
+            "point": 60,
+            "ci95": [
+              33.3,
+              87.5
+            ]
+          }
+        },
+        "hebbmesh_no_ep_cap": {
+          "direct": {
+            "clusters": 20,
+            "n": 20,
+            "point": 85,
+            "ci95": [
+              70,
+              100
+            ]
+          },
+          "semantic": {
+            "clusters": 19,
+            "n": 30,
+            "point": 6.7,
+            "ci95": [
+              0,
+              17.2
+            ]
+          },
+          "multihop": {
+            "clusters": 19,
+            "n": 20,
+            "point": 95,
+            "ci95": [
+              84.2,
+              100
+            ]
+          },
+          "episodic": {
+            "clusters": 8,
+            "n": 10,
+            "point": 90,
+            "ci95": [
+              78.6,
+              100
+            ]
+          }
+        },
+        "hebbmesh_full_4d": {
+          "direct": {
+            "clusters": 20,
+            "n": 20,
+            "point": 85,
+            "ci95": [
+              70,
+              100
+            ]
+          },
+          "semantic": {
+            "clusters": 19,
+            "n": 30,
+            "point": 6.7,
+            "ci95": [
+              0,
+              17.2
+            ]
+          },
+          "multihop": {
+            "clusters": 19,
+            "n": 20,
+            "point": 95,
+            "ci95": [
+              84.2,
+              100
+            ]
+          },
+          "episodic": {
+            "clusters": 8,
+            "n": 10,
+            "point": 70,
+            "ci95": [
+              43.8,
+              100
+            ]
+          }
+        }
+      },
+      "pairedDeltas": {
+        "full4d_minus_fts5Sem": {
+          "direct": {
+            "clusters": 20,
+            "n": 20,
+            "point": -15,
+            "ci95": [
+              -30,
+              0
+            ],
+            "verdict": "INCONCLUSO"
+          },
+          "semantic": {
+            "clusters": 19,
+            "n": 30,
+            "point": 0,
+            "ci95": [
+              -8.6,
+              11.1
+            ],
+            "verdict": "INCONCLUSO"
+          },
+          "multihop": {
+            "clusters": 19,
+            "n": 20,
+            "point": -5,
+            "ci95": [
+              -15.8,
+              0
+            ],
+            "verdict": "INCONCLUSO"
+          },
+          "episodic": {
+            "clusters": 8,
+            "n": 10,
+            "point": -20,
+            "ci95": [
+              -40,
+              0
+            ],
+            "verdict": "INCONCLUSO"
+          }
+        },
+        "full4d_minus_noProp": {
+          "direct": {
+            "clusters": 20,
+            "n": 20,
+            "point": -15,
+            "ci95": [
+              -30,
+              0
+            ],
+            "verdict": "INCONCLUSO"
+          },
+          "semantic": {
+            "clusters": 19,
+            "n": 30,
+            "point": -6.7,
+            "ci95": [
+              -16.7,
+              0
+            ],
+            "verdict": "INCONCLUSO"
+          },
+          "multihop": {
+            "clusters": 19,
+            "n": 20,
+            "point": 0,
+            "ci95": [
+              -15,
+              15
+            ],
+            "verdict": "INCONCLUSO"
+          },
+          "episodic": {
+            "clusters": 8,
+            "n": 10,
+            "point": 10,
+            "ci95": [
+              0,
+              37.5
+            ],
+            "verdict": "INCONCLUSO"
+          }
+        },
+        "full4d_minus_noEpCap": {
+          "direct": {
+            "clusters": 20,
+            "n": 20,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ],
+            "verdict": "PARIDAD_+-5"
+          },
+          "semantic": {
+            "clusters": 19,
+            "n": 30,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ],
+            "verdict": "PARIDAD_+-5"
+          },
+          "multihop": {
+            "clusters": 19,
+            "n": 20,
+            "point": 0,
+            "ci95": [
+              0,
+              0
+            ],
+            "verdict": "PARIDAD_+-5"
+          },
+          "episodic": {
+            "clusters": 8,
+            "n": 10,
+            "point": -20,
+            "ci95": [
+              -40,
+              0
+            ],
+            "verdict": "INCONCLUSO"
+          }
+        }
+      }
+    }
+  },
+  "hebbianDrift": {
+    "repeatedQueries": 50,
+    "targetClusters": [
+      "open_source_launch",
+      "token_economics"
+    ],
+    "poolSize": 12,
+    "giniBefore": 0.1141,
+    "giniAfter": 0.1183,
+    "giniDelta": 0.0042,
+    "richGetRicherAlert": false,
+    "degradationAlert": false,
+    "deltaByCat": {
+      "direct": {
+        "before": 100,
+        "after": 100,
+        "deltaPts": 0
+      },
+      "semantic": {
+        "before": 23.3,
+        "after": 23.3,
+        "deltaPts": 0
+      },
+      "multihop": {
+        "before": 95,
+        "after": 95,
+        "deltaPts": 0
+      },
+      "episodic": {
+        "before": 80,
+        "after": 80,
+        "deltaPts": 0
+      }
+    }
+  },
+  "privacyRedTeam": {
+    "totalProbes": 16,
+    "positiveControlTriggered": 16,
+    "firewallOnLeaks": 0,
+    "lateralDendriteLeaks": 0,
+    "pass": true,
+    "details": [
+      {
+        "id": "P01",
+        "vector": "literal_token",
+        "mode": "activate",
+        "target": "PRIV-1",
+        "positiveControlHit": true,
+        "firewallOnLeak": false,
+        "posObserved": [
+          "PERFIL-12",
+          "S-W47-F1",
+          "A-50",
+          "PRIV-1",
+          "G-38"
+        ],
+        "safeObserved": [
+          "S-W45-F3",
+          "G-10",
+          "G-26",
+          "HITO-10",
+          "HITO-11"
+        ]
+      },
+      {
+        "id": "P02",
+        "vector": "literal_token",
+        "mode": "activate",
+        "target": "PRIV-2",
+        "positiveControlHit": true,
+        "firewallOnLeak": false,
+        "posObserved": [
+          "PERFIL-12",
+          "S-W47-F1",
+          "PRIV-2",
+          "A-50",
+          "G-27"
+        ],
+        "safeObserved": [
+          "S-W45-F3",
+          "G-10",
+          "G-26",
+          "HITO-10",
+          "HITO-11"
+        ]
+      },
+      {
+        "id": "P03",
+        "vector": "literal_token",
+        "mode": "activate",
+        "target": "PRIV-3",
+        "positiveControlHit": true,
+        "firewallOnLeak": false,
+        "posObserved": [
+          "PRIV-3",
+          "A-15",
+          "G-37",
+          "A-50",
+          "PERFIL-12"
+        ],
+        "safeObserved": [
+          "S-W45-F3",
+          "G-10",
+          "G-26",
+          "HITO-10",
+          "HITO-11"
+        ]
+      },
+      {
+        "id": "P04",
+        "vector": "literal_token",
+        "mode": "activate",
+        "target": "PRIV-4",
+        "positiveControlHit": true,
+        "firewallOnLeak": false,
+        "posObserved": [
+          "PERFIL-12",
+          "S-W47-F1",
+          "A-50",
+          "PRIV-4",
+          "G-38"
+        ],
+        "safeObserved": [
+          "S-W45-F3",
+          "G-10",
+          "G-26",
+          "HITO-10",
+          "HITO-11"
+        ]
+      },
+      {
+        "id": "P05",
+        "vector": "partial_fragment",
+        "mode": "activate",
+        "target": "PRIV-1",
+        "positiveControlHit": true,
+        "firewallOnLeak": false,
+        "posObserved": [
+          "PRIV-1",
+          "PERFIL-12",
+          "S-W47-F1",
+          "A-50",
+          "A-32"
+        ],
+        "safeObserved": [
+          "A-25",
+          "A-35",
+          "G-30",
+          "HITO-35",
+          "G-10"
+        ]
+      },
+      {
+        "id": "P06",
+        "vector": "partial_fragment",
+        "mode": "activate",
+        "target": "PRIV-2",
+        "positiveControlHit": true,
+        "firewallOnLeak": false,
+        "posObserved": [
+          "PERFIL-12",
+          "PRIV-2",
+          "A-37",
+          "S-W47-F1",
+          "A-31"
+        ],
+        "safeObserved": []
+      },
+      {
+        "id": "P07",
+        "vector": "partial_fragment",
+        "mode": "activate",
+        "target": "PRIV-3",
+        "positiveControlHit": true,
+        "firewallOnLeak": false,
+        "posObserved": [
+          "PRIV-3",
+          "G-37",
+          "A-15",
+          "A-29",
+          "A-37"
+        ],
+        "safeObserved": [
+          "G-37",
+          "A-47",
+          "A-37",
+          "G-10",
+          "HITO-4"
+        ]
+      },
+      {
+        "id": "P08",
+        "vector": "partial_fragment",
+        "mode": "activate",
+        "target": "PRIV-4",
+        "positiveControlHit": true,
+        "firewallOnLeak": false,
+        "posObserved": [
+          "PERFIL-12",
+          "S-W47-F1",
+          "PRIV-4",
+          "A-32",
+          "A-50"
+        ],
+        "safeObserved": [
+          "S-W46-F1",
+          "PERFIL-12",
+          "A-31",
+          "A-32",
+          "G-27"
+        ]
+      },
+      {
+        "id": "P09",
+        "vector": "semantic_paraphrase",
+        "mode": "activate",
+        "target": "PRIV-1",
+        "positiveControlHit": true,
+        "firewallOnLeak": false,
+        "posObserved": [
+          "PERFIL-12",
+          "PRIV-1",
+          "S-W47-F1",
+          "A-32",
+          "A-50"
+        ],
+        "safeObserved": [
+          "G-27",
+          "A-31",
+          "G-16",
+          "A-37",
+          "A-32"
+        ]
+      },
+      {
+        "id": "P10",
+        "vector": "semantic_paraphrase",
+        "mode": "activate",
+        "target": "PRIV-2",
+        "positiveControlHit": true,
+        "firewallOnLeak": false,
+        "posObserved": [
+          "PERFIL-12",
+          "PRIV-2",
+          "S-W47-F1",
+          "A-37",
+          "A-31"
+        ],
+        "safeObserved": [
+          "HITO-25",
+          "DOC-3",
+          "HITO-26",
+          "HITO-4",
+          "A-53"
+        ]
+      },
+      {
+        "id": "P11",
+        "vector": "semantic_paraphrase",
+        "mode": "activate",
+        "target": "PRIV-3",
+        "positiveControlHit": true,
+        "firewallOnLeak": false,
+        "posObserved": [
+          "PRIV-3",
+          "G-37",
+          "A-15",
+          "A-29",
+          "HITO-19"
+        ],
+        "safeObserved": [
+          "A-13",
+          "HITO-36",
+          "HITO-13",
+          "DOC-6",
+          "G-24"
+        ]
+      },
+      {
+        "id": "P12",
+        "vector": "semantic_paraphrase",
+        "mode": "activate",
+        "target": "PRIV-4",
+        "positiveControlHit": true,
+        "firewallOnLeak": false,
+        "posObserved": [
+          "PRIV-4",
+          "PERFIL-12",
+          "S-W47-F1",
+          "A-32",
+          "A-50"
+        ],
+        "safeObserved": [
+          "S-W45-F3",
+          "G-34",
+          "G-44",
+          "A-26",
+          "HITO-11"
+        ]
+      },
+      {
+        "id": "P13",
+        "vector": "astar_bridge_by_id",
+        "mode": "bridge",
+        "target": "PRIV-2",
+        "positiveControlHit": true,
+        "firewallOnLeak": false,
+        "posObserved": [
+          "PRIV-2",
+          "G-27"
+        ],
+        "safeObserved": [
+          "endpoint_not_found"
+        ]
+      },
+      {
+        "id": "P14",
+        "vector": "astar_bridge_by_id",
+        "mode": "bridge",
+        "target": "PRIV-1",
+        "positiveControlHit": true,
+        "firewallOnLeak": false,
+        "posObserved": [
+          "PRIV-1",
+          "PRIV-4"
+        ],
+        "safeObserved": [
+          "endpoint_not_found"
+        ]
+      },
+      {
+        "id": "P15",
+        "vector": "astar_bridge_by_query",
+        "mode": "bridge",
+        "target": "PRIV-1",
+        "positiveControlHit": true,
+        "firewallOnLeak": false,
+        "posObserved": [
+          "PRIV-1",
+          "A-32",
+          "G-27"
+        ],
+        "safeObserved": [
+          "endpoint_not_found"
+        ]
+      },
+      {
+        "id": "P16",
+        "vector": "astar_bridge_by_query",
+        "mode": "bridge",
+        "target": "PRIV-1",
+        "positiveControlHit": true,
+        "firewallOnLeak": false,
+        "posObserved": [
+          "PRIV-1",
+          "PRIV-4"
+        ],
+        "safeObserved": [
+          "endpoint_not_found"
+        ]
+      }
+    ]
+  }
+}

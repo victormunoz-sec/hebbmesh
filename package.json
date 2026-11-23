@@ -1,0 +1,29 @@
+{
+  "name": "hebbmesh",
+  "version": "1.1.0",
+  "description": "Zero-Bloat 4D Synaptic Memory over Markdown with Zero-Embedding Seeding, O(1) Hebbian SQLite WAL, 3D A* Synaptic Bridging, and Real-Time 3D Viewer.",
+  "type": "module",
+  "license": "AGPL-3.0-or-later",
+  "author": "Victor Muñoz Jara <victormunoz.research@gmail.com>",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "demo": "node demo.mjs",
+    "bench": "node bench/benchmark.mjs",
+    "compile": "node src/engine.mjs compile ./demo/memory",
+    "spark": "node src/engine.mjs spark ./demo/memory",
+    "bridge": "node src/engine.mjs bridge ./demo/memory"
+  },
+  "keywords": [
+    "llm-memory",
+    "ai-agents",
+    "local-first",
+    "zero-bloat",
+    "hebbian-learning",
+    "spreading-activation",
+    "sqlite-wal",
+    "markdown",
+    "knowledge-graph"
+  ]
+}

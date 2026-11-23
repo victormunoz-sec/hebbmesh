@@ -1,0 +1,1283 @@
+{
+  "A-01": [
+    "double billing",
+    "duplicate charge",
+    "payment retry safety",
+    "webhook replay",
+    "charged twice"
+  ],
+  "A-02": [
+    "database locking",
+    "readers blocked by writes",
+    "dashboard freezing",
+    "database busy error",
+    "concurrent database access"
+  ],
+  "A-03": [
+    "skim before reading",
+    "file outline",
+    "token waste",
+    "reading huge files",
+    "function list first"
+  ],
+  "A-04": [
+    "bot blocking",
+    "scraper shield",
+    "firewall at the edge",
+    "keeping crawlers out",
+    "datacenter bot ban"
+  ],
+  "A-05": [
+    "offline database in browser",
+    "local storage for mobile web",
+    "browser sqlite",
+    "offline app data",
+    "avoiding indexeddb headaches"
+  ],
+  "A-06": [
+    "tiny models cant handle big personas",
+    "too much role-play for small model",
+    "keep small models simple",
+    "overloaded persona",
+    "small model one job"
+  ],
+  "A-07": [
+    "clean slate agent",
+    "fresh context specialist",
+    "polluted context",
+    "messy css from noisy context",
+    "separate designer agent"
+  ],
+  "A-08": [
+    "signed login cookie",
+    "admin login security",
+    "tamper proof session token",
+    "cookie expiry one day",
+    "replacing static password token"
+  ],
+  "A-09": [
+    "page leaking to strangers",
+    "cdn caching private pages",
+    "cache mixup",
+    "logged in content exposed",
+    "caching danger"
+  ],
+  "A-10": [
+    "limit admin queries",
+    "no select everything",
+    "paging results",
+    "memory blowup",
+    "cap rows returned"
+  ],
+  "A-11": [
+    "synonyms at write time",
+    "search without embeddings",
+    "word associations when saving",
+    "tagging memories with slang",
+    "no vector model needed"
+  ],
+  "A-12": [
+    "summary notes crowding out",
+    "weekly recap too dominant",
+    "limit summaries in results",
+    "broad notes drowning specifics",
+    "one recap per search"
+  ],
+  "A-13": [
+    "private notes stay hidden",
+    "vault protection",
+    "no leaking secrets",
+    "privacy wall",
+    "sensitive memories blocked"
+  ],
+  "A-15": [
+    "cheap memory updates",
+    "no full rewrite",
+    "incremental learning",
+    "small database writes",
+    "fast save"
+  ],
+  "A-16": [
+    "terse agent chatter",
+    "shorthand between agents",
+    "no pleasantries",
+    "cheaper agent talk",
+    "compact status messages"
+  ],
+  "A-17": [
+    "when to hire a helper agent",
+    "not worth delegating",
+    "small edits do it yourself",
+    "delegation overhead",
+    "subagent rule of thumb"
+  ],
+  "A-18": [
+    "proof required from scouts",
+    "no made up findings",
+    "cite the line",
+    "double check reports",
+    "fact checking helpers"
+  ],
+  "A-19": [
+    "lessons from mistakes",
+    "do not repeat errors",
+    "short list of dont rules",
+    "self correction notes",
+    "mistake memory"
+  ],
+  "A-20": [
+    "false alarm",
+    "check before paging",
+    "verify data before alert",
+    "dont wake the founder",
+    "bad alert"
+  ],
+  "A-21": [
+    "prompt caching",
+    "stable prefix first",
+    "cheaper repeated prompts",
+    "ordering the prompt",
+    "timestamps at the end"
+  ],
+  "A-22": [
+    "interrupting the voice",
+    "talk over the assistant",
+    "stop speaking when cut off",
+    "echo problems",
+    "voice assistant cutoff"
+  ],
+  "A-23": [
+    "public logging endpoint abuse",
+    "fake log spam",
+    "input checking",
+    "log poisoning",
+    "untrusted client logs"
+  ],
+  "A-24": [
+    "deploy not going live",
+    "commits stuck in preview",
+    "branch name mismatch",
+    "repo rename breakage",
+    "wrong deploy branch"
+  ],
+  "A-25": [
+    "default password fallback",
+    "missing secret should crash",
+    "dev defaults in production",
+    "hardcoded credentials",
+    "fail safe config"
+  ],
+  "A-26": [
+    "measure first",
+    "find the real bottleneck",
+    "audit before optimizing",
+    "gut feeling wrong",
+    "80/20 analysis"
+  ],
+  "A-27": [
+    "safe file saving",
+    "half written file",
+    "write then rename",
+    "antivirus locks file",
+    "corrupt state file"
+  ],
+  "A-28": [
+    "better ad banner",
+    "sponsor placeholder",
+    "turning empty ad space into leads",
+    "ads that sell themselves",
+    "advertise here box"
+  ],
+  "A-29": [
+    "easy signup",
+    "no paperwork to start",
+    "freelancers bring product into companies",
+    "low friction free plan",
+    "trojan horse adoption"
+  ],
+  "A-30": [
+    "open source but paid for companies",
+    "dual license",
+    "agpl plus commercial",
+    "stop clones",
+    "licensing choice"
+  ],
+  "A-31": [
+    "local only server",
+    "not exposed to other sites",
+    "loopback only",
+    "dev server safety",
+    "browser tabs snooping localhost"
+  ],
+  "A-32": [
+    "credible benchmarks",
+    "proof over stories",
+    "reproducible tests",
+    "fair comparison",
+    "verifiable claims"
+  ],
+  "A-33": [
+    "open core",
+    "free engine paid kit",
+    "what to open source",
+    "monetizing a toolkit",
+    "free core paid extras"
+  ],
+  "A-34": [
+    "shorter papers",
+    "two papers instead of one",
+    "split the thesis",
+    "readable research",
+    "focused publications"
+  ],
+  "A-35": [
+    "git hanging",
+    "credential prompt freeze",
+    "automation stuck waiting",
+    "fail fast on auth",
+    "background script hang"
+  ],
+  "A-36": [
+    "too many database connections",
+    "serverless db bursts",
+    "traffic spike connections",
+    "http database driver",
+    "connection exhaustion"
+  ],
+  "A-37": [
+    "lock down dashboard scripts",
+    "no external cdn",
+    "xss protection",
+    "local viewer security",
+    "content policy"
+  ],
+  "A-38": [
+    "same layout every time",
+    "stable graph positions",
+    "remember where nodes sit",
+    "hash based positions",
+    "consistent 3d map"
+  ],
+  "A-39": [
+    "retry storm",
+    "email rate limits",
+    "slow down retries",
+    "webhook backoff",
+    "dont overwhelm provider"
+  ],
+  "A-40": [
+    "never edit old invoices",
+    "append only ledger",
+    "accounting trail",
+    "corrections as new entries",
+    "bookkeeping history"
+  ],
+  "A-41": [
+    "no npm packages",
+    "built in modules only",
+    "less supply chain risk",
+    "dependency free",
+    "easy install"
+  ],
+  "A-42": [
+    "staying in character",
+    "assistant forgetting who it is",
+    "identity reminder",
+    "drift into generic chatbot",
+    "short rules at session start"
+  ],
+  "A-43": [
+    "hiding error details",
+    "no stack traces to users",
+    "opaque error code",
+    "internal logging only",
+    "leaky 500 errors"
+  ],
+  "A-45": [
+    "quick notes by day",
+    "weekly cleanup",
+    "append only journal",
+    "merge duplicates later",
+    "daily vs weekly"
+  ],
+  "A-46": [
+    "cache mixups",
+    "vary header",
+    "mobile and desktop collision",
+    "cdn serving wrong version",
+    "edge cache trap"
+  ],
+  "A-47": [
+    "backup storage plan",
+    "old node version support",
+    "fallback to json",
+    "feature detection",
+    "graceful degradation"
+  ],
+  "A-48": [
+    "prove each feature helps",
+    "remove a part and compare",
+    "ablation test",
+    "earning its complexity",
+    "honest benchmark"
+  ],
+  "A-49": [
+    "hotkeys for viewer",
+    "quick demo experience",
+    "reset the camera",
+    "preset search buttons",
+    "instant wow factor"
+  ],
+  "A-50": [
+    "no leaks before push",
+    "secret scanner",
+    "keep private data out of repo",
+    "demo data vs real data",
+    "pre-push privacy check"
+  ],
+  "A-51": [
+    "one line index",
+    "map of docs",
+    "find the right doc fast",
+    "table of contents for agents",
+    "directory cheat sheet"
+  ],
+  "A-52": [
+    "database upgrades",
+    "schema versioning",
+    "dont wipe user data",
+    "safe migration",
+    "version number in db"
+  ],
+  "A-53": [
+    "screen unreadable in sunlight",
+    "dark mode outside",
+    "hiking app readability",
+    "low contrast problem",
+    "bright daylight testing"
+  ],
+  "A-54": [
+    "real users vs bots",
+    "honest analytics",
+    "vanity numbers",
+    "bot traffic filtered",
+    "true customer count"
+  ],
+  "A-55": [
+    "offline speech",
+    "local text to speech",
+    "voice interruption",
+    "speech worker isolated",
+    "no cloud voice"
+  ],
+  "A-56": [
+    "small model short prompt",
+    "long rules confuse tiny models",
+    "keep instructions brief",
+    "token budget for 3b",
+    "attention dilution"
+  ],
+  "A-57": [
+    "forgetting old links",
+    "fading connections",
+    "memory decay",
+    "pruning stale edges",
+    "let unused fade"
+  ],
+  "A-58": [
+    "fake persona for testing",
+    "synthetic data for open source",
+    "blind test questions",
+    "public benchmark data",
+    "auditable accuracy"
+  ],
+  "A-59": [
+    "copy email button",
+    "contact button that works",
+    "click to copy",
+    "sponsor inquiries",
+    "mailto alternative"
+  ],
+  "A-60": [
+    "no interruptions while coding",
+    "quiet hours",
+    "only emergencies ping",
+    "silence alerts",
+    "protect deep work"
+  ],
+  "DOC-1": [
+    "database concurrency guide",
+    "readers and writers together",
+    "wal explained",
+    "fast graph saving",
+    "sqlite how-to"
+  ],
+  "DOC-2": [
+    "double charge prevention",
+    "webhook security checklist",
+    "payment replay attacks",
+    "idempotency",
+    "stripe safety"
+  ],
+  "DOC-3": [
+    "offline mobile sync",
+    "field app storage",
+    "no signal database",
+    "browser sqlite vs indexeddb",
+    "hiking app data"
+  ],
+  "DOC-4": [
+    "bot defense guide",
+    "stopping scrapers",
+    "cloudflare firewall rules",
+    "serverless bill protection",
+    "blocking fuzzers"
+  ],
+  "DOC-5": [
+    "token cost research",
+    "agent hierarchy",
+    "where tokens go",
+    "three tier agents",
+    "orchestration findings"
+  ],
+  "DOC-6": [
+    "memory without embeddings",
+    "word mismatch fix",
+    "pathfinding between ideas",
+    "local agent memory",
+    "semantic seeds"
+  ],
+  "G-01": [
+    "pet dog",
+    "furry companion",
+    "canine friend",
+    "morning walk buddy",
+    "rescue pup"
+  ],
+  "G-02": [
+    "morning coffee",
+    "pour over ritual",
+    "first brew of the day",
+    "ethiopian beans",
+    "coffee before coding"
+  ],
+  "G-03": [
+    "music to relax",
+    "strumming guitar",
+    "unwinding hobby",
+    "after debugging",
+    "playing an instrument"
+  ],
+  "G-04": [
+    "old long commute",
+    "office life before",
+    "ninety minute drive",
+    "quit the daily grind",
+    "working from home switch"
+  ],
+  "G-05": [
+    "running routine",
+    "race training",
+    "jogging schedule",
+    "weekly runs",
+    "riverside exercise"
+  ],
+  "G-06": [
+    "sunday cooking",
+    "spicy food",
+    "thai dinner",
+    "homemade meal",
+    "kitchen hobby"
+  ],
+  "G-07": [
+    "laptop too weak",
+    "containers crash machine",
+    "out of memory freezes",
+    "avoiding heavy tools",
+    "low ram problem"
+  ],
+  "G-08": [
+    "invoice reminder app",
+    "billing side project",
+    "chasing late payments",
+    "micro saas",
+    "stripe reconciliation tool"
+  ],
+  "G-09": [
+    "hiking app",
+    "trail gps",
+    "offline maps",
+    "outdoors project",
+    "pwa for hikers"
+  ],
+  "G-10": [
+    "cheap hosting",
+    "serverless stack",
+    "cloudflare setup",
+    "low monthly cost",
+    "edge database"
+  ],
+  "G-11": [
+    "freelance designer",
+    "ux collaborator",
+    "onboarding screens",
+    "design partner",
+    "part time teammate"
+  ],
+  "G-12": [
+    "charged twice",
+    "duplicate webhook",
+    "double receipts",
+    "payment bug",
+    "billing incident"
+  ],
+  "G-13": [
+    "no signal in mountains",
+    "high altitude offline",
+    "zero connectivity",
+    "drafting without network",
+    "remote trail users"
+  ],
+  "G-14": [
+    "old server setup",
+    "expensive vps",
+    "before the migration",
+    "postgres on a box",
+    "legacy hosting"
+  ],
+  "G-15": [
+    "bot traffic spike",
+    "crawler surge",
+    "database reads exploded",
+    "scraper attack",
+    "october traffic flood"
+  ],
+  "G-16": [
+    "agent memory research",
+    "local first memory",
+    "no vector database",
+    "lightweight memory engine",
+    "coding agent recall"
+  ],
+  "G-17": [
+    "planners and workers",
+    "split thinking from reading",
+    "cheaper llm spend",
+    "delegation setup",
+    "thinker doer pattern"
+  ],
+  "G-18": [
+    "synonyms attached at save",
+    "no embedding model",
+    "vocabulary mismatch fix",
+    "semantic seeds",
+    "light search trick"
+  ],
+  "G-19": [
+    "small model loops",
+    "repeating itself",
+    "tiny model overload",
+    "persona prompt collapse",
+    "looping output"
+  ],
+  "G-20": [
+    "recaps hogging results",
+    "summary nodes too strong",
+    "weekly notes crowd out",
+    "retrieval slot theft",
+    "episodic cap"
+  ],
+  "G-21": [
+    "messy context hurts design",
+    "polluted agent",
+    "same model worse output",
+    "frontend quality drop",
+    "context contamination"
+  ],
+  "G-22": [
+    "reading while writing",
+    "live viewer and updates",
+    "database concurrency",
+    "visualization server",
+    "fast edge updates"
+  ],
+  "G-23": [
+    "blunt feedback",
+    "no fluff",
+    "straight talk",
+    "no wellness lectures",
+    "candid advice"
+  ],
+  "G-24": [
+    "money stress",
+    "end of month crunch",
+    "cash runway",
+    "rent and renewals",
+    "bills piling up"
+  ],
+  "G-25": [
+    "deep focus",
+    "flow state",
+    "long coding sprint",
+    "interrupted by pings",
+    "hyperfocus"
+  ],
+  "G-26": [
+    "customer renewals",
+    "paying users",
+    "confidence boost",
+    "motivation from revenue",
+    "validation"
+  ],
+  "G-27": [
+    "private diary",
+    "personal notes offline",
+    "keep journal separate",
+    "no sharing reflections",
+    "privacy boundary"
+  ],
+  "G-28": [
+    "fixing everything at once",
+    "all-nighter weekend",
+    "tech debt binge",
+    "burnout habit",
+    "sleepless refactor"
+  ],
+  "G-29": [
+    "ship small",
+    "iterate fast",
+    "less polishing",
+    "user feedback first",
+    "incremental releases"
+  ],
+  "G-30": [
+    "incident write-up",
+    "post mortem habit",
+    "learning from outages",
+    "panic to checklist",
+    "lessons after failure"
+  ],
+  "G-31": [
+    "sketchbook",
+    "drawing ideas",
+    "pocket notes",
+    "coffee and diagrams",
+    "away from screen"
+  ],
+  "G-32": [
+    "rainy days",
+    "writing weather",
+    "autumn mood",
+    "long essays",
+    "valdivia rain"
+  ],
+  "G-33": [
+    "keyboard tinkering",
+    "typing feel",
+    "tactile switches",
+    "fixing old hardware",
+    "brown switches"
+  ],
+  "G-34": [
+    "dog reminder",
+    "evening walk",
+    "time for a break",
+    "nudge at dusk",
+    "dog's routine"
+  ],
+  "G-35": [
+    "target customers",
+    "small studios",
+    "erp frustration",
+    "who buys it",
+    "agency clients"
+  ],
+  "G-36": [
+    "firewall savings",
+    "bot waves",
+    "lower database bill",
+    "blocking bots",
+    "exposure cut"
+  ],
+  "G-37": [
+    "next features",
+    "emergency waypoints",
+    "battery saving",
+    "gps polling",
+    "safety roadmap"
+  ],
+  "G-38": [
+    "privacy check before push",
+    "leak scanner",
+    "github safeguard",
+    "automated dlp",
+    "clean public repos"
+  ],
+  "G-39": [
+    "paired projects",
+    "memory plus token savings",
+    "two repos",
+    "companion tools",
+    "complementary research"
+  ],
+  "G-40": [
+    "preprint",
+    "proof of authorship",
+    "zenodo doi",
+    "before launching",
+    "timestamped paper"
+  ],
+  "G-41": [
+    "paid starter kit",
+    "turnkey hooks",
+    "nightly consolidation",
+    "agent factory",
+    "ide toolkit"
+  ],
+  "G-42": [
+    "same layout every load",
+    "fnv hash",
+    "recognizable map",
+    "spatial memory",
+    "stable 3d positions"
+  ],
+  "G-43": [
+    "mistakes into rules",
+    "no self-blame",
+    "production errors",
+    "negative rule",
+    "learning mindset"
+  ],
+  "G-44": [
+    "builder friends",
+    "solo founder loneliness",
+    "sharing wins",
+    "community support",
+    "counter isolation"
+  ],
+  "G-45": [
+    "quiet mornings",
+    "no slack",
+    "creative output",
+    "hard problems",
+    "distraction free start"
+  ],
+  "HITO-1": [
+    "first launch",
+    "mvp shipped",
+    "beta agencies",
+    "overdue invoice emails",
+    "checkout live"
+  ],
+  "HITO-2": [
+    "double charge fix",
+    "payment incident resolved",
+    "signature check",
+    "event ledger table",
+    "billing bug patched"
+  ],
+  "HITO-3": [
+    "hosting savings",
+    "left the vps",
+    "postgres to edge",
+    "bill cut by 88 percent",
+    "cheaper infrastructure"
+  ],
+  "HITO-4": [
+    "hiking app released",
+    "offline map tiles",
+    "v1 launch",
+    "service worker caching",
+    "pwa shipped"
+  ],
+  "HITO-5": [
+    "designer delivered",
+    "dark ui kit",
+    "sunlight readability",
+    "trailhead screens",
+    "oled design"
+  ],
+  "HITO-6": [
+    "survived traffic spike",
+    "bot flood handled",
+    "firewall rules deployed",
+    "rate limiting",
+    "scraper surge"
+  ],
+  "HITO-7": [
+    "revenue milestone",
+    "420 a month",
+    "twelve customers",
+    "no cancellations",
+    "recurring income"
+  ],
+  "HITO-8": [
+    "small model experiment",
+    "laptop pr review",
+    "looping output",
+    "3b trial",
+    "persona overload test"
+  ],
+  "HITO-9": [
+    "code outliner",
+    "token reduction",
+    "skimming tool",
+    "smaller reads",
+    "64 percent less"
+  ],
+  "HITO-10": [
+    "seo setup",
+    "google indexing",
+    "ai crawlers allowed",
+    "sitemap",
+    "landing page discoverability"
+  ],
+  "HITO-11": [
+    "stuck deploys found",
+    "wrong branch",
+    "pages config fix",
+    "commits not publishing",
+    "production branch switch"
+  ],
+  "HITO-12": [
+    "better sponsor slots",
+    "ad banner swap",
+    "copy email capsule",
+    "advertise here",
+    "ad placeholder replaced"
+  ],
+  "HITO-13": [
+    "security pass",
+    "admin lockdown",
+    "hardening sprint",
+    "safe cookies",
+    "query caps"
+  ],
+  "HITO-14": [
+    "memory prototype",
+    "skill tree idea",
+    "fix agent amnesia",
+    "associative network",
+    "first brain sketch"
+  ],
+  "HITO-15": [
+    "storage upgrade",
+    "faster saves",
+    "from json to sqlite",
+    "wal switch",
+    "incremental learning writes"
+  ],
+  "HITO-16": [
+    "agent chain works",
+    "fast audit",
+    "no hallucinations",
+    "three level delegation",
+    "25 second run"
+  ],
+  "HITO-17": [
+    "3d brain viewer",
+    "live neuron display",
+    "visual demo",
+    "localhost dashboard",
+    "spherical map"
+  ],
+  "HITO-18": [
+    "synonym seeding added",
+    "redundancy map",
+    "docs linked to lessons",
+    "no embeddings feature",
+    "bridging knowledge"
+  ],
+  "HITO-19": [
+    "pathfinding feature",
+    "concept bridge",
+    "a star routing",
+    "hub penalty",
+    "privacy wall built in"
+  ],
+  "HITO-20": [
+    "weekly summaries shipped",
+    "recap nodes",
+    "hub throttling",
+    "open core prep",
+    "release preparation"
+  ],
+  "HITO-21": [
+    "domain setup",
+    "dnssec",
+    "tls hardening",
+    "security before code",
+    "cloudflare dns"
+  ],
+  "HITO-22": [
+    "pdf invoices",
+    "verification footer",
+    "hash on invoice",
+    "client documents",
+    "invoice generator"
+  ],
+  "HITO-23": [
+    "alpha testers",
+    "first agencies",
+    "design studios onboarded",
+    "ux feedback",
+    "closed beta"
+  ],
+  "HITO-24": [
+    "reminder cadence",
+    "dunning emails",
+    "day 1 7 14",
+    "late payment nudges",
+    "custom email copy"
+  ],
+  "HITO-25": [
+    "gpx recording",
+    "elevation charts",
+    "track logging offline",
+    "hiking features",
+    "profile graphs"
+  ],
+  "HITO-26": [
+    "field test",
+    "mountain loop",
+    "no signal sync",
+    "notes synced after return",
+    "trail test"
+  ],
+  "HITO-27": [
+    "backup script",
+    "nightly backup",
+    "usb drive copy",
+    "encrypted snapshots",
+    "disaster recovery"
+  ],
+  "HITO-28": [
+    "faster cold starts",
+    "removed orm",
+    "raw sql",
+    "edge speed",
+    "under 8 ms"
+  ],
+  "HITO-29": [
+    "blog post",
+    "low ram laptop essay",
+    "constraints breed clean design",
+    "first article",
+    "8gb advantage"
+  ],
+  "HITO-30": [
+    "transcript audit",
+    "where tokens go",
+    "pareto finding",
+    "read file bottleneck",
+    "telemetry discovery"
+  ],
+  "HITO-31": [
+    "agent shorthand protocol",
+    "dsl draft",
+    "cut coordination tokens",
+    "terse swarm messages",
+    "first protocol version"
+  ],
+  "HITO-32": [
+    "context isolation proven",
+    "clean vs polluted test",
+    "ui agent experiment",
+    "same model comparison",
+    "frontend specialist result"
+  ],
+  "HITO-33": [
+    "docs index generator",
+    "auto map",
+    "instant refresh",
+    "knowledge index sync",
+    "20 ms"
+  ],
+  "HITO-34": [
+    "token diet benchmark",
+    "86 percent savings",
+    "accuracy kept",
+    "five tasks test",
+    "bench script"
+  ],
+  "HITO-35": [
+    "model stress tests",
+    "crash test suite",
+    "small model failure",
+    "flash skips tools",
+    "ontological overload experiments"
+  ],
+  "HITO-36": [
+    "privacy verified",
+    "vault unreachable",
+    "leak test passed",
+    "firewall check",
+    "private nodes safe"
+  ],
+  "HITO-37": [
+    "tokenscalpel repo",
+    "standalone package",
+    "companion release",
+    "agpl plus commercial",
+    "zero dependency tool"
+  ],
+  "HITO-38": [
+    "bigger benchmark",
+    "200 neurons",
+    "slow orbit viewer",
+    "observatory",
+    "expanded dataset"
+  ],
+  "INBOX-1": [
+    "fts5 comparison",
+    "baseline search test",
+    "keyword search benchmark",
+    "sqlite full text",
+    "comparator"
+  ],
+  "INBOX-2": [
+    "repo naming",
+    "project name chosen",
+    "crowded github names",
+    "naming decision",
+    "public repo title"
+  ],
+  "INBOX-3": [
+    "license decision",
+    "agpl dual license",
+    "commercial license",
+    "stop closed saas clones",
+    "open source terms"
+  ],
+  "INBOX-4": [
+    "rainy sunday",
+    "ramen cooking",
+    "dog asleep by desk",
+    "cozy day",
+    "valdivia weekend"
+  ],
+  "INBOX-5": [
+    "zenodo plan",
+    "publish papers first",
+    "doi before launch",
+    "preprint upload",
+    "hacker news prep"
+  ],
+  "INBOX-6": [
+    "next test script",
+    "model comparison",
+    "tool calling test",
+    "identity stability",
+    "eval plan"
+  ],
+  "INBOX-7": [
+    "tight finances",
+    "bills at month end",
+    "customer onboarding priority",
+    "money pressure",
+    "launch and cashflow"
+  ],
+  "INBOX-8": [
+    "starter kit download",
+    "gumroad listing",
+    "paid kit",
+    "pre wired hooks",
+    "nightly rem"
+  ],
+  "PERFIL-1": [
+    "who alex is",
+    "indie developer",
+    "solo founder",
+    "remote worker",
+    "south chile dev"
+  ],
+  "PERFIL-2": [
+    "weak laptop",
+    "low spec machine",
+    "minimalist engineering",
+    "8gb ultrabook",
+    "lean philosophy"
+  ],
+  "PERFIL-3": [
+    "morning routine",
+    "dog walk",
+    "pour over coffee",
+    "riverside stroll",
+    "before checking metrics"
+  ],
+  "PERFIL-4": [
+    "coding playlist",
+    "instrumental music",
+    "post rock",
+    "no lyrics",
+    "focus tunes"
+  ],
+  "PERFIL-5": [
+    "evening guitar",
+    "weekend races",
+    "10k runs",
+    "fingerstyle",
+    "hobbies"
+  ],
+  "PERFIL-6": [
+    "thai cooking",
+    "spicy dishes",
+    "ramen from scratch",
+    "cold weekend cooking",
+    "kitchen favorites"
+  ],
+  "PERFIL-7": [
+    "gaming downtime",
+    "strategy games",
+    "card games",
+    "rpg fan",
+    "time off"
+  ],
+  "PERFIL-8": [
+    "pet peeves",
+    "hates bloat",
+    "no buzzwords",
+    "subscription fatigue",
+    "docker dislike"
+  ],
+  "PERFIL-9": [
+    "answer first",
+    "bottom line up front",
+    "collapsible details",
+    "no long intros",
+    "communication style"
+  ],
+  "PERFIL-10": [
+    "plain text notes",
+    "markdown forever",
+    "no vendor lock-in",
+    "future proof knowledge",
+    "own your notes"
+  ],
+  "PERFIL-11": [
+    "long term dream",
+    "open core studio",
+    "honest products",
+    "no vc",
+    "sustainable business"
+  ],
+  "PERFIL-12": [
+    "private reflections",
+    "offline journal",
+    "encrypted drive",
+    "money worries kept local",
+    "no cloud sharing"
+  ],
+  "S-W44-F1": [
+    "rainy trail run",
+    "12 km run",
+    "ramen night",
+    "keyboard repair",
+    "week 44 personal"
+  ],
+  "S-W44-F2": [
+    "transcript audit week",
+    "read file bottleneck",
+    "first outliner",
+    "token findings",
+    "week 44 research"
+  ],
+  "S-W44-F3": [
+    "search console unlocked",
+    "crawlers allowed",
+    "cold start improvement",
+    "orm removal",
+    "week 44 shipping"
+  ],
+  "S-W44-F4": [
+    "energized week",
+    "frustration to breakthrough",
+    "token savings win",
+    "pragmatic mood",
+    "week 44 feelings"
+  ],
+  "S-W45-F1": [
+    "quiet mornings",
+    "no inbox before coffee",
+    "first lobe sketch",
+    "notebook diagram",
+    "week 45 personal"
+  ],
+  "S-W45-F2": [
+    "context isolation validated",
+    "clean specialist wins",
+    "knowledge map generator",
+    "week 45 research",
+    "ui experiment"
+  ],
+  "S-W45-F3": [
+    "branch drift fixed",
+    "unblocked commits",
+    "sponsor banners live",
+    "week 45 shipping",
+    "prod to main"
+  ],
+  "S-W45-F4": [
+    "friends encouraged",
+    "sharing findings",
+    "shipping in public",
+    "week 45 feelings",
+    "builder support"
+  ],
+  "S-W46-F1": [
+    "rainy run streak",
+    "two river runs",
+    "green curry sunday",
+    "guitar evening",
+    "week 46 personal"
+  ],
+  "S-W46-F2": [
+    "first 4d memory prototype",
+    "rpg skill tree idea",
+    "session amnesia fix",
+    "small model overload proof",
+    "week 46 research"
+  ],
+  "S-W46-F3": [
+    "security sprint",
+    "admin hardening done",
+    "ad slots replaced",
+    "week 46 shipping",
+    "appsec pass"
+  ],
+  "S-W46-F4": [
+    "energy dip friday",
+    "relief zero churn",
+    "confidence from mrr",
+    "sprint fatigue",
+    "week 46 feelings"
+  ],
+  "S-W47-F1": [
+    "rainy sunday ramen",
+    "dog by the desk",
+    "journals offline rule",
+    "week 47 personal",
+    "cozy weekend"
+  ],
+  "S-W47-F2": [
+    "sqlite upgrade week",
+    "seeding feature",
+    "3d gps",
+    "weekly nodes introduced",
+    "week 47 research"
+  ],
+  "S-W47-F3": [
+    "3d viewer built",
+    "delegation validated",
+    "25 second audit",
+    "pending synthetic test",
+    "week 47 shipping"
+  ],
+  "S-W47-F4": [
+    "cashflow stress returns",
+    "pride in live network",
+    "month end worry",
+    "first firing moment",
+    "week 47 feelings"
+  ]
+}

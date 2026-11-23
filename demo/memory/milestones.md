@@ -1,0 +1,41 @@
+# Project Milestones & Incident Log — Alex Rivera
+
+- [2026-09-12] Launched PulseBill MVP with Stripe Checkout and automated 7-day overdue invoice emails to 14 beta agencies | sem: first launch, billing mvp, initial users | eco: excited relief seeing the first invoice sent
+- [2026-09-19] Fixed critical Stripe double-charge incident by adding `stripe_events` idempotency table and webhook signature verification | sem: billing bug resolved, duplicate payment fix
+- [2026-09-25] Migrated PulseBill database from $40 VPS Postgres to Cloudflare D1 cutting monthly hosting bill by 88% | sem: infrastructure cost cut, d1 migration, serverless savings
+- [2026-10-03] Shipped TrailMap PWA v1.0 with offline topo map tiles cached via Service Worker and OPFS SQLite | sem: hiking release, offline capability, mobile pwa
+- [2026-10-09] Maya Chen delivered TrailMap dark OLED trail-head UI kit improving mobile readability in bright sunlight | sem: design handoff, outdoor ux, contrast upgrade
+- [2026-10-14] Survived 40x scraper spike on PulseBill public invoice lookup by deploying 4 Cloudflare WAF custom rules and rate limiting | sem: bot attack blocked, edge defense, d1 rows saved
+- [2026-10-18] Reached $420 MRR on PulseBill with 12 paying small studios and zero churn over 30 days | sem: recurring revenue, first profit, validation milestone | eco: warm pride and calm confidence
+- [2026-10-22] Tested local 3B code model on 8 GB laptop for automated PR triage; observed repetition loop when given rich persona prompt | sem: slm experiment, local ai test, model collapse
+- [2026-10-27] Built structural code outliner (`firmas.mjs`) reducing agent `read_file` input volume by 64% across TypeScript repos | sem: token savings tool, ast parser, context diet
+- [2026-11-01] Added Google Search Console sitemaps and unlocked AI search crawlers in Cloudflare WAF for PulseBill landing pages | sem: seo indexing, organic traffic, crawler fix
+- [2026-11-04] Discovered TrailMap staging commits stuck on `prod` branch mismatch in Cloudflare Pages; switched production branch to `main` | sem: ci fix, deployment bug, stuck release
+- [2026-11-08] Replaced placeholder ad banners on PulseBill public tools with self-selling B2B sponsor slots featuring click-to-copy email | sem: monetization experiment, sponsor slot, lead capture
+- [2026-11-11] Completed full security hardening pass on PulseBill admin routes: HMAC cookies, timing-safe auth, Zod log validation, and query limits | sem: appsec sprint, auth upgrade, security pass
+- [2026-11-14] Prototyped 4D associative memory network over Markdown inspired by RPG skill trees to fix agent session amnesia | sem: memory prototype, graph idea, breakthrough | eco: genuine breakthrough excitement
+- [2026-11-16] Upgraded memory persistence from flat JSON rewrites to native `node:sqlite` WAL with O(1) incremental Hebbian edge updates | sem: sqlite upgrade, fast writes, concurrency
+- [2026-11-18] Validated 3-tier HMAS delegation chain (Coordinator -> Specialist -> Scout) completing 4-file audit in 25 seconds with zero hallucinations | sem: swarm validation, hierarchical agents, speed test
+- [2026-11-19] Built interactive spherical 3D brain viewer on `127.0.0.1:4321` visualizing live neuron firing and 4-lobe balance | sem: 3d visualization, webgl graph, brain viewer | eco: pure joy watching the first sparks light up in 3D
+- [2026-11-20] Added Zero-Embedding Seeding (`| sem:`) and real-time Anti-Redundancy Map bridging knowledge docs to assimilated lessons | sem: semantic upgrade, stop repeating research, zero bloat
+- [2026-11-21] Implemented 3D A* Synaptic GPS bridging disjoint concepts with anti-pareidolia hub penalties and strict privacy firewall | sem: shortest path graph, hidden connections, a star bridge
+- [2026-11-22] Shipped weekly episodic nodes (`S-Wnn-F1..F4`) with triple anti-super-hub throttling and prepared HebbMesh open-core release | sem: episodic memory, open source launch, agpl release
+
+- [2026-08-18] Registered PulseBill domain and configured DNSSEC + strict TLS 1.3 on Cloudflare before writing the first API route | sem: domain setup, tls hardening, early launch
+- [2026-08-26] Built automated PDF invoice generator with SHA-256 verification footer for PulseBill B2B clients | sem: pdf billing, invoice hash, document integrity
+- [2026-09-02] Onboarded first 5 design agencies into PulseBill closed alpha and collected structured UX feedback | sem: alpha users, agency feedback, early validation
+- [2026-09-08] Implemented automated 3-stage overdue payment reminder cadence (Day 1, Day 7, Day 14) with customizable email copy | sem: payment reminders, dunning emails, cashflow automation
+- [2026-09-29] Added offline GPX track recording and elevation profile charts to TrailMap mobile PWA | sem: gpx tracking, elevation chart, hiking telemetry
+- [2026-10-06] Tested TrailMap offline sync on a 14 km mountain loop in Valdivia with zero cellular coverage; 100% of trail notes synced cleanly upon return | sem: field test, backcountry sync, real mountain test | eco: proud relief seeing offline sync work flawlessly in the rain
+- [2026-10-11] Created automated nightly SQLite backup script copying encrypted snapshots to an external USB drive | sem: local backup, encrypted usb, disaster recovery
+- [2026-10-16] Reduced PulseBill edge worker cold-start time below 8 ms by removing heavy ORM abstractions in favor of raw prepared SQL | sem: worker speed, raw sql, fast api, remove orm
+- [2026-10-20] Published first technical post on why 8 GB RAM laptops force cleaner software architecture than 64 GB workstations | sem: blog post, zero bloat essay, developer audience
+- [2026-10-24] Audited 261 coding-agent sessions with custom telemetry script and uncovered the 70.1% `read_file` Pareto bottleneck | sem: telemetry discovery, pareto analysis, token audit | eco: genuine surprise seeing read_file dominate token spend
+- [2026-10-30] Drafted first version of `HMAS-DSL` telegraphic inter-agent protocol cutting swarm coordination tokens by over 50% | sem: dsl protocol, swarm compression, token savings
+- [2026-11-02] Validated same-model context isolation experiment comparing backend-polluted UI output against a clean frontend specialist | sem: context isolation, empirical proof, ui quality
+- [2026-11-06] Integrated automated L0 knowledge map generator keeping technical reference indexes synchronized in under 20 ms | sem: l0 map, doc indexing, fast lookup
+- [2026-11-10] Built `bench_token_diet.mjs` verifying 86.4% input token reduction across 5 real engineering tasks with 10/10 target accuracy | sem: token benchmark, reproducible savings, verified pass
+- [2026-11-12] Designed Variable-Model Crash-Test Suite (`E1–E4`) exposing ontological overload in 3B SLMs and warm-chat tool omission in Flash models | sem: model evals, crash test, slm benchmark
+- [2026-11-15] Completed privacy firewall verification ensuring private vault nodes remain unreachable via both spreading activation and 3D A* pathfinding | sem: privacy audit, zero leaks, security gate
+- [2026-11-17] Packaged TokenScalpel as a standalone zero-dependency companion repository under GNU AGPL-3.0 + Commercial Dual License | sem: sister repo, tokenscalpel release, dual license
+- [2026-11-22] Expanded HebbMesh synthetic benchmark to 200+ neurons and 1,400+ edges with continuous slow-orbit 3D Synaptic Observatory viewer | sem: visual polish, rich demo graph, launch ready | eco: excited anticipation ready to share with the world

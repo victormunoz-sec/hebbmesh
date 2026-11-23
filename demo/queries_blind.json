@@ -1,0 +1,810 @@
+[
+  {
+    "id": "B01",
+    "cat": "direct",
+    "cluster": "payments_stripe",
+    "query": "How do I stop duplicate Stripe webhook deliveries from charging customers twice?",
+    "expected": [
+      "A-01",
+      "DOC-2",
+      "HITO-2"
+    ]
+  },
+  {
+    "id": "B02",
+    "cat": "direct",
+    "cluster": "sqlite_wal",
+    "query": "How can my dashboard keep reading the SQLite database while writes are happening without lock errors?",
+    "expected": [
+      "A-02",
+      "DOC-1"
+    ]
+  },
+  {
+    "id": "B03",
+    "cat": "direct",
+    "cluster": "edge_waf",
+    "query": "How do I block datacenter scraper bots at Cloudflare before they ever reach D1?",
+    "expected": [
+      "A-04",
+      "DOC-4"
+    ]
+  },
+  {
+    "id": "B04",
+    "cat": "direct",
+    "cluster": "offline_trailmap",
+    "query": "Should I use IndexedDB or SQLite WASM for an offline-first mobile web app?",
+    "expected": [
+      "A-05",
+      "DOC-3"
+    ]
+  },
+  {
+    "id": "B05",
+    "cat": "direct",
+    "cluster": "llm_slm",
+    "query": "Why does my 3B local model loop on a long multi-persona system prompt?",
+    "expected": [
+      "A-06",
+      "G-19"
+    ]
+  },
+  {
+    "id": "B06",
+    "cat": "direct",
+    "cluster": "security_auth",
+    "query": "How do I replace a static admin token with signed session cookies?",
+    "expected": [
+      "A-08"
+    ]
+  },
+  {
+    "id": "B07",
+    "cat": "direct",
+    "cluster": "nextjs_cache",
+    "query": "How do I keep authenticated Next.js pages from being cached by the CDN and shown to anonymous users?",
+    "expected": [
+      "A-09"
+    ]
+  },
+  {
+    "id": "B08",
+    "cat": "direct",
+    "cluster": "token_economics",
+    "query": "How can I cut input tokens when an agent has to read huge source files?",
+    "expected": [
+      "A-03",
+      "HITO-9"
+    ]
+  },
+  {
+    "id": "B09",
+    "cat": "direct",
+    "cluster": "voice_ui",
+    "query": "How should a voice assistant handle the user interrupting while text-to-speech is playing?",
+    "expected": [
+      "A-22",
+      "A-55"
+    ]
+  },
+  {
+    "id": "B10",
+    "cat": "direct",
+    "cluster": "branch_drift",
+    "query": "My commits are not deploying to production after I renamed the repo branch in Cloudflare Pages",
+    "expected": [
+      "A-24",
+      "HITO-11"
+    ]
+  },
+  {
+    "id": "B11",
+    "cat": "direct",
+    "cluster": "open_source_launch",
+    "query": "Which license lets me open-source my engine but still sell commercial licenses?",
+    "expected": [
+      "A-30",
+      "INBOX-3"
+    ]
+  },
+  {
+    "id": "B12",
+    "cat": "direct",
+    "cluster": "hmas_dsl",
+    "query": "How should subagents talk to each other to save coordination tokens?",
+    "expected": [
+      "A-16",
+      "HITO-31"
+    ]
+  },
+  {
+    "id": "B13",
+    "cat": "direct",
+    "cluster": "security_secrets",
+    "query": "What should happen when CRON_SECRET or ADMIN_PASSWORD is missing in production?",
+    "expected": [
+      "A-25"
+    ]
+  },
+  {
+    "id": "B14",
+    "cat": "direct",
+    "cluster": "security_hardening",
+    "query": "How do I stop an admin dashboard from loading an entire table into serverless memory?",
+    "expected": [
+      "A-10"
+    ]
+  },
+  {
+    "id": "B15",
+    "cat": "direct",
+    "cluster": "windows_io",
+    "query": "Safest way to write JSON state files on Windows without partial reads or antivirus lock crashes?",
+    "expected": [
+      "A-27"
+    ]
+  },
+  {
+    "id": "B16",
+    "cat": "direct",
+    "cluster": "git_automation",
+    "query": "My automated git status check hangs forever when credentials expire",
+    "expected": [
+      "A-35"
+    ]
+  },
+  {
+    "id": "B17",
+    "cat": "direct",
+    "cluster": "ad_monetization",
+    "query": "How do I make sponsor ad placeholders on my public tools actually generate B2B inquiries?",
+    "expected": [
+      "A-28",
+      "A-59",
+      "HITO-12"
+    ]
+  },
+  {
+    "id": "B18",
+    "cat": "direct",
+    "cluster": "viewer_security",
+    "query": "How do I secure a local 3D visualization server that only I should access?",
+    "expected": [
+      "A-31",
+      "A-37"
+    ]
+  },
+  {
+    "id": "B19",
+    "cat": "direct",
+    "cluster": "schema_migration",
+    "query": "How do I add a schema version in SQLite so upgrades don't wipe existing user data?",
+    "expected": [
+      "A-52"
+    ]
+  },
+  {
+    "id": "B20",
+    "cat": "direct",
+    "cluster": "privacy_dlp",
+    "query": "How do I scan a public release folder for personal data before pushing to GitHub?",
+    "expected": [
+      "A-50",
+      "G-38"
+    ]
+  },
+  {
+    "id": "B21",
+    "cat": "semantic",
+    "cluster": "zero_embedding",
+    "query": "How do I make a note-retrieval tool understand figures of speech while skipping a giant neural network download?",
+    "expected": [
+      "A-11",
+      "G-18"
+    ]
+  },
+  {
+    "id": "B22",
+    "cat": "semantic",
+    "cluster": "episodic_cap",
+    "query": "My overview digests keep crowding out the exact guidance in search results",
+    "expected": [
+      "A-12",
+      "G-20"
+    ]
+  },
+  {
+    "id": "B23",
+    "cat": "semantic",
+    "cluster": "privacy_firewall",
+    "query": "How do I guarantee confidential entries can never surface, not as stepping stones on a route between ideas?",
+    "expected": [
+      "A-13",
+      "HITO-36"
+    ]
+  },
+  {
+    "id": "B24",
+    "cat": "semantic",
+    "cluster": "sqlite_wal",
+    "query": "Why save only the touched connections rather than dumping everything to disk each time I ask something?",
+    "expected": [
+      "A-15",
+      "HITO-15"
+    ]
+  },
+  {
+    "id": "B25",
+    "cat": "semantic",
+    "cluster": "delegation",
+    "query": "When is it not worth hiring a helper for a small change?",
+    "expected": [
+      "A-17"
+    ]
+  },
+  {
+    "id": "B26",
+    "cat": "semantic",
+    "cluster": "delegation",
+    "query": "How do I stop my helper bots from inventing findings that I then trust?",
+    "expected": [
+      "A-18",
+      "HITO-16"
+    ]
+  },
+  {
+    "id": "B27",
+    "cat": "semantic",
+    "cluster": "llm_slm",
+    "query": "A short list of don'ts from my past blunders, loaded up front and retired once they are learned",
+    "expected": [
+      "A-19",
+      "G-43"
+    ]
+  },
+  {
+    "id": "B28",
+    "cat": "semantic",
+    "cluster": "founder_focus",
+    "query": "Don't buzz me at 3am about an issue that was already handled",
+    "expected": [
+      "A-20"
+    ]
+  },
+  {
+    "id": "B29",
+    "cat": "semantic",
+    "cluster": "token_economics",
+    "query": "Arrange the instructions so the vendor reuses what it already processed and my bill shrinks",
+    "expected": [
+      "A-21"
+    ]
+  },
+  {
+    "id": "B30",
+    "cat": "semantic",
+    "cluster": "security_hardening",
+    "query": "Anyone on the internet can post junk into my security event feed from the browser",
+    "expected": [
+      "A-23"
+    ]
+  },
+  {
+    "id": "B31",
+    "cat": "semantic",
+    "cluster": "token_economics",
+    "query": "Gather actual usage data before crafting a speedup, because gut feelings point at the mistaken culprit",
+    "expected": [
+      "A-26",
+      "HITO-30"
+    ]
+  },
+  {
+    "id": "B32",
+    "cat": "semantic",
+    "cluster": "pulsebill_growth",
+    "query": "Let solo freelancers try the product without red tape so they carry it into big companies",
+    "expected": [
+      "A-29"
+    ]
+  },
+  {
+    "id": "B33",
+    "cat": "semantic",
+    "cluster": "open_source_launch",
+    "query": "Skeptical strangers should be able to replay my numbers using invented records",
+    "expected": [
+      "A-32",
+      "A-58",
+      "INBOX-1"
+    ]
+  },
+  {
+    "id": "B34",
+    "cat": "semantic",
+    "cluster": "open_source_launch",
+    "query": "Give away the foundation but charge for the ready-to-go bundle",
+    "expected": [
+      "A-33",
+      "G-41",
+      "INBOX-8"
+    ]
+  },
+  {
+    "id": "B35",
+    "cat": "semantic",
+    "cluster": "open_source_launch",
+    "query": "Brief, sharply scoped write-ups travel further than one gigantic treatise",
+    "expected": [
+      "A-34"
+    ]
+  },
+  {
+    "id": "B36",
+    "cat": "semantic",
+    "cluster": "serverless_infra",
+    "query": "My function-as-a-service backend runs out of sockets when visitors flood in",
+    "expected": [
+      "A-36"
+    ]
+  },
+  {
+    "id": "B37",
+    "cat": "semantic",
+    "cluster": "viewer_3d",
+    "query": "When I revisit the glowing picture of my knowledge, every dot should reappear exactly where it sat before",
+    "expected": [
+      "A-38",
+      "G-42"
+    ]
+  },
+  {
+    "id": "B38",
+    "cat": "semantic",
+    "cluster": "payments_stripe",
+    "query": "After an outage, hammering the mail vendor with repeat attempts gets me throttled",
+    "expected": [
+      "A-39"
+    ]
+  },
+  {
+    "id": "B39",
+    "cat": "semantic",
+    "cluster": "payments_stripe",
+    "query": "Corrections to past bills should be stacked on top and must not be scribbled over the old lines, so the bookkeeper's totals still match",
+    "expected": [
+      "A-40"
+    ]
+  },
+  {
+    "id": "B40",
+    "cat": "semantic",
+    "cluster": "zero_dependency",
+    "query": "Lean on what the runtime ships with instead of pulling third-party libraries",
+    "expected": [
+      "A-41"
+    ]
+  },
+  {
+    "id": "B41",
+    "cat": "semantic",
+    "cluster": "llm_slm",
+    "query": "Keep the AI from turning bland and forgetting who it is during marathon chats",
+    "expected": [
+      "A-42"
+    ]
+  },
+  {
+    "id": "B42",
+    "cat": "semantic",
+    "cluster": "security_hardening",
+    "query": "Customers shouldn't see my database guts when the server breaks",
+    "expected": [
+      "A-43"
+    ]
+  },
+  {
+    "id": "B43",
+    "cat": "semantic",
+    "cluster": "memory_capture",
+    "query": "Jot quick one-liners as things happen and tidy up in a single pass at the end of each cycle",
+    "expected": [
+      "A-45"
+    ]
+  },
+  {
+    "id": "B44",
+    "cat": "semantic",
+    "cluster": "nextjs_cache",
+    "query": "Phone visitors and desktop visitors got each other's pages from the CDN",
+    "expected": [
+      "A-46"
+    ]
+  },
+  {
+    "id": "B45",
+    "cat": "semantic",
+    "cluster": "sqlite_wal",
+    "query": "Make the tool still work on outdated JavaScript installs lacking the embedded database",
+    "expected": [
+      "A-47"
+    ]
+  },
+  {
+    "id": "B46",
+    "cat": "semantic",
+    "cluster": "open_source_launch",
+    "query": "Turn off one piece at a time to demonstrate that every part justifies its weight",
+    "expected": [
+      "A-48"
+    ]
+  },
+  {
+    "id": "B47",
+    "cat": "semantic",
+    "cluster": "viewer_3d",
+    "query": "Newcomers should witness action in a few ticks of the clock via shortcut buttons in the spatial demo",
+    "expected": [
+      "A-49"
+    ]
+  },
+  {
+    "id": "B48",
+    "cat": "semantic",
+    "cluster": "token_economics",
+    "query": "A cheat sheet listing one sentence about each manual so the bot doesn't have to wade through folders",
+    "expected": [
+      "A-51",
+      "HITO-33"
+    ]
+  },
+  {
+    "id": "B49",
+    "cat": "semantic",
+    "cluster": "offline_trailmap",
+    "query": "Walkers squinted at their handheld in the glare and saw nothing",
+    "expected": [
+      "A-53",
+      "HITO-5"
+    ]
+  },
+  {
+    "id": "B50",
+    "cat": "semantic",
+    "cluster": "edge_waf",
+    "query": "I count only genuine people and subscribers, kept apart from the robots",
+    "expected": [
+      "A-54"
+    ]
+  },
+  {
+    "id": "B51",
+    "cat": "multihop",
+    "cluster": "offline_trailmap",
+    "query": "Hikers above the treeline lose all signal; what storage design keeps their notes safe and how did the field test go?",
+    "expected": [
+      "G-13",
+      "A-05",
+      "DOC-3",
+      "HITO-26"
+    ]
+  },
+  {
+    "id": "B52",
+    "cat": "multihop",
+    "cluster": "payments_stripe",
+    "query": "Customers got two receipts for the same invoice after a retry; what was the root cause and the permanent fix?",
+    "expected": [
+      "G-12",
+      "A-01",
+      "HITO-2",
+      "DOC-2"
+    ]
+  },
+  {
+    "id": "B53",
+    "cat": "multihop",
+    "cluster": "edge_waf",
+    "query": "Scrapers multiplied database reads by 40 and threatened the bill; how did we survive it?",
+    "expected": [
+      "G-15",
+      "A-04",
+      "HITO-6",
+      "G-36"
+    ]
+  },
+  {
+    "id": "B54",
+    "cat": "multihop",
+    "cluster": "llm_slm",
+    "query": "The tiny local code model got stuck repeating itself when I gave it a rich character prompt; what is the rule and what was observed?",
+    "expected": [
+      "HITO-8",
+      "G-19",
+      "A-06"
+    ]
+  },
+  {
+    "id": "B55",
+    "cat": "multihop",
+    "cluster": "sqlite_wal",
+    "query": "The 3D viewer reads the memory graph while it is being reinforced; why is that safe?",
+    "expected": [
+      "G-22",
+      "A-02",
+      "DOC-1",
+      "HITO-15"
+    ]
+  },
+  {
+    "id": "B56",
+    "cat": "multihop",
+    "cluster": "token_economics",
+    "query": "What did the transcript audit reveal and which tooling came out of it?",
+    "expected": [
+      "HITO-30",
+      "A-26",
+      "HITO-9",
+      "A-03"
+    ]
+  },
+  {
+    "id": "B57",
+    "cat": "multihop",
+    "cluster": "security_hardening",
+    "query": "What exactly did the admin-route security pass cover on PulseBill, and which lessons back each item?",
+    "expected": [
+      "HITO-13",
+      "A-08",
+      "A-10",
+      "A-23"
+    ]
+  },
+  {
+    "id": "B58",
+    "cat": "multihop",
+    "cluster": "branch_drift",
+    "query": "Why were TrailMap commits stuck in preview, and what audit prevents it from happening again?",
+    "expected": [
+      "HITO-11",
+      "A-24"
+    ]
+  },
+  {
+    "id": "B59",
+    "cat": "multihop",
+    "cluster": "open_source_launch",
+    "query": "How did Alex decide to license and monetize the memory engine and its companion packages?",
+    "expected": [
+      "INBOX-3",
+      "A-30",
+      "A-33",
+      "G-41"
+    ]
+  },
+  {
+    "id": "B60",
+    "cat": "multihop",
+    "cluster": "zero_embedding",
+    "query": "What is the shipped mechanism for vocabulary mismatch in the memory graph, and what documentation backs it?",
+    "expected": [
+      "HITO-18",
+      "A-11",
+      "G-18",
+      "DOC-6"
+    ]
+  },
+  {
+    "id": "B61",
+    "cat": "multihop",
+    "cluster": "episodic_cap",
+    "query": "Why were weekly summary nodes throttled and when did that ship?",
+    "expected": [
+      "HITO-20",
+      "A-12",
+      "G-20"
+    ]
+  },
+  {
+    "id": "B62",
+    "cat": "multihop",
+    "cluster": "delegation",
+    "query": "How does the three-tier agent chain stay honest and cheap?",
+    "expected": [
+      "HITO-16",
+      "A-18",
+      "A-17",
+      "G-17"
+    ]
+  },
+  {
+    "id": "B63",
+    "cat": "multihop",
+    "cluster": "privacy_firewall",
+    "query": "How does Alex make sure personal journals never leak while public repositories keep shipping?",
+    "expected": [
+      "G-27",
+      "PERFIL-12",
+      "A-50",
+      "G-38"
+    ]
+  },
+  {
+    "id": "B64",
+    "cat": "multihop",
+    "cluster": "context_isolation",
+    "query": "The interface came out cluttered after the agent had been staring at server logs; what was learned and how was it tested?",
+    "expected": [
+      "A-07",
+      "G-21",
+      "HITO-32"
+    ]
+  },
+  {
+    "id": "B65",
+    "cat": "multihop",
+    "cluster": "ad_monetization",
+    "query": "What replaced the gray placeholder boxes on the public tools and why did the contact format change?",
+    "expected": [
+      "HITO-12",
+      "A-28",
+      "A-59"
+    ]
+  },
+  {
+    "id": "B66",
+    "cat": "multihop",
+    "cluster": "founder_focus",
+    "query": "Notifications wreck Alex's long concentration sprints; what is the policy and why does the morning routine matter?",
+    "expected": [
+      "G-25",
+      "A-60",
+      "G-45"
+    ]
+  },
+  {
+    "id": "B67",
+    "cat": "multihop",
+    "cluster": "pulsebill_infra",
+    "query": "Why did PulseBill's hosting cost collapse and how is edge latency kept tiny?",
+    "expected": [
+      "HITO-3",
+      "G-10",
+      "HITO-28",
+      "G-14"
+    ]
+  },
+  {
+    "id": "B68",
+    "cat": "multihop",
+    "cluster": "viewer_security",
+    "query": "Is the live 3D brain viewer safe to run on the laptop, and what hardening was applied?",
+    "expected": [
+      "HITO-17",
+      "A-31",
+      "A-37"
+    ]
+  },
+  {
+    "id": "B69",
+    "cat": "multihop",
+    "cluster": "privacy_firewall",
+    "query": "Can pathfinding between unrelated concepts ever expose vault content, and how was that verified?",
+    "expected": [
+      "HITO-19",
+      "HITO-36",
+      "A-13"
+    ]
+  },
+  {
+    "id": "B70",
+    "cat": "multihop",
+    "cluster": "daily_life",
+    "query": "How does Alex cope with end-of-month money stress, and what restores his confidence?",
+    "expected": [
+      "G-24",
+      "G-26",
+      "HITO-7",
+      "INBOX-7"
+    ]
+  },
+  {
+    "id": "B71",
+    "cat": "episodic",
+    "cluster": "daily_life",
+    "query": "What did Alex do outside of work during week 44?",
+    "expected": [
+      "S-W44-F1"
+    ]
+  },
+  {
+    "id": "B72",
+    "cat": "episodic",
+    "cluster": "token_economics",
+    "query": "What did Alex explore and decide in W44?",
+    "expected": [
+      "S-W44-F2"
+    ]
+  },
+  {
+    "id": "B73",
+    "cat": "episodic",
+    "cluster": "context_isolation",
+    "query": "What experiments got validated and what was added during week 45?",
+    "expected": [
+      "S-W45-F2"
+    ]
+  },
+  {
+    "id": "B74",
+    "cat": "episodic",
+    "cluster": "daily_life",
+    "query": "How was Alex feeling in W45 after sharing his findings with friends?",
+    "expected": [
+      "S-W45-F4"
+    ]
+  },
+  {
+    "id": "B75",
+    "cat": "episodic",
+    "cluster": "security_hardening",
+    "query": "What got shipped on PulseBill in W46?",
+    "expected": [
+      "S-W46-F3"
+    ]
+  },
+  {
+    "id": "B76",
+    "cat": "episodic",
+    "cluster": "daily_life",
+    "query": "How was Alex's mood and money situation during W47?",
+    "expected": [
+      "S-W47-F4"
+    ]
+  },
+  {
+    "id": "B77",
+    "cat": "episodic",
+    "cluster": "sqlite_wal",
+    "query": "Which PRAGMA journal mode and busy timeout settings stop SQLITE_BUSY for live readers?",
+    "expected": [
+      "A-02",
+      "DOC-1"
+    ],
+    "maxEpisodicAllowed": 1
+  },
+  {
+    "id": "B78",
+    "cat": "episodic",
+    "cluster": "zero_embedding",
+    "query": "How exactly are synonyms and colloquialisms attached at write time for the lexical graph?",
+    "expected": [
+      "A-11",
+      "G-18",
+      "DOC-6"
+    ],
+    "maxEpisodicAllowed": 1
+  },
+  {
+    "id": "B79",
+    "cat": "episodic",
+    "cluster": "security_auth",
+    "query": "What is the exact scheme for timing-safe verification of signed cookies with a 24-hour expiry?",
+    "expected": [
+      "A-08"
+    ],
+    "maxEpisodicAllowed": 1
+  },
+  {
+    "id": "B80",
+    "cat": "episodic",
+    "cluster": "branch_drift",
+    "query": "Which CI/CD setting should I verify after a repo rename so commits don't get trapped in preview?",
+    "expected": [
+      "A-24",
+      "HITO-11"
+    ],
+    "maxEpisodicAllowed": 1
+  }
+]

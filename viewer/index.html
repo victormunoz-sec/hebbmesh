@@ -1,0 +1,2246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HebbMesh 4D — Live Synaptic Observatory</title>
+  <style>
+    :root {
+      --bg-void: #040812;
+      --bg-deep: #070d1c;
+      --bg-panel: rgba(10, 16, 30, 0.92);
+      --bg-surface: rgba(15, 23, 42, 0.84);
+      --bg-surface-hover: rgba(24, 36, 62, 0.94);
+      --border-subtle: rgba(148, 163, 184, 0.16);
+      --border-strong: rgba(148, 163, 184, 0.30);
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --c-exploration: #38bdf8;
+      --c-execution: #10b981;
+      --c-daily: #f59e0b;
+      --c-support: #f472b6;
+      --c-episodic: #a78bfa;
+      --c-bridge: #fde047;
+      --c-danger: #fb7185;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 12px;
+      --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background: var(--bg-void);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 384px;
+      height: 100vh;
+    }
+
+    /* Accessible Focus Ring */
+    :focus-visible {
+      outline: 2px solid var(--c-exploration);
+      outline-offset: 2px;
+    }
+
+    /* ===== STAGE (3D CANVAS OBSERVATORY) ===== */
+    #stageWrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-width: 0;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 48%, #0c1730 0%, var(--bg-deep) 52%, var(--bg-void) 100%);
+    }
+
+    #canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      cursor: grab;
+      touch-action: none;
+    }
+    #canvas.dragging { cursor: grabbing; }
+    #canvas.hovering { cursor: pointer; }
+
+    /* Top-Left Brand HUD */
+    .hud-brand {
+      position: absolute;
+      top: 14px;
+      left: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border-radius: var(--radius-md);
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      backdrop-filter: blur(10px);
+      pointer-events: none;
+      max-width: calc(100% - 210px);
+    }
+
+    .live-beacon {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--c-execution);
+      box-shadow: 0 0 10px var(--c-execution);
+      flex-shrink: 0;
+      animation: beaconPulse 2.2s ease-in-out infinite;
+    }
+    .live-beacon.error {
+      background: var(--c-danger);
+      box-shadow: 0 0 10px var(--c-danger);
+      animation: none;
+    }
+
+    @keyframes beaconPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.82); }
+    }
+
+    .brand-copy { min-width: 0; }
+    .brand-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+    .brand-stats {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Top-Right Camera Controls */
+    .hud-controls {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px;
+      border-radius: var(--radius-md);
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      backdrop-filter: blur(10px);
+    }
+
+    .ctrl-btn {
+      appearance: none;
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid transparent;
+      border-radius: var(--radius-sm);
+      padding: 5px 9px;
+      font-size: 11px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      transition: background 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+    }
+    .ctrl-btn:hover {
+      background: rgba(56, 189, 248, 0.14);
+      color: var(--text-primary);
+    }
+    .ctrl-btn.active {
+      background: rgba(56, 189, 248, 0.18);
+      border-color: rgba(56, 189, 248, 0.42);
+      color: #bae6fd;
+    }
+
+    /* Floating A* Bridge Pill (Top Center when active) */
+    .bridge-pill {
+      position: absolute;
+      top: 66px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: none;
+      align-items: center;
+      gap: 10px;
+      max-width: min(92%, 680px);
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(15, 20, 34, 0.94);
+      border: 1px solid rgba(253, 224, 71, 0.48);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45), 0 0 18px rgba(253, 224, 71, 0.12);
+      backdrop-filter: blur(10px);
+      font-size: 11px;
+      color: #fef08a;
+      z-index: 5;
+    }
+    .bridge-pill.visible { display: flex; }
+    .bridge-pill-tag {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 0.05em;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(253, 224, 71, 0.18);
+      color: var(--c-bridge);
+      flex-shrink: 0;
+    }
+    .bridge-pill-text {
+      font-family: var(--font-mono);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-variant-numeric: tabular-nums;
+    }
+    .bridge-pill-close {
+      appearance: none;
+      background: transparent;
+      border: none;
+      color: #fef08a;
+      font-size: 14px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 2px 5px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .bridge-pill-close:hover { background: rgba(253, 224, 71, 0.18); }
+
+    /* Bottom-Left Filterable Legend */
+    .hud-legend {
+      position: absolute;
+      bottom: 14px;
+      left: 16px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+      padding: 6px 8px;
+      border-radius: var(--radius-md);
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      backdrop-filter: blur(10px);
+      max-width: calc(100% - 32px);
+    }
+
+    .legend-item {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: var(--radius-sm);
+      padding: 4px 8px;
+      font-size: 11px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: background 0.15s ease, opacity 0.15s ease, border-color 0.15s ease;
+    }
+    .legend-item:hover {
+      background: rgba(148, 163, 184, 0.10);
+      color: var(--text-primary);
+    }
+    .legend-item.filtered-out {
+      opacity: 0.36;
+    }
+    .legend-item.active-filter {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(148, 163, 184, 0.32);
+      color: var(--text-primary);
+    }
+    .legend-static {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Floating Hover Tooltip */
+    .hover-tip {
+      position: absolute;
+      pointer-events: none;
+      z-index: 12;
+      display: none;
+      max-width: 260px;
+      padding: 9px 11px;
+      border-radius: var(--radius-md);
+      background: rgba(8, 13, 25, 0.95);
+      border: 1px solid var(--border-strong);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(10px);
+    }
+    .hover-tip.visible { display: block; }
+    .tip-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .tip-code {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .tip-meta {
+      font-size: 10px;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .tip-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.35;
+    }
+    .tip-hint {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ===== RIGHT SIDEBAR (A-COWAN-4: 4 CLEAR GROUPS) ===== */
+    aside {
+      background: var(--bg-panel);
+      border-left: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .panel-group {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      flex-shrink: 0;
+    }
+
+    /* Group 1: Mode Tabs & Query Deck */
+    .mode-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      padding: 3px;
+      border-radius: var(--radius-md);
+      background: rgba(5, 9, 18, 0.85);
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 10px;
+    }
+    .tab-btn {
+      appearance: none;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      padding: 7px 10px;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: background 0.16s ease, color 0.16s ease;
+    }
+    .tab-btn:hover { color: var(--text-primary); }
+    .tab-btn.active {
+      background: rgba(56, 189, 248, 0.18);
+      color: #e0f2fe;
+      box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.34);
+    }
+    .tab-btn.active.gps-tab {
+      background: rgba(253, 224, 71, 0.16);
+      color: #fef08a;
+      box-shadow: inset 0 0 0 1px rgba(253, 224, 71, 0.38);
+    }
+
+    .mode-pane { display: none; }
+    .mode-pane.active { display: block; }
+
+    .input-row {
+      display: flex;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .field {
+      flex: 1;
+      min-width: 0;
+      background: rgba(6, 11, 22, 0.95);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      line-height: 1.25;
+      transition: border-color 0.15s ease;
+    }
+    .field::placeholder { color: var(--text-muted); }
+    .field:focus { border-color: var(--c-exploration); outline: none; }
+
+    .btn-primary {
+      appearance: none;
+      background: #0284c7;
+      color: #f8fafc;
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      border-radius: var(--radius-sm);
+      padding: 8px 13px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+    .btn-primary:hover { background: #0369a1; }
+    .btn-primary:active { transform: translateY(1px); }
+    .btn-primary:disabled { opacity: 0.55; cursor: wait; }
+
+    .btn-bridge {
+      appearance: none;
+      background: rgba(250, 204, 21, 0.18);
+      color: #fef08a;
+      border: 1px solid rgba(253, 224, 71, 0.48);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s ease;
+    }
+    .btn-bridge:hover { background: rgba(250, 204, 21, 0.28); }
+    .btn-bridge:disabled { opacity: 0.55; cursor: wait; }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 8px;
+    }
+    .chip {
+      appearance: none;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.10);
+      color: #bae6fd;
+      border: 1px solid rgba(56, 189, 248, 0.24);
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .chip:hover {
+      background: rgba(56, 189, 248, 0.22);
+      border-color: rgba(56, 189, 248, 0.48);
+    }
+    .chip.gold {
+      background: rgba(253, 224, 71, 0.10);
+      color: #fef08a;
+      border-color: rgba(253, 224, 71, 0.28);
+    }
+    .chip.gold:hover {
+      background: rgba(253, 224, 71, 0.20);
+      border-color: rgba(253, 224, 71, 0.55);
+    }
+
+    .bridge-feedback {
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      line-height: 1.4;
+      background: rgba(253, 224, 71, 0.08);
+      border: 1px solid rgba(253, 224, 71, 0.30);
+      color: #fef08a;
+      display: none;
+    }
+    .bridge-feedback.visible { display: block; }
+    .bridge-feedback.warn {
+      background: rgba(251, 113, 133, 0.10);
+      border-color: rgba(251, 113, 133, 0.35);
+      color: #fecdd3;
+    }
+    .bridge-steps {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 4px;
+      margin-top: 6px;
+    }
+    .step-chip {
+      appearance: none;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(253, 224, 71, 0.18);
+      border: 1px solid rgba(253, 224, 71, 0.40);
+      color: #fef9c3;
+      cursor: pointer;
+    }
+    .step-chip:hover { background: rgba(253, 224, 71, 0.32); }
+    .step-arrow { color: var(--text-muted); font-size: 10px; }
+
+    /* Group 2: Neurochemistry Telemetry */
+    .group-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .group-title {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+    .state-pill {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.14);
+      color: var(--c-exploration);
+      border: 1px solid rgba(56, 189, 248, 0.30);
+    }
+
+    .meters {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .meter {
+      background: rgba(6, 11, 22, 0.85);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 6px 8px;
+    }
+    .meter-head {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+      font-variant-numeric: tabular-nums;
+    }
+    .meter-val {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .bar {
+      height: 4px;
+      background: rgba(30, 41, 59, 0.9);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .fill {
+      height: 100%;
+      border-radius: 99px;
+      transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Group 3: Selected Neuron Inspector (Collapsible) */
+    .inspector {
+      display: none;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(14, 24, 44, 0.88);
+      flex-shrink: 0;
+    }
+    .inspector.visible { display: block; }
+    .insp-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+    .insp-code {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 5px;
+      background: rgba(148, 163, 184, 0.14);
+    }
+    .insp-close {
+      appearance: none;
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .insp-close:hover {
+      color: var(--text-primary);
+      border-color: var(--border-strong);
+    }
+    .insp-title {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.35;
+      margin-bottom: 4px;
+    }
+    .insp-summary {
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      line-height: 1.42;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .insp-echo {
+      margin-top: 6px;
+      padding: 5px 8px;
+      border-left: 2px solid var(--c-support);
+      background: rgba(244, 114, 182, 0.08);
+      font-size: 11px;
+      color: #fbcfe8;
+      border-radius: 0 4px 4px 0;
+    }
+    .insp-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 7px;
+    }
+    .meta-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(148, 163, 184, 0.12);
+      color: var(--text-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Group 4: Activated Neurons Stream */
+    .stream-wrap {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .stream-bar {
+      padding: 9px 14px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+      flex-shrink: 0;
+    }
+    #results {
+      flex: 1;
+      overflow-y: auto;
+      padding: 4px 14px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(148, 163, 184, 0.25) transparent;
+    }
+
+    .card {
+      appearance: none;
+      text-align: left;
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--c-exploration);
+      border-radius: var(--radius-sm);
+      padding: 9px 10px;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+    }
+    .card:hover {
+      background: var(--bg-surface-hover);
+      border-color: var(--border-strong);
+    }
+    .card.selected {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(56, 189, 248, 0.55);
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .card-code {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    .card-energy {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--c-exploration);
+      font-variant-numeric: tabular-nums;
+    }
+    .card-title {
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.35;
+      color: var(--text-primary);
+    }
+    .card-via {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .empty-state {
+      padding: 16px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px dashed var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        grid-template-columns: 1fr;
+        grid-template-rows: 52vh 48vh;
+      }
+      aside {
+        height: 48vh;
+        border-left: none;
+        border-top: 1px solid var(--border-subtle);
+      }
+      .field { font-size: 16px; }
+      .hud-legend { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main id="stageWrap" aria-label="3D Synaptic Graph Observatory">
+    <canvas id="canvas"></canvas>
+
+    <header class="hud-brand">
+      <span id="liveBeacon" class="live-beacon" aria-hidden="true"></span>
+      <div class="brand-copy">
+        <div class="brand-title">HEBBMESH 4D · SYNAPTIC OBSERVATORY</div>
+        <div id="statsLine" class="brand-stats">Initializing local SQLite WAL graph...</div>
+      </div>
+    </header>
+
+    <div class="hud-controls" role="toolbar" aria-label="3D Camera Controls">
+      <button id="btnSpin" class="ctrl-btn active" type="button" title="Toggle Auto-Orbit" aria-pressed="true">ORBIT</button>
+      <button id="btnZoomIn" class="ctrl-btn" type="button" title="Zoom In" aria-label="Zoom In">+</button>
+      <button id="btnZoomOut" class="ctrl-btn" type="button" title="Zoom Out" aria-label="Zoom Out">-</button>
+      <button id="btnReset" class="ctrl-btn" type="button" title="Reset Camera">RESET</button>
+    </div>
+
+    <div id="bridgePill" class="bridge-pill" role="status" aria-live="polite">
+      <span class="bridge-pill-tag">3D A* BRIDGE</span>
+      <span id="bridgePillText" class="bridge-pill-text"></span>
+      <button id="bridgePillClose" class="bridge-pill-close" type="button" aria-label="Clear A* bridge">&times;</button>
+    </div>
+
+    <div id="hoverTip" class="hover-tip" aria-hidden="true">
+      <div class="tip-head">
+        <span id="tipCode" class="tip-code"></span>
+        <span id="tipMeta" class="tip-meta"></span>
+      </div>
+      <div id="tipTitle" class="tip-title"></div>
+      <div class="tip-hint">Click to inspect &amp; lock orbit</div>
+    </div>
+
+    <div class="hud-legend" role="group" aria-label="Filter by cognitive lobe">
+      <button class="legend-item" type="button" data-lobe="exploration"><i class="dot" style="background:var(--c-exploration)"></i>Exploration</button>
+      <button class="legend-item" type="button" data-lobe="execution"><i class="dot" style="background:var(--c-execution)"></i>Execution</button>
+      <button class="legend-item" type="button" data-lobe="daily"><i class="dot" style="background:var(--c-daily)"></i>Daily</button>
+      <button class="legend-item" type="button" data-lobe="support"><i class="dot" style="background:var(--c-support)"></i>Support</button>
+      <button class="legend-item" type="button" data-lobe="episodic"><i class="dot" style="background:var(--c-episodic)"></i>Episodic</button>
+      <span class="legend-static"><i class="dot" style="background:var(--c-bridge)"></i>A* Bridge</span>
+    </div>
+  </main>
+
+  <aside aria-label="Synaptic Controls and Telemetry">
+    <!-- GROUP 1: Query & Bridge Deck -->
+    <section class="panel-group">
+      <div class="mode-tabs" role="tablist">
+        <button id="tabSpark" class="tab-btn active" type="button" role="tab" aria-selected="true">Synaptic Spark</button>
+        <button id="tabBridge" class="tab-btn gps-tab" type="button" role="tab" aria-selected="false">3D A* Bridge</button>
+      </div>
+
+      <div id="paneSpark" class="mode-pane active" role="tabpanel">
+        <div class="input-row">
+          <input id="sparkInput" class="field" type="text" placeholder="Fire spreading activation..." aria-label="Synaptic spark query" />
+          <button id="sparkBtn" class="btn-primary" type="button">Spark</button>
+        </div>
+        <div class="chips">
+          <button class="chip" type="button" data-q="furry four-legged pet companion">Metaphor: Pet</button>
+          <button class="chip" type="button" data-q="how to stop a tiny local LLM from crashing into a loop">SLM Collapse</button>
+          <button class="chip" type="button" data-q="what did we decide in week W47 about hebbmesh">Week W47</button>
+          <button class="chip" type="button" data-q="preventing stale admin pages leaking through CDN cache">CDN Poisoning</button>
+        </div>
+      </div>
+
+      <div id="paneBridge" class="mode-pane" role="tabpanel">
+        <div class="input-row">
+          <input id="bridgeA" class="field" type="text" value="stripe webhook" placeholder="Origin concept" aria-label="Bridge origin concept" />
+          <input id="bridgeB" class="field" type="text" value="cloudflare waf" placeholder="Target concept" aria-label="Bridge target concept" />
+          <button id="bridgeBtn" class="btn-bridge" type="button">Route</button>
+        </div>
+        <div class="chips">
+          <button class="chip gold" type="button" data-a="stripe webhook" data-b="cloudflare waf">Webhook &rarr; WAF</button>
+          <button class="chip gold" type="button" data-a="tiny local llm" data-b="cdn cache">SLM &rarr; CDN</button>
+        </div>
+        <div id="bridgeFeedback" class="bridge-feedback"></div>
+      </div>
+    </section>
+
+    <!-- GROUP 2: Neurochemical Telemetry -->
+    <section class="panel-group">
+      <div class="group-head">
+        <span class="group-title">Neurochemical State</span>
+        <span id="lobeBadge" class="state-pill">EXPLORATION</span>
+      </div>
+      <div class="meters">
+        <div class="meter">
+          <div class="meter-head"><span>Dopamine</span><span id="vDopa" class="meter-val">50%</span></div>
+          <div class="bar"><div id="bDopa" class="fill" style="width:50%;background:var(--c-exploration)"></div></div>
+        </div>
+        <div class="meter">
+          <div class="meter-head"><span>Focus</span><span id="vFocus" class="meter-val">50%</span></div>
+          <div class="bar"><div id="bFocus" class="fill" style="width:50%;background:var(--c-execution)"></div></div>
+        </div>
+        <div class="meter">
+          <div class="meter-head"><span>Oxytocin</span><span id="vOxi" class="meter-val">42%</span></div>
+          <div class="bar"><div id="bOxi" class="fill" style="width:42%;background:var(--c-support)"></div></div>
+        </div>
+        <div class="meter">
+          <div class="meter-head"><span>Serotonin</span><span id="vSero" class="meter-val">72%</span></div>
+          <div class="bar"><div id="bSero" class="fill" style="width:72%;background:var(--c-episodic)"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GROUP 3: Selected Neuron Inspector -->
+    <section id="inspector" class="inspector" aria-label="Selected Neuron Details">
+      <div class="insp-head">
+        <span id="inspCode" class="insp-code"></span>
+        <button id="inspClose" class="insp-close" type="button">Close</button>
+      </div>
+      <div id="inspTitle" class="insp-title"></div>
+      <div id="inspSummary" class="insp-summary"></div>
+      <div id="inspEcho" class="insp-echo" style="display:none"></div>
+      <div id="inspMeta" class="insp-meta"></div>
+    </section>
+
+    <!-- GROUP 4: Activated Synaptic Stream -->
+    <section class="stream-wrap" aria-label="Activated Neurons">
+      <div class="stream-bar">
+        <span class="group-title">Activated Pathway</span>
+        <span id="streamStats">Ready</span>
+      </div>
+      <div id="results">
+        <div class="empty-state">
+          Select a preset chip or type any concept to fire zero-embedding spreading activation across the 4D synaptic manifold. Drag to orbit, scroll to zoom, click any neuron to inspect.
+        </div>
+      </div>
+    </section>
+  </aside>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      const hoverTip = document.getElementById('hoverTip');
+
+      const COLORS = {
+        exploration: '#38bdf8',
+        execution: '#10b981',
+        daily: '#f59e0b',
+        support: '#f472b6',
+        episodic: '#a78bfa',
+        bridge: '#fde047'
+      };
+
+      const LOBE_RGB = {
+        exploration: [56, 189, 248],
+        execution: [16, 185, 129],
+        daily: [245, 158, 11],
+        support: [244, 114, 182],
+        episodic: [167, 139, 250],
+        bridge: [253, 224, 71]
+      };
+
+      // Graph State
+      let nodes = [];
+      let edges = [];
+      let nodeMap = new Map();
+      let codeMap = new Map();
+      let adjMap = new Map();
+
+      // Activation & Bridge State
+      let activeMap = new Map(); // id -> { hop, role, energy, via, parentId, data }
+      let activeList = [];
+      let bridgePath = null; // [{ id, code, title, edgeWeight }]
+      let bridgeIds = new Set();
+      let bridgeEdgeKeys = new Set();
+      let bridgeDirected = new Set();
+
+      // Visual & Kinetic State
+      let directionalPulses = []; // { a, b, p, speed, color, isBridge }
+      let ambientPulses = [];     // { a, b, p, speed, color }
+      let shockwaves = [];        // { node, start, duration, maxR, color }
+      let dustStars = [];         // subtle ambient background particles
+      let chem = { dopamine: 0.50, focus: 0.50, oxytocin: 0.42, serotonin: 0.72 };
+      let dominantLobe = 'exploration';
+      let currentAuraRGB = [56, 189, 248];
+      let targetAuraRGB = [56, 189, 248];
+
+      // Camera & Interaction State
+      let rotY = 0.45;
+      let rotX = 0.22;
+      let targetRotY = null;
+      let targetRotX = null;
+      let velY = 0;
+      let velX = 0;
+      let zoom = 1.02;
+      let targetZoom = 1.02;
+      let autoSpin = true;
+      let userPausedSpin = false;
+      let spinResumeAt = 0;
+      let spinBlend = 1;
+      let dragging = false;
+      let didDrag = false;
+      let lastX = 0;
+      let lastY = 0;
+      let selectedId = null;
+      let hoveredId = null;
+      let filterLobe = null;
+
+      // Utility: Deterministic FNV-1a Hash -> [0, 1]
+      function hash01(str, salt = 0) {
+        let h = (2166136261 ^ salt) >>> 0;
+        for (let i = 0; i < str.length; i++) {
+          h ^= str.charCodeAt(i);
+          h = Math.imul(h, 16777619) >>> 0;
+        }
+        return (h >>> 0) / 4294967295;
+      }
+
+      function getNodeLobe(n) {
+        if (n.type === 'episodic') return 'episodic';
+        const d = n.dim4 || {};
+        let best = 'exploration';
+        let bestVal = -1;
+        for (const k of ['exploration', 'execution', 'daily', 'support']) {
+          const v = Number(d[k] || 0);
+          if (v > bestVal) {
+            bestVal = v;
+            best = k;
+          }
+        }
+        return best;
+      }
+
+      function lobeColor(n) {
+        return COLORS[getNodeLobe(n)] || COLORS.exploration;
+      }
+
+      function edgeKey(a, b) {
+        return a < b ? `${a}|${b}` : `${b}|${a}`;
+      }
+
+      function parseHopAndParent(viaStr) {
+        const s = String(viaStr || '');
+        let hop = 0;
+        const hopMatch = s.match(/(?:hop|salto)\s*(\d+)/i);
+        if (hopMatch) {
+          hop = Math.max(1, parseInt(hopMatch[1], 10));
+        } else if (/←|<-|from/i.test(s)) {
+          hop = 1;
+        }
+        let parentId = null;
+        const codeMatch = s.match(/(?:←|<-|from)\s*([A-Z0-9_-]+)/i);
+        if (codeMatch) {
+          const found = codeMap.get(codeMatch[1].toUpperCase());
+          if (found) parentId = found.id;
+        }
+        return { hop, parentId };
+      }
+
+      // Initialize subtle deep-space dust
+      for (let i = 0; i < 42; i++) {
+        dustStars.push({
+          x: hash01('dx_' + i, 1),
+          y: hash01('dy_' + i, 2),
+          r: 0.6 + hash01('dr_' + i, 3) * 1.1,
+          phase: hash01('dp_' + i, 4) * Math.PI * 2,
+          speed: 0.0007 + hash01('ds_' + i, 5) * 0.0012
+        });
+      }
+
+      // Canvas Sizing with High-DPI & ResizeObserver
+      function resize() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const w = Math.max(1, Math.floor(rect.width));
+        const h = Math.max(1, Math.floor(rect.height));
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      const resizeObserver = new ResizeObserver(resize);
+      resizeObserver.observe(canvas.parentElement);
+      resize();
+
+      // 3D Sphere Positioning (Lobe-clustered 4D -> 3D Manifold)
+      function computePosition(n) {
+        const d = n.dim4 || { exploration: 0.25, execution: 0.25, daily: 0.25, support: 0.25 };
+        const vx = (d.execution || 0) - (d.support || 0);
+        const vy = (d.exploration || 0) - (d.daily || 0);
+        const baseAngle = Math.atan2(vy, vx);
+        const theta = baseAngle + (hash01(n.id, 11) - 0.5) * 1.18;
+        const u = (hash01(n.id, 23) - 0.5) * 1.55;
+        const phi = Math.asin(Math.max(-0.92, Math.min(0.92, u)));
+
+        const zBias = n.coord3d?.z != null ? Number(n.coord3d.z) : 0.65;
+        const r = 0.50 + 0.44 * (0.35 + 0.65 * Math.min(1, Math.max(0, zBias * 0.6 + hash01(n.id, 37) * 0.4)));
+
+        const rawX = Math.cos(phi) * Math.cos(theta) + (n.coord3d?.x || 0) * 0.22;
+        const rawY = Math.cos(phi) * Math.sin(theta);
+        const rawZ = Math.sin(phi);
+        const len = Math.hypot(rawX, rawY, rawZ) || 1;
+
+        return {
+          px: (rawX / len) * r,
+          py: (rawY / len) * r,
+          pz: (rawZ / len) * r
+        };
+      }
+
+      // Build Ambient Living Pulses across Primary & Secondary Synapses
+      function rebuildAmbientPulses() {
+        ambientPulses = [];
+        if (!edges.length) return;
+        const ranked = [...edges].sort((a, b) => b.w - a.w);
+        const cap = Math.min(54, ranked.length);
+        const chosen = [];
+        const primaryCount = Math.min(34, cap);
+        for (let i = 0; i < primaryCount; i++) chosen.push(ranked[i]);
+        const remaining = ranked.length - primaryCount;
+        const extraCount = cap - primaryCount;
+        if (remaining > 0 && extraCount > 0) {
+          const step = Math.max(1, Math.floor(remaining / extraCount));
+          for (let i = 0; i < extraCount; i++) {
+            const idx = primaryCount + ((i * step) % remaining);
+            chosen.push(ranked[idx]);
+          }
+        }
+
+        for (let i = 0; i < chosen.length; i++) {
+          const e = chosen[i];
+          const na = nodeMap.get(e.a);
+          const nb = nodeMap.get(e.b);
+          if (!na || !nb) continue;
+          const reverse = i % 2 === 1;
+          const src = reverse ? nb : na;
+          const dst = reverse ? na : nb;
+          ambientPulses.push({
+            a: src,
+            b: dst,
+            p: hash01(e.key, 91 + i),
+            speed: 0.0028 + hash01(e.key, 97 + i) * 0.0042,
+            color: src.color
+          });
+        }
+      }
+
+      // Build Directional Pulses (Bridge Golden Stream + Spark Spreading Comets)
+      function rebuildDirectionalPulses() {
+        directionalPulses = [];
+        bridgeEdgeKeys.clear();
+        bridgeDirected.clear();
+
+        // 1) Golden A* Bridge Energy Stream
+        if (Array.isArray(bridgePath) && bridgePath.length >= 2) {
+          const steps = bridgePath.map((s) => nodeMap.get(s.id)).filter(Boolean);
+          for (let i = 0; i < steps.length - 1; i++) {
+            const a = steps[i];
+            const b = steps[i + 1];
+            bridgeEdgeKeys.add(edgeKey(a.id, b.id));
+            bridgeDirected.add(`${a.id}->${b.id}`);
+            directionalPulses.push({ a, b, p: -(i * 0.30), speed: 0.0155, color: '#fde047', isBridge: true });
+            directionalPulses.push({ a, b, p: -(i * 0.30) - 0.52, speed: 0.0155, color: '#38bdf8', isBridge: true });
+          }
+        }
+
+        // 2) Spreading Activation Comets (Origin S0 -> S1 -> S2)
+        const origins = activeList
+          .filter((item) => item.hop === 0)
+          .map((item) => nodeMap.get(item.id))
+          .filter(Boolean);
+        const primaryOrigin = origins[0] || (activeList[0] ? nodeMap.get(activeList[0].id) : null);
+        const speedBase = 0.011 + (chem.dopamine || 0.45) * 0.012;
+
+        for (const item of activeList) {
+          if (item.hop === 0) continue;
+          const dest = nodeMap.get(item.id);
+          if (!dest) continue;
+
+          let src = item.parentId ? nodeMap.get(item.parentId) : null;
+          if (!src) {
+            const neighbors = adjMap.get(dest.id) || [];
+            for (const nbId of neighbors) {
+              const nbAct = activeMap.get(nbId);
+              if (nbAct && nbAct.hop < item.hop) {
+                src = nodeMap.get(nbId);
+                break;
+              }
+            }
+          }
+          if (!src) src = primaryOrigin;
+          if (!src || src.id === dest.id) continue;
+          if (bridgeDirected.has(`${src.id}->${dest.id}`)) continue;
+
+          const col = dest.color || '#38bdf8';
+          directionalPulses.push({ a: src, b: dest, p: Math.random() * 0.45, speed: speedBase, color: col, isBridge: false });
+          directionalPulses.push({ a: src, b: dest, p: 0.50 + Math.random() * 0.40, speed: speedBase, color: '#e0f2fe', isBridge: false });
+        }
+
+        // Fallback: if all winners are S0, pulse gracefully from primary origin to siblings
+        if (directionalPulses.filter((p) => !p.isBridge).length === 0 && origins.length >= 2) {
+          for (let i = 1; i < Math.min(origins.length, 6); i++) {
+            directionalPulses.push({
+              a: origins[0],
+              b: origins[i],
+              p: (i - 1) * 0.22,
+              speed: 0.012,
+              color: '#34d399',
+              isBridge: false
+            });
+          }
+        }
+      }
+
+      function spawnShockwaves(nodeList, colorOverride) {
+        const now = performance.now();
+        for (let i = 0; i < nodeList.length; i++) {
+          const n = nodeList[i];
+          if (!n) continue;
+          shockwaves.push({
+            node: n,
+            start: now + i * 110,
+            duration: 1350,
+            maxR: 38 + (i === 0 ? 14 : 0),
+            color: colorOverride || n.color || '#38bdf8'
+          });
+        }
+      }
+
+      function focusCameraOnNode(n) {
+        if (!n) return;
+        const horiz = Math.hypot(n.px, n.pz);
+        targetRotY = Math.atan2(-n.px, n.pz);
+        targetRotX = Math.max(-1.05, Math.min(1.05, Math.atan2(n.py, horiz) * 0.65));
+        spinBlend = 0;
+        if (!userPausedSpin) {
+          spinResumeAt = performance.now() + 3200;
+        }
+      }
+
+      function updateTargetAura() {
+        if (bridgePath && bridgePath.length >= 2) {
+          targetAuraRGB = LOBE_RGB.bridge;
+        } else {
+          targetAuraRGB = LOBE_RGB[dominantLobe] || LOBE_RGB.exploration;
+        }
+      }
+
+      // 3D Projection
+      function project(x, y, z, w, h) {
+        const cy = Math.cos(rotY), sy = Math.sin(rotY);
+        const cx = Math.cos(rotX), sx = Math.sin(rotX);
+        const x1 = x * cy - z * sy;
+        const z1 = x * sy + z * cy;
+        const y2 = y * cx - z1 * sx;
+        const z2 = y * sx + z1 * cx;
+        const fov = Math.min(w, h) * 0.44 * zoom;
+        const depth = Math.max(0.55, 2.32 - z2);
+        const scale = fov / depth;
+        return { sx: w * 0.5 + x1 * scale, sy: h * 0.5 - y2 * scale, z: z2, scale };
+      }
+
+      function drawOrbitRing(w, h, radius, axis, strokeStyle) {
+        const segs = 64;
+        ctx.beginPath();
+        for (let i = 0; i <= segs; i++) {
+          const a = (i / segs) * Math.PI * 2;
+          let x = 0, y = 0, z = 0;
+          if (axis === 'xz') {
+            x = Math.cos(a) * radius;
+            z = Math.sin(a) * radius;
+          } else if (axis === 'xy') {
+            x = Math.cos(a) * radius;
+            y = Math.sin(a) * radius;
+          } else {
+            y = Math.cos(a) * radius;
+            z = Math.sin(a) * radius;
+          }
+          const p = project(x, y, z, w, h);
+          if (i === 0) ctx.moveTo(p.sx, p.sy);
+          else ctx.lineTo(p.sx, p.sy);
+        }
+        ctx.strokeStyle = strokeStyle;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      function drawArrowHead(x1, y1, x2, y2, color, size = 7.5) {
+        const dx = x2 - x1, dy = y2 - y1;
+        if (Math.hypot(dx, dy) < 18) return;
+        const ang = Math.atan2(dy, dx);
+        const mx = x1 + dx * 0.58;
+        const my = y1 + dy * 0.58;
+        ctx.save();
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(mx, my);
+        ctx.lineTo(mx - size * Math.cos(ang - 0.45), my - size * Math.sin(ang - 0.45));
+        ctx.lineTo(mx - size * Math.cos(ang + 0.45), my - size * Math.sin(ang + 0.45));
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function drawRoundPill(x, y, w, h, r) {
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + w - r, y);
+        ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+        ctx.lineTo(x + w, y + h - r);
+        ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+        ctx.lineTo(x + r, y + h);
+        ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+        ctx.lineTo(x, y + r);
+        ctx.quadraticCurveTo(x, y, x + r, y);
+        ctx.closePath();
+      }
+
+      // Main 60fps Synaptic Render Loop
+      function render(now) {
+        const w = canvas.clientWidth;
+        const h = canvas.clientHeight;
+        if (w < 4 || h < 4) {
+          requestAnimationFrame(render);
+          return;
+        }
+
+        // Smooth camera physics & zoom lerp
+        zoom += (targetZoom - zoom) * 0.12;
+        if (targetRotY !== null && targetRotX !== null) {
+          let diffY = targetRotY - rotY;
+          while (diffY > Math.PI) diffY -= Math.PI * 2;
+          while (diffY < -Math.PI) diffY += Math.PI * 2;
+          rotY += diffY * 0.085;
+          rotX += (targetRotX - rotX) * 0.085;
+          if (Math.abs(diffY) < 0.008 && Math.abs(targetRotX - rotX) < 0.008) {
+            targetRotY = null;
+            targetRotX = null;
+          }
+        } else if (!dragging) {
+          rotY += velY;
+          rotX = Math.max(-1.25, Math.min(1.25, rotX + velX));
+          velY *= 0.92;
+          velX *= 0.92;
+          if (autoSpin && !userPausedSpin && now >= spinResumeAt) {
+            spinBlend = Math.min(1, spinBlend + 0.025);
+            rotY += (0.0018 + (chem.dopamine || 0.45) * 0.0022) * spinBlend;
+          }
+        }
+
+        // Smooth neurochemical aura RGB interpolation
+        for (let i = 0; i < 3; i++) {
+          currentAuraRGB[i] += (targetAuraRGB[i] - currentAuraRGB[i]) * 0.04;
+        }
+        const [ar, ag, ab] = currentAuraRGB.map((v) => Math.round(v));
+
+        ctx.clearRect(0, 0, w, h);
+
+        // 1) Breathing Neurochemical Radial Aura
+        const breath = 1 + Math.sin(now * 0.0016) * 0.045;
+        const cx = w * 0.5, cy = h * 0.5;
+        const auraR = Math.min(w, h) * 0.46 * zoom * breath;
+        const auraGrad = ctx.createRadialGradient(cx, cy, 8, cx, cy, auraR);
+        auraGrad.addColorStop(0, `rgba(${ar}, ${ag}, ${ab}, 0.16)`);
+        auraGrad.addColorStop(0.5, `rgba(${ar}, ${ag}, ${ab}, 0.05)`);
+        auraGrad.addColorStop(1, 'rgba(4, 8, 18, 0)');
+        ctx.fillStyle = auraGrad;
+        ctx.fillRect(0, 0, w, h);
+
+        // 2) Subtle Ambient Dust Stars
+        for (const st of dustStars) {
+          const alpha = 0.08 + 0.14 * (0.5 + 0.5 * Math.sin(now * st.speed + st.phase));
+          ctx.fillStyle = `rgba(186, 230, 253, ${alpha.toFixed(3)})`;
+          ctx.beginPath();
+          ctx.arc(st.x * w, st.y * h, st.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // 3) 3D Orbital Latitude/Longitude Reference Rings
+        drawOrbitRing(w, h, 1.03, 'xz', 'rgba(56, 189, 248, 0.08)');
+        drawOrbitRing(w, h, 1.03, 'xy', 'rgba(148, 163, 184, 0.05)');
+        drawOrbitRing(w, h, 1.03, 'yz', 'rgba(148, 163, 184, 0.045)');
+
+        // Project all nodes once per frame
+        for (const n of nodes) {
+          const p = project(n.px, n.py, n.pz, w, h);
+          n.sx = p.sx;
+          n.sy = p.sy;
+          n.sz = p.z;
+          n.pscale = p.scale;
+        }
+
+        const focusId = hoveredId || selectedId;
+        const focusNeighbors = focusId ? new Set(adjMap.get(focusId) || []) : null;
+
+        // 4) Draw Populated Synaptic Edge Mesh with Subtle Glow
+        for (const e of edges) {
+          if (bridgeEdgeKeys.has(e.key)) continue;
+          const na = nodeMap.get(e.a);
+          const nb = nodeMap.get(e.b);
+          if (!na || !nb) continue;
+
+          const aAct = activeMap.has(e.a);
+          const bAct = activeMap.has(e.b);
+          const isFocusEdge = focusId && (e.a === focusId || e.b === focusId);
+
+          if (filterLobe && na.lobe !== filterLobe && nb.lobe !== filterLobe && !isFocusEdge) continue;
+          if (!aAct && !bAct && !isFocusEdge && e.w < 0.15) continue;
+
+          if (aAct && bAct && !isFocusEdge) {
+            ctx.beginPath();
+            ctx.moveTo(na.sx, na.sy);
+            ctx.lineTo(nb.sx, nb.sy);
+            ctx.strokeStyle = `rgba(${ar}, ${ag}, ${ab}, 0.20)`;
+            ctx.lineWidth = 3.6;
+            ctx.stroke();
+          }
+
+          ctx.beginPath();
+          ctx.moveTo(na.sx, na.sy);
+          ctx.lineTo(nb.sx, nb.sy);
+
+          if (isFocusEdge) {
+            ctx.strokeStyle = 'rgba(224, 242, 254, 0.72)';
+            ctx.lineWidth = 1.6;
+          } else if (aAct && bAct) {
+            ctx.strokeStyle = `rgba(${ar}, ${ag}, ${ab}, 0.78)`;
+            ctx.lineWidth = 1.65;
+          } else if (aAct || bAct) {
+            ctx.strokeStyle = 'rgba(125, 211, 252, 0.28)';
+            ctx.lineWidth = 0.95;
+          } else {
+            const avgDepth = Math.max(0.28, Math.min(1, ((na.sz + nb.sz) * 0.5 + 1.15) / 2.1));
+            const weightClamped = Math.min(1, Math.max(0.15, e.w));
+            const isStrong = weightClamped >= 0.65;
+            const alpha = (0.11 + weightClamped * 0.15) * avgDepth;
+            ctx.strokeStyle = isStrong
+              ? `rgba(125, 211, 252, ${Math.min(0.32, alpha * 1.18).toFixed(3)})`
+              : `rgba(56, 189, 248, ${alpha.toFixed(3)})`;
+            ctx.lineWidth = isStrong ? 1.1 : 0.8;
+          }
+          ctx.stroke();
+        }
+
+        // 5) Draw Glowing 3D A* Bridge Beam + Directional Arrowheads
+        if (Array.isArray(bridgePath) && bridgePath.length >= 2) {
+          const steps = bridgePath.map((s) => nodeMap.get(s.id)).filter(Boolean);
+          for (let i = 0; i < steps.length - 1; i++) {
+            const a = steps[i], b = steps[i + 1];
+            // Outer warm halo
+            ctx.beginPath();
+            ctx.moveTo(a.sx, a.sy);
+            ctx.lineTo(b.sx, b.sy);
+            ctx.strokeStyle = 'rgba(253, 224, 71, 0.28)';
+            ctx.lineWidth = 7.5;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+
+            // Crisp golden core
+            ctx.beginPath();
+            ctx.moveTo(a.sx, a.sy);
+            ctx.lineTo(b.sx, b.sy);
+            ctx.strokeStyle = '#fde047';
+            ctx.lineWidth = 2.3;
+            ctx.stroke();
+
+            drawArrowHead(a.sx, a.sy, b.sx, b.sy, '#fef08a', 8);
+          }
+        }
+
+        // 6) Ambient Background Synaptic Pulses (Always Alive)
+        for (const p of ambientPulses) {
+          p.p += p.speed;
+          if (p.p > 1.25) p.p = -0.25;
+          if (p.p < 0 || p.p > 1) continue;
+          if (filterLobe && p.a.lobe !== filterLobe && p.b.lobe !== filterLobe) continue;
+
+          for (let t = 4; t >= 0; t--) {
+            const tp = Math.max(0, p.p - t * 0.028);
+            const tx = p.a.sx + (p.b.sx - p.a.sx) * tp;
+            const ty = p.a.sy + (p.b.sy - p.a.sy) * tp;
+            ctx.beginPath();
+            ctx.arc(tx, ty, 2.2 * (1 - t * 0.17), 0, Math.PI * 2);
+            ctx.fillStyle = t === 0 ? '#e0f2fe' : p.color;
+            ctx.globalAlpha = (t === 0 ? 0.72 : 0.54) * (1 - t * 0.19);
+            ctx.fill();
+          }
+        }
+        ctx.globalAlpha = 1;
+
+        // 7) Active Spark & Bridge Directional Comet Pulses
+        for (const p of directionalPulses) {
+          p.p += p.speed;
+          if (p.p > 1.25) p.p = -0.25;
+          if (p.p < 0 || p.p > 1) continue;
+
+          const headR = p.isBridge ? 3.8 : 2.8;
+          for (let t = 5; t >= 0; t--) {
+            const tp = Math.max(0, p.p - t * 0.032);
+            const tx = p.a.sx + (p.b.sx - p.a.sx) * tp;
+            const ty = p.a.sy + (p.b.sy - p.a.sy) * tp;
+            ctx.beginPath();
+            ctx.arc(tx, ty, headR * (1 - t * 0.14), 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = 0.95 * (1 - t * 0.17);
+            ctx.fill();
+          }
+        }
+        ctx.globalAlpha = 1;
+
+        // 8) Expanding Spark Shockwaves
+        for (let i = shockwaves.length - 1; i >= 0; i--) {
+          const sw = shockwaves[i];
+          const elapsed = now - sw.start;
+          if (elapsed < 0) continue;
+          const prog = elapsed / sw.duration;
+          if (prog >= 1) {
+            shockwaves.splice(i, 1);
+            continue;
+          }
+          const easeOut = 1 - Math.pow(1 - prog, 3);
+          const rad = 6 + easeOut * sw.maxR;
+          ctx.beginPath();
+          ctx.arc(sw.node.sx, sw.node.sy, rad, 0, Math.PI * 2);
+          ctx.strokeStyle = sw.color;
+          ctx.globalAlpha = (1 - prog) * 0.78;
+          ctx.lineWidth = 2.0 * (1 - prog * 0.5);
+          ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+
+        // 9) Nodes Back-to-Front with Breathing Halos & Sonar Rings
+        const sorted = [...nodes].sort((a, b) => a.sz - b.sz);
+        const sonarPhase = (now % 1800) / 1800;
+        const labelsToDraw = [];
+
+        for (const n of sorted) {
+          const act = activeMap.get(n.id);
+          const isBridge = bridgeIds.has(n.id);
+          const isSel = selectedId === n.id;
+          const isHov = hoveredId === n.id;
+          const isFocusNeighbor = focusNeighbors && focusNeighbors.has(n.id);
+          const dimmedByFilter = filterLobe && n.lobe !== filterLobe && !isBridge && !isSel && !isHov;
+
+          const depthFactor = Math.max(0.28, Math.min(1, (n.sz + 1.15) / 2.15));
+          const breathe = 1 + Math.sin(now * 0.0024 + n.phase) * 0.08;
+          const baseRad = isBridge
+            ? 6.4
+            : act
+              ? (act.hop === 0 ? 6.2 : 5.0)
+              : n.type === 'episodic'
+                ? 4.4
+                : 3.1;
+          const rad = baseRad * (0.68 + 0.42 * depthFactor) * (isHov ? 1.28 : breathe);
+          n.sr = rad;
+
+          // Sonar Ring on Primary Spark Origin or Bridge Start
+          const isBridgeStart = bridgePath && bridgePath[0]?.id === n.id;
+          const isBridgeEnd = bridgePath && bridgePath[bridgePath.length - 1]?.id === n.id;
+          if (isBridgeStart || (act && act.role === 'origin' && !bridgePath)) {
+            ctx.beginPath();
+            ctx.arc(n.sx, n.sy, rad + 4 + sonarPhase * 16, 0, Math.PI * 2);
+            ctx.strokeStyle = isBridgeStart
+              ? `rgba(16, 185, 129, ${((1 - sonarPhase) * 0.90).toFixed(3)})`
+              : `rgba(${ar}, ${ag}, ${ab}, ${((1 - sonarPhase) * 0.85).toFixed(3)})`;
+            ctx.lineWidth = 1.8;
+            ctx.stroke();
+          }
+
+          // Pulsing Target Ring on Bridge Destination
+          if (isBridgeEnd) {
+            ctx.beginPath();
+            ctx.arc(n.sx, n.sy, rad + 5 + Math.sin(now * 0.006) * 2.4, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(253, 224, 71, 0.92)';
+            ctx.lineWidth = 1.9;
+            ctx.stroke();
+          }
+
+          // Soft Luminous Halo for Active / Bridge / Hovered / Selected
+          if ((act || isBridge || isSel || isHov) && !dimmedByFilter) {
+            const haloR = rad * (isSel || isHov ? 2.9 : 2.4);
+            const hGrad = ctx.createRadialGradient(n.sx, n.sy, rad * 0.4, n.sx, n.sy, haloR);
+            const hCol = isBridge ? '253, 224, 71' : (LOBE_RGB[n.lobe] || LOBE_RGB.exploration).join(',');
+            hGrad.addColorStop(0, `rgba(${hCol}, 0.42)`);
+            hGrad.addColorStop(1, `rgba(${hCol}, 0)`);
+            ctx.fillStyle = hGrad;
+            ctx.beginPath();
+            ctx.arc(n.sx, n.sy, haloR, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          // Selection Crisp Ring
+          if (isSel || isHov) {
+            ctx.beginPath();
+            ctx.arc(n.sx, n.sy, rad + 5.2, 0, Math.PI * 2);
+            ctx.strokeStyle = isSel ? '#ffffff' : 'rgba(224, 242, 254, 0.72)';
+            ctx.lineWidth = isSel ? 1.7 : 1.2;
+            ctx.stroke();
+          }
+
+          // Core Sphere Body
+          ctx.beginPath();
+          ctx.arc(n.sx, n.sy, rad, 0, Math.PI * 2);
+          ctx.fillStyle = isBridgeStart ? '#10b981' : isBridge ? '#fde047' : n.color;
+          ctx.globalAlpha = dimmedByFilter
+            ? 0.14
+            : (act || isBridge || isSel || isHov || isFocusNeighbor ? 1 : (activeMap.size > 0 ? depthFactor * 0.56 : depthFactor * 0.88));
+          ctx.fill();
+
+          // Bright Specular Core Pinpoint
+          if (act || isBridge || isSel || isHov) {
+            ctx.beginPath();
+            ctx.arc(n.sx - rad * 0.25, n.sy - rad * 0.25, rad * 0.36, 0, Math.PI * 2);
+            ctx.fillStyle = '#ffffff';
+            ctx.globalAlpha = 0.78;
+            ctx.fill();
+          }
+          ctx.globalAlpha = 1;
+
+          if ((act || isBridge || isSel) && !dimmedByFilter) {
+            const prefix = isBridgeStart ? '▶ ' : isBridgeEnd ? '◎ ' : '';
+            const suffix = act && !isBridge ? ` [S${act.hop}]` : '';
+            labelsToDraw.push({
+              x: n.sx + rad + 7,
+              y: n.sy,
+              label: `${prefix}${n.code}${suffix}`,
+              kind: isBridgeStart ? 'start' : isBridge ? 'bridge' : isSel ? 'sel' : 'active',
+              priority: isSel ? 4 : isBridge ? 3 : act?.hop === 0 ? 2 : 1
+            });
+          }
+        }
+
+        // 10) Anti-Collision Pill Labels
+        labelsToDraw.sort((a, b) => b.priority - a.priority);
+        ctx.font = '600 10px ui-monospace, SFMono-Regular, Menlo, monospace';
+        const placedBoxes = [];
+        for (const item of labelsToDraw.slice(0, 14)) {
+          const tw = ctx.measureText(item.label).width;
+          const bw = tw + 10;
+          const bh = 16;
+          let bx = item.x;
+          let by = item.y - bh * 0.5;
+
+          if (bx + bw > w - 10) bx = item.x - bw - 18;
+          bx = Math.max(8, Math.min(w - bw - 8, bx));
+
+          for (let tries = 0; tries < 5; tries++) {
+            const overlaps = placedBoxes.some((b) =>
+              bx < b.x + b.w + 3 && bx + bw + 3 > b.x && by < b.y + b.h + 3 && by + bh + 3 > b.y
+            );
+            if (!overlaps) break;
+            by += (tries % 2 === 0 ? 1 : -1) * (bh + 3);
+          }
+          by = Math.max(66, Math.min(h - bh - 56, by));
+          placedBoxes.push({ x: bx, y: by, w: bw, h: bh });
+
+          drawRoundPill(bx, by, bw, bh, 4);
+          ctx.fillStyle = 'rgba(6, 11, 22, 0.86)';
+          ctx.fill();
+          ctx.strokeStyle =
+            item.kind === 'sel' ? 'rgba(255, 255, 255, 0.72)' :
+            item.kind === 'start' ? 'rgba(16, 185, 129, 0.65)' :
+            item.kind === 'bridge' ? 'rgba(253, 224, 71, 0.62)' :
+            'rgba(56, 189, 248, 0.40)';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+
+          ctx.fillStyle =
+            item.kind === 'start' ? '#6ee7b7' :
+            item.kind === 'bridge' ? '#fef08a' :
+            '#f8fafc';
+          ctx.fillText(item.label, bx + 5, by + 11.5);
+        }
+
+        // 11) Subtle 3D Cardinal Lobe Poles
+        const poles = [
+          { label: '▲ EXPLORATION', x: 0, y: 1.14, z: 0, color: COLORS.exploration },
+          { label: '▶ EXECUTION', x: 1.14, y: 0, z: 0, color: COLORS.execution },
+          { label: '▼ DAILY', x: 0, y: -1.14, z: 0, color: COLORS.daily },
+          { label: '◀ SUPPORT', x: -1.14, y: 0, z: 0, color: COLORS.support }
+        ];
+        ctx.font = '700 9.5px ui-monospace, SFMono-Regular, Menlo, monospace';
+        for (const pl of poles) {
+          const p = project(pl.x, pl.y, pl.z, w, h);
+          const tw = ctx.measureText(pl.label).width;
+          const px = Math.max(10, Math.min(w - tw - 10, p.sx - tw * 0.5));
+          const py = Math.max(70, Math.min(h - 56, p.sy));
+          ctx.fillStyle = pl.color;
+          ctx.globalAlpha = Math.max(0.32, Math.min(0.82, (p.z + 1.4) / 2.4));
+          ctx.fillText(pl.label, px, py);
+        }
+        ctx.globalAlpha = 1;
+
+        requestAnimationFrame(render);
+      }
+
+      // Hit-test for Hover & Click
+      function pickNodeAt(clientX, clientY) {
+        const rect = canvas.getBoundingClientRect();
+        const mx = clientX - rect.left;
+        const my = clientY - rect.top;
+        let best = null;
+        let bestDist = 18;
+        for (const n of nodes) {
+          const d = Math.hypot(n.sx - mx, n.sy - my);
+          if (d < bestDist) {
+            bestDist = d;
+            best = n;
+          }
+        }
+        return { node: best, mx, my, rect };
+      }
+
+      function updateHoverTooltip(node, mx, my, rect) {
+        if (!node) {
+          hoverTip.classList.remove('visible');
+          canvas.classList.remove('hovering');
+          return;
+        }
+        canvas.classList.add('hovering');
+        const deg = (adjMap.get(node.id) || []).length;
+        const tipCode = document.getElementById('tipCode');
+        tipCode.textContent = `${node.code} · ${node.type.toUpperCase()}`;
+        tipCode.style.color = node.color;
+        document.getElementById('tipMeta').textContent = `${deg} links`;
+        document.getElementById('tipTitle').textContent = node.title;
+
+        const left = mx + 16 + 260 > rect.width ? Math.max(10, mx - 266) : mx + 16;
+        const top = my + 16 + 90 > rect.height ? Math.max(10, my - 90) : my + 16;
+        hoverTip.style.left = `${left}px`;
+        hoverTip.style.top = `${top}px`;
+        hoverTip.classList.add('visible');
+      }
+
+      // Inspector UI (Safe DOM Construction, Zero innerHTML)
+      function openInspector(node) {
+        const el = document.getElementById('inspector');
+        if (!node) {
+          selectedId = null;
+          el.classList.remove('visible');
+          syncSelectedCards();
+          return;
+        }
+        selectedId = node.id;
+        el.classList.add('visible');
+
+        const codeEl = document.getElementById('inspCode');
+        codeEl.textContent = `${node.code} · ${node.lobe.toUpperCase()}`;
+        codeEl.style.color = node.color;
+
+        document.getElementById('inspTitle').textContent = node.title;
+        document.getElementById('inspSummary').textContent = node.summary || 'No summary recorded for this neuron.';
+
+        const echoEl = document.getElementById('inspEcho');
+        if (node.echo) {
+          echoEl.textContent = `Echo: ${node.echo}`;
+          echoEl.style.display = 'block';
+        } else {
+          echoEl.style.display = 'none';
+        }
+
+        const metaEl = document.getElementById('inspMeta');
+        metaEl.textContent = '';
+        const deg = (adjMap.get(node.id) || []).length;
+        const chips = [
+          `links:${deg}`,
+          `act:${node.activations ?? 0}`,
+          `w:${Number(node.weight ?? 1).toFixed(2)}`
+        ];
+        if (Array.isArray(node.tags)) {
+          for (const t of node.tags.slice(0, 3)) chips.push(`#${t}`);
+        }
+        for (const text of chips) {
+          const span = document.createElement('span');
+          span.className = 'meta-tag';
+          span.textContent = text;
+          metaEl.appendChild(span);
+        }
+
+        syncSelectedCards();
+      }
+
+      function syncSelectedCards() {
+        document.querySelectorAll('#results .card').forEach((card) => {
+          card.classList.toggle('selected', card.dataset.id === selectedId);
+        });
+      }
+
+      function syncSpinButton() {
+        const btn = document.getElementById('btnSpin');
+        const active = autoSpin && !userPausedSpin;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-pressed', String(active));
+        btn.title = active ? 'Pause Auto-Orbit' : 'Resume Auto-Orbit';
+      }
+
+      // Pointer & Wheel Camera Controls
+      canvas.addEventListener('pointerdown', (e) => {
+        dragging = true;
+        didDrag = false;
+        lastX = e.clientX;
+        lastY = e.clientY;
+        targetRotY = null;
+        targetRotX = null;
+        canvas.classList.add('dragging');
+        canvas.setPointerCapture(e.pointerId);
+      });
+
+      canvas.addEventListener('pointermove', (e) => {
+        if (dragging) {
+          const dx = e.clientX - lastX;
+          const dy = e.clientY - lastY;
+          if (Math.abs(dx) > 2 || Math.abs(dy) > 2) {
+            didDrag = true;
+            spinBlend = 0;
+          }
+          rotY += dx * 0.0075;
+          rotX = Math.max(-1.25, Math.min(1.25, rotX + dy * 0.0075));
+          velY = dx * 0.0018;
+          velX = dy * 0.0018;
+          lastX = e.clientX;
+          lastY = e.clientY;
+          hoverTip.classList.remove('visible');
+          return;
+        }
+        const hit = pickNodeAt(e.clientX, e.clientY);
+        hoveredId = hit.node ? hit.node.id : null;
+        updateHoverTooltip(hit.node, hit.mx, hit.my, hit.rect);
+      });
+
+      function finishDrag(e, allowClick) {
+        if (dragging && allowClick && !didDrag) {
+          const hit = pickNodeAt(e.clientX, e.clientY);
+          if (hit.node) {
+            openInspector(hit.node);
+            focusCameraOnNode(hit.node);
+          } else {
+            openInspector(null);
+          }
+        } else if (dragging && didDrag && !userPausedSpin) {
+          autoSpin = true;
+          spinBlend = 0;
+          spinResumeAt = performance.now() + 2500;
+          syncSpinButton();
+        }
+        dragging = false;
+        canvas.classList.remove('dragging');
+      }
+
+      canvas.addEventListener('pointerup', (e) => finishDrag(e, true));
+      canvas.addEventListener('pointercancel', (e) => finishDrag(e, false));
+
+      canvas.addEventListener('pointerleave', () => {
+        if (!dragging) {
+          hoveredId = null;
+          hoverTip.classList.remove('visible');
+          canvas.classList.remove('hovering');
+        }
+      });
+
+      canvas.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const factor = e.deltaY > 0 ? 0.92 : 1.09;
+        targetZoom = Math.max(0.62, Math.min(2.25, targetZoom * factor));
+      }, { passive: false });
+
+      canvas.addEventListener('dblclick', () => {
+        targetRotY = 0.45;
+        targetRotX = 0.22;
+        targetZoom = 1.02;
+        userPausedSpin = false;
+        autoSpin = true;
+        spinResumeAt = 0;
+        spinBlend = 1;
+        syncSpinButton();
+      });
+
+      // Neurochemistry & Badge Updates
+      function updateMeters(c, lobeName) {
+        if (c) {
+          chem = {
+            dopamine: Number(c.dopamine ?? chem.dopamine),
+            focus: Number(c.focus ?? chem.focus),
+            oxytocin: Number(c.oxytocin ?? chem.oxytocin),
+            serotonin: Number(c.serotonin ?? chem.serotonin)
+          };
+        }
+        const setBar = (vId, bId, val) => {
+          const pct = `${Math.round(Math.max(0, Math.min(1, val)) * 100)}%`;
+          document.getElementById(vId).textContent = pct;
+          document.getElementById(bId).style.width = pct;
+        };
+        setBar('vDopa', 'bDopa', chem.dopamine);
+        setBar('vFocus', 'bFocus', chem.focus);
+        setBar('vOxi', 'bOxi', chem.oxytocin);
+        setBar('vSero', 'bSero', chem.serotonin);
+
+        if (lobeName) {
+          dominantLobe = String(lobeName).toLowerCase();
+        }
+        const badge = document.getElementById('lobeBadge');
+        const label = bridgePath && bridgePath.length >= 2 ? 'A* BRIDGE' : dominantLobe.toUpperCase();
+        const col = bridgePath && bridgePath.length >= 2 ? COLORS.bridge : (COLORS[dominantLobe] || COLORS.exploration);
+        badge.textContent = label;
+        badge.style.color = col;
+        badge.style.borderColor = col;
+        updateTargetAura();
+      }
+
+      // Load Graph from GET /api/graph
+      async function loadGraph() {
+        const statsEl = document.getElementById('statsLine');
+        const beacon = document.getElementById('liveBeacon');
+        try {
+          const res = await fetch('/api/graph');
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const data = await res.json();
+          const rawNodes = Object.values(data.neurons || {});
+
+          nodes = rawNodes.map((n) => {
+            const pos = computePosition(n);
+            const lobe = getNodeLobe(n);
+            return {
+              ...n,
+              ...pos,
+              lobe,
+              color: COLORS[lobe] || COLORS.exploration,
+              phase: hash01(n.id, 53) * Math.PI * 2,
+              sx: 0,
+              sy: 0,
+              sz: 0,
+              sr: 3
+            };
+          });
+
+          nodeMap = new Map(nodes.map((n) => [n.id, n]));
+          codeMap = new Map(nodes.map((n) => [String(n.code || '').toUpperCase(), n]));
+          adjMap = new Map();
+          edges = [];
+          const seen = new Set();
+
+          for (const n of nodes) {
+            for (const [dst, rawW] of Object.entries(n.edges || {})) {
+              if (!nodeMap.has(dst) || dst === n.id) continue;
+              const w = typeof rawW === 'object' ? Number(rawW.weight ?? 0.5) : Number(rawW ?? 0.5);
+              const k = edgeKey(n.id, dst);
+              if (!seen.has(k)) {
+                seen.add(k);
+                edges.push({ a: n.id, b: dst, w, key: k });
+              }
+              if (!adjMap.has(n.id)) adjMap.set(n.id, []);
+              if (!adjMap.has(dst)) adjMap.set(dst, []);
+              adjMap.get(n.id).push(dst);
+              adjMap.get(dst).push(n.id);
+            }
+          }
+
+          rebuildAmbientPulses();
+          beacon.classList.remove('error');
+          statsEl.textContent = `${nodes.length} neurons · ${edges.length} synapses · Local SQLite WAL`;
+        } catch (err) {
+          beacon.classList.add('error');
+          statsEl.textContent = `Offline or server error (${err.message})`;
+        }
+      }
+
+      // Fire Synaptic Spark via GET /api/spark?q=...
+      async function fireSpark(query) {
+        const q = String(query || '').trim();
+        if (!q) return;
+        const btn = document.getElementById('sparkBtn');
+        const input = document.getElementById('sparkInput');
+        const streamStats = document.getElementById('streamStats');
+        input.value = q;
+        btn.disabled = true;
+        btn.textContent = '...';
+
+        try {
+          const res = await fetch('/api/spark?q=' + encodeURIComponent(q));
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const data = await res.json();
+
+          // Clear stale bridge so spark shines cleanly
+          clearBridge(false);
+
+          activeMap.clear();
+          activeList = [];
+          const winners = Array.isArray(data.winners) ? data.winners : [];
+          winners.forEach((w, idx) => {
+            const parsed = parseHopAndParent(w.via);
+            const hop = idx === 0 && parsed.hop > 0 ? 0 : parsed.hop;
+            const role = idx === 0 ? 'origin' : (idx === winners.length - 1 ? 'leaf' : 'relay');
+            const entry = {
+              id: w.id,
+              hop,
+              role,
+              parentId: parsed.parentId,
+              energy: w.energy,
+              via: w.via,
+              data: w
+            };
+            activeMap.set(w.id, entry);
+            activeList.push(entry);
+          });
+
+          updateMeters(data.chemistry, data.dominantLobe);
+          rebuildDirectionalPulses();
+
+          // Trigger shockwaves on top activated origins
+          const originNodes = activeList
+            .filter((item) => item.hop === 0)
+            .slice(0, 3)
+            .map((item) => nodeMap.get(item.id))
+            .filter(Boolean);
+          if (originNodes.length > 0) {
+            spawnShockwaves(originNodes);
+          }
+
+          const linksCount = Array.isArray(data.hebbianLinks) ? data.hebbianLinks.length : Number(data.hebbianLinks || 0);
+          const conceptsCount = Array.isArray(data.evaluatedConcepts) ? data.evaluatedConcepts.length : Number(data.evaluatedConcepts || 0);
+          streamStats.textContent = `${winners.length} active · ${data.ms} ms · ${conceptsCount} concepts · ${linksCount} Hebb`;
+
+          renderWinnerCards(winners);
+        } catch (err) {
+          streamStats.textContent = `Spark error: ${err.message}`;
+        } finally {
+          btn.disabled = false;
+          btn.textContent = 'Spark';
+        }
+      }
+
+      function renderWinnerCards(winners) {
+        const box = document.getElementById('results');
+        box.textContent = '';
+
+        if (!winners.length) {
+          const empty = document.createElement('div');
+          empty.className = 'empty-state';
+          empty.textContent = 'No neurons exceeded activation threshold for this query. Try another concept or explore the 3D sphere directly.';
+          box.appendChild(empty);
+          return;
+        }
+
+        for (const w of winners) {
+          const node = nodeMap.get(w.id);
+          const col = node ? node.color : lobeColor(w);
+          const act = activeMap.get(w.id);
+
+          const card = document.createElement('button');
+          card.type = 'button';
+          card.className = 'card';
+          card.dataset.id = w.id;
+          card.style.borderLeftColor = col;
+
+          const top = document.createElement('div');
+          top.className = 'card-top';
+
+          const codeSpan = document.createElement('span');
+          codeSpan.className = 'card-code';
+          codeSpan.style.color = col;
+          codeSpan.textContent = `${w.code} · ${String(w.type || 'node').toUpperCase()} · S${act ? act.hop : 0}`;
+
+          const energySpan = document.createElement('span');
+          energySpan.className = 'card-energy';
+          energySpan.textContent = typeof w.energy === 'number' ? w.energy.toFixed(2) : String(w.energy ?? '');
+
+          top.appendChild(codeSpan);
+          top.appendChild(energySpan);
+
+          const titleDiv = document.createElement('div');
+          titleDiv.className = 'card-title';
+          titleDiv.textContent = w.title;
+
+          const viaDiv = document.createElement('div');
+          viaDiv.className = 'card-via';
+          viaDiv.textContent = w.echo ? `${w.via} · Echo: ${w.echo}` : String(w.via || 'direct');
+
+          card.appendChild(top);
+          card.appendChild(titleDiv);
+          card.appendChild(viaDiv);
+
+          card.addEventListener('click', () => {
+            if (node) {
+              openInspector(node);
+              focusCameraOnNode(node);
+              spawnShockwaves([node], col);
+            }
+          });
+
+          box.appendChild(card);
+        }
+        syncSelectedCards();
+      }
+
+      // Clear Bridge State
+      function clearBridge(refreshVisuals = true) {
+        bridgePath = null;
+        bridgeIds.clear();
+        bridgeEdgeKeys.clear();
+        bridgeDirected.clear();
+        document.getElementById('bridgePill').classList.remove('visible');
+        if (refreshVisuals) {
+          document.getElementById('bridgeFeedback').classList.remove('visible');
+          rebuildDirectionalPulses();
+          updateMeters(null, dominantLobe);
+        }
+      }
+
+      // Fire 3D A* Bridge via GET /api/bridge?a=...&b=...
+      async function fireBridge(customA, customB) {
+        const inputA = document.getElementById('bridgeA');
+        const inputB = document.getElementById('bridgeB');
+        if (customA !== undefined) inputA.value = customA;
+        if (customB !== undefined) inputB.value = customB;
+
+        const a = inputA.value.trim();
+        const b = inputB.value.trim();
+        if (!a || !b) return;
+
+        const btn = document.getElementById('bridgeBtn');
+        const fb = document.getElementById('bridgeFeedback');
+        btn.disabled = true;
+        btn.textContent = '...';
+
+        try {
+          const res = await fetch(`/api/bridge?a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}`);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const data = await res.json();
+
+          fb.textContent = '';
+          fb.classList.add('visible');
+          fb.classList.remove('warn');
+
+          if (data.found && Array.isArray(data.path) && data.path.length >= 2) {
+            bridgePath = data.path;
+            bridgeIds = new Set(data.path.map((p) => p.id));
+            rebuildDirectionalPulses();
+            updateMeters(null, dominantLobe);
+
+            const hops = data.path.length - 1;
+            const summaryLine = document.createElement('div');
+            summaryLine.textContent = `Path found in ${data.ms} ms · ${hops} ${hops === 1 ? 'hop' : 'hops'} · confidence ${data.confidence ?? 'n/a'}`;
+            fb.appendChild(summaryLine);
+
+            const stepsRow = document.createElement('div');
+            stepsRow.className = 'bridge-steps';
+            data.path.forEach((step, idx) => {
+              const stepBtn = document.createElement('button');
+              stepBtn.type = 'button';
+              stepBtn.className = 'step-chip';
+              stepBtn.textContent = step.code;
+              stepBtn.title = step.title;
+              stepBtn.addEventListener('click', () => {
+                const n = nodeMap.get(step.id);
+                if (n) {
+                  openInspector(n);
+                  focusCameraOnNode(n);
+                  spawnShockwaves([n], COLORS.bridge);
+                }
+              });
+              stepsRow.appendChild(stepBtn);
+              if (idx < data.path.length - 1) {
+                const arr = document.createElement('span');
+                arr.className = 'step-arrow';
+                arr.textContent = '→';
+                stepsRow.appendChild(arr);
+              }
+            });
+            fb.appendChild(stepsRow);
+
+            // Floating HUD Pill on Canvas
+            const pill = document.getElementById('bridgePill');
+            document.getElementById('bridgePillText').textContent =
+              `${data.path.map((p) => p.code).join(' → ')}  (${data.ms} ms · conf ${data.confidence ?? 'n/a'})`;
+            pill.classList.add('visible');
+
+            // Shockwaves on Bridge Endpoints & Soft Focus on Midpoint
+            const startNode = nodeMap.get(data.path[0].id);
+            const endNode = nodeMap.get(data.path[data.path.length - 1].id);
+            const midNode = nodeMap.get(data.path[Math.floor(data.path.length / 2)].id);
+            spawnShockwaves([startNode, endNode].filter(Boolean), COLORS.bridge);
+            if (midNode) focusCameraOnNode(midNode);
+          } else {
+            clearBridge(true);
+            fb.classList.add('visible', 'warn');
+            fb.textContent = `No strong bridge found (${data.reason || 'anti-pareidolia threshold'}). Try broader concepts.`;
+          }
+        } catch (err) {
+          fb.classList.add('visible', 'warn');
+          fb.textContent = `Bridge error: ${err.message}`;
+        } finally {
+          btn.disabled = false;
+          btn.textContent = 'Route';
+        }
+      }
+
+      // Mode Tab Switching
+      function setMode(mode) {
+        const isSpark = mode === 'spark';
+        document.getElementById('tabSpark').classList.toggle('active', isSpark);
+        document.getElementById('tabSpark').setAttribute('aria-selected', String(isSpark));
+        document.getElementById('tabBridge').classList.toggle('active', !isSpark);
+        document.getElementById('tabBridge').setAttribute('aria-selected', String(!isSpark));
+        document.getElementById('paneSpark').classList.toggle('active', isSpark);
+        document.getElementById('paneBridge').classList.toggle('active', !isSpark);
+      }
+
+      // Wire UI Events
+      document.getElementById('tabSpark').addEventListener('click', () => setMode('spark'));
+      document.getElementById('tabBridge').addEventListener('click', () => setMode('bridge'));
+
+      document.getElementById('sparkBtn').addEventListener('click', () => {
+        fireSpark(document.getElementById('sparkInput').value);
+      });
+      document.getElementById('sparkInput').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') fireSpark(e.target.value);
+      });
+
+      document.getElementById('bridgeBtn').addEventListener('click', () => fireBridge());
+      document.getElementById('bridgeA').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') fireBridge();
+      });
+      document.getElementById('bridgeB').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') fireBridge();
+      });
+      document.getElementById('bridgePillClose').addEventListener('click', () => clearBridge(true));
+      document.getElementById('inspClose').addEventListener('click', () => openInspector(null));
+
+      document.querySelectorAll('#paneSpark .chip').forEach((chip) => {
+        chip.addEventListener('click', () => fireSpark(chip.dataset.q));
+      });
+      document.querySelectorAll('#paneBridge .chip').forEach((chip) => {
+        chip.addEventListener('click', () => fireBridge(chip.dataset.a, chip.dataset.b));
+      });
+
+      // Camera Toolbar
+      document.getElementById('btnSpin').addEventListener('click', () => {
+        userPausedSpin = !userPausedSpin;
+        autoSpin = !userPausedSpin;
+        if (autoSpin) {
+          targetRotY = null;
+          targetRotX = null;
+          spinResumeAt = 0;
+          spinBlend = 1;
+        } else {
+          spinBlend = 0;
+        }
+        syncSpinButton();
+      });
+      document.getElementById('btnZoomIn').addEventListener('click', () => {
+        targetZoom = Math.min(2.25, targetZoom * 1.18);
+      });
+      document.getElementById('btnZoomOut').addEventListener('click', () => {
+        targetZoom = Math.max(0.62, targetZoom * 0.85);
+      });
+      document.getElementById('btnReset').addEventListener('click', () => {
+        targetRotY = 0.45;
+        targetRotX = 0.22;
+        targetZoom = 1.02;
+        userPausedSpin = false;
+        autoSpin = true;
+        spinResumeAt = 0;
+        spinBlend = 1;
+        filterLobe = null;
+        document.querySelectorAll('.legend-item').forEach((el) => el.classList.remove('active-filter', 'filtered-out'));
+        syncSpinButton();
+      });
+
+      // Filterable Legend
+      document.querySelectorAll('.legend-item').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const lobe = btn.dataset.lobe;
+          filterLobe = filterLobe === lobe ? null : lobe;
+          document.querySelectorAll('.legend-item').forEach((el) => {
+            const match = el.dataset.lobe === filterLobe;
+            el.classList.toggle('active-filter', Boolean(filterLobe) && match);
+            el.classList.toggle('filtered-out', Boolean(filterLobe) && !match);
+          });
+        });
+      });
+
+      // Boot Observatory
+      loadGraph().then(() => {
+        requestAnimationFrame(render);
+        fireSpark('how to stop a tiny local LLM from crashing into a loop');
+      });
+    })();
+  </script>
+</body>
+</html>
