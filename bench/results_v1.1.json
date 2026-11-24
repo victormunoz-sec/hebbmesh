@@ -1,9 +1,9 @@
 {
   "protocol": "PROTOCOLO_PREREGISTRO_v1.1",
-  "timestamp": "2026-11-23T00:41:05.095Z",
+  "timestamp": "2026-11-24T19:54:33.949Z",
   "hashes": {
     "PROTOCOLO_PREREGISTRO_md": "5029CE012630E2D585FF901C1DBD9F8715F10373A1802C05C13F700A7065FAE9",
-    "engine_mjs": "8FB93F687CA3251D60ACE3098C1815351F3B8E165F128F6173303019CC1ACC24",
+    "engine_mjs": "01F40FC52A7EE83C7626E9791F0CCA7B8D9ACB99665C3F5921071573DFB678AE",
     "seeds_regenerated_json": "2FFB17B31C84C5356D63749D6642F32BB085BDC083813BC82021B8DA538EC0A6",
     "queries_blind_json": "2EEBED3C73BA7772D215B6AD3606B8902A542169B4A8DB4CE94DEC7F57E11C7E",
     "privacy_probes_json": "9C664E018589998D0AA5E2A3E384EB0A81EA48BF00699F83D6C8D79F23D4F0DA"
@@ -12,15 +12,15 @@
     "totalNeurons": 187,
     "publicNeurons": 183,
     "privateNeurons": 4,
-    "totalEdges": 1447,
+    "totalEdges": 1468,
     "queriesTotal": 80,
     "clustersTotal": 33
   },
   "footprint": {
-    "compileMs": 88.95,
-    "sqliteDiskKb": 456,
+    "compileMs": 115.54,
+    "sqliteDiskKb": 464,
     "sqliteFile": ".hebbmesh.sqlite",
-    "processRssMb": 138.6,
+    "processRssMb": 139.5,
     "externalNpmDeps": 0
   },
   "conditionA_regenerated_blind": {
@@ -68,8 +68,8 @@
           "avgEpisodicInTop5": 0.25
         },
         "latencyMs": {
-          "mean": 0.97,
-          "p95": 2.31
+          "mean": 1.53,
+          "p95": 4.07
         }
       },
       {
@@ -115,8 +115,8 @@
           "avgEpisodicInTop5": 0.5
         },
         "latencyMs": {
-          "mean": 0.97,
-          "p95": 2.75
+          "mean": 1.52,
+          "p95": 5.68
         }
       },
       {
@@ -126,33 +126,33 @@
         "byCat": {
           "direct": {
             "n": 20,
-            "hit1Pct": 80,
-            "hit3Pct": 90,
+            "hit1Pct": 95,
+            "hit3Pct": 100,
             "hit5Pct": 100
           },
           "semantic": {
             "n": 30,
-            "hit1Pct": 3.3,
-            "hit3Pct": 6.7,
-            "hit5Pct": 10
+            "hit1Pct": 0,
+            "hit3Pct": 3.3,
+            "hit5Pct": 6.7
           },
           "multihop": {
             "n": 20,
-            "hit1Pct": 55,
-            "hit3Pct": 95,
-            "hit5Pct": 95
+            "hit1Pct": 80,
+            "hit3Pct": 100,
+            "hit5Pct": 100
           },
           "episodic": {
             "n": 10,
-            "hit1Pct": 80,
-            "hit3Pct": 80,
-            "hit5Pct": 80
+            "hit1Pct": 70,
+            "hit3Pct": 70,
+            "hit5Pct": 70
           }
         },
         "exploratoryOverall": {
-          "hit1Pct": 45,
-          "hit3Pct": 58.8,
-          "hit5Pct": 62.5
+          "hit1Pct": 52.5,
+          "hit3Pct": 60,
+          "hit5Pct": 61.3
         },
         "episodicControl": {
           "n": 4,
@@ -162,8 +162,8 @@
           "avgEpisodicInTop5": 0.5
         },
         "latencyMs": {
-          "mean": 5.39,
-          "p95": 11.34
+          "mean": 13.43,
+          "p95": 26.19
         }
       },
       {
@@ -205,12 +205,12 @@
           "n": 4,
           "superHubViolations": 0,
           "hit3Pct": 100,
-          "avgEpisodicInTop3": 0,
+          "avgEpisodicInTop3": 0.25,
           "avgEpisodicInTop5": 0.25
         },
         "latencyMs": {
-          "mean": 4,
-          "p95": 5.99
+          "mean": 12.93,
+          "p95": 32.24
         }
       },
       {
@@ -220,80 +220,33 @@
         "byCat": {
           "direct": {
             "n": 20,
-            "hit1Pct": 75,
+            "hit1Pct": 95,
             "hit3Pct": 100,
             "hit5Pct": 100
           },
           "semantic": {
             "n": 30,
-            "hit1Pct": 13.3,
-            "hit3Pct": 23.3,
-            "hit5Pct": 26.7
+            "hit1Pct": 33.3,
+            "hit3Pct": 43.3,
+            "hit5Pct": 46.7
           },
           "multihop": {
             "n": 20,
-            "hit1Pct": 70,
-            "hit3Pct": 95,
-            "hit5Pct": 100
-          },
-          "episodic": {
-            "n": 10,
-            "hit1Pct": 70,
-            "hit3Pct": 90,
-            "hit5Pct": 90
-          }
-        },
-        "exploratoryOverall": {
-          "hit1Pct": 50,
-          "hit3Pct": 68.8,
-          "hit5Pct": 71.3
-        },
-        "episodicControl": {
-          "n": 4,
-          "superHubViolations": 1,
-          "hit3Pct": 100,
-          "avgEpisodicInTop3": 0.5,
-          "avgEpisodicInTop5": 0.75
-        },
-        "latencyMs": {
-          "mean": 4.43,
-          "p95": 7.16
-        }
-      },
-      {
-        "id": "hebbmesh_full_4d",
-        "label": "6. HebbMesh Full 4D",
-        "n": 80,
-        "byCat": {
-          "direct": {
-            "n": 20,
-            "hit1Pct": 75,
+            "hit1Pct": 95,
             "hit3Pct": 100,
-            "hit5Pct": 100
-          },
-          "semantic": {
-            "n": 30,
-            "hit1Pct": 13.3,
-            "hit3Pct": 23.3,
-            "hit5Pct": 26.7
-          },
-          "multihop": {
-            "n": 20,
-            "hit1Pct": 70,
-            "hit3Pct": 95,
             "hit5Pct": 100
           },
           "episodic": {
             "n": 10,
             "hit1Pct": 70,
             "hit3Pct": 80,
-            "hit5Pct": 80
+            "hit5Pct": 90
           }
         },
         "exploratoryOverall": {
-          "hit1Pct": 50,
-          "hit3Pct": 67.5,
-          "hit5Pct": 70
+          "hit1Pct": 68.8,
+          "hit3Pct": 76.3,
+          "hit5Pct": 78.8
         },
         "episodicControl": {
           "n": 4,
@@ -303,8 +256,55 @@
           "avgEpisodicInTop5": 0.5
         },
         "latencyMs": {
-          "mean": 3.74,
-          "p95": 5.65
+          "mean": 14.6,
+          "p95": 34.24
+        }
+      },
+      {
+        "id": "hebbmesh_full_4d",
+        "label": "6. HebbMesh Full 4D",
+        "n": 80,
+        "byCat": {
+          "direct": {
+            "n": 20,
+            "hit1Pct": 95,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "semantic": {
+            "n": 30,
+            "hit1Pct": 33.3,
+            "hit3Pct": 43.3,
+            "hit5Pct": 46.7
+          },
+          "multihop": {
+            "n": 20,
+            "hit1Pct": 95,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "episodic": {
+            "n": 10,
+            "hit1Pct": 70,
+            "hit3Pct": 70,
+            "hit5Pct": 80
+          }
+        },
+        "exploratoryOverall": {
+          "hit1Pct": 68.8,
+          "hit3Pct": 75,
+          "hit5Pct": 77.5
+        },
+        "episodicControl": {
+          "n": 4,
+          "superHubViolations": 0,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0.5,
+          "avgEpisodicInTop5": 0.5
+        },
+        "latencyMs": {
+          "mean": 9.53,
+          "p95": 16.22
         }
       }
     ],
@@ -392,36 +392,36 @@
           "direct": {
             "clusters": 20,
             "n": 20,
-            "point": 90,
+            "point": 100,
             "ci95": [
-              75,
+              100,
               100
             ]
           },
           "semantic": {
             "clusters": 19,
             "n": 30,
-            "point": 6.7,
+            "point": 3.3,
             "ci95": [
               0,
-              16.7
+              12
             ]
           },
           "multihop": {
             "clusters": 19,
             "n": 20,
-            "point": 95,
+            "point": 100,
             "ci95": [
-              84.2,
+              100,
               100
             ]
           },
           "episodic": {
             "clusters": 8,
             "n": 10,
-            "point": 80,
+            "point": 70,
             "ci95": [
-              60,
+              43.8,
               100
             ]
           }
@@ -477,27 +477,27 @@
           "semantic": {
             "clusters": 19,
             "n": 30,
-            "point": 23.3,
+            "point": 43.3,
             "ci95": [
-              10.3,
-              38.5
+              23.5,
+              63.3
             ]
           },
           "multihop": {
             "clusters": 19,
             "n": 20,
-            "point": 95,
+            "point": 100,
             "ci95": [
-              84.2,
+              100,
               100
             ]
           },
           "episodic": {
             "clusters": 8,
             "n": 10,
-            "point": 90,
+            "point": 80,
             "ci95": [
-              78.6,
+              57.1,
               100
             ]
           }
@@ -515,27 +515,27 @@
           "semantic": {
             "clusters": 19,
             "n": 30,
-            "point": 23.3,
+            "point": 43.3,
             "ci95": [
-              10,
-              38.5
+              24,
+              63.6
             ]
           },
           "multihop": {
             "clusters": 19,
             "n": 20,
-            "point": 95,
+            "point": 100,
             "ci95": [
-              84.2,
+              100,
               100
             ]
           },
           "episodic": {
             "clusters": 8,
             "n": 10,
-            "point": 80,
+            "point": 70,
             "ci95": [
-              60,
+              43.8,
               100
             ]
           }
@@ -556,29 +556,29 @@
           "semantic": {
             "clusters": 19,
             "n": 30,
-            "point": -10,
+            "point": 10,
             "ci95": [
-              -24,
-              3.6
+              0,
+              20.7
             ],
             "verdict": "INCONCLUSO"
           },
           "multihop": {
             "clusters": 19,
             "n": 20,
-            "point": -5,
+            "point": 0,
             "ci95": [
-              -15.8,
+              0,
               0
             ],
-            "verdict": "INCONCLUSO"
+            "verdict": "PARIDAD_+-5"
           },
           "episodic": {
             "clusters": 8,
             "n": 10,
-            "point": -10,
+            "point": -20,
             "ci95": [
-              -37.5,
+              -40,
               0
             ],
             "verdict": "INCONCLUSO"
@@ -598,32 +598,32 @@
           "semantic": {
             "clusters": 19,
             "n": 30,
-            "point": -20,
+            "point": 0,
             "ci95": [
-              -36.1,
-              -6.2
+              0,
+              0
             ],
-            "verdict": "INFERIOR"
+            "verdict": "PARIDAD_+-5"
           },
           "multihop": {
             "clusters": 19,
             "n": 20,
-            "point": -5,
+            "point": 0,
             "ci95": [
-              -15.8,
+              0,
               0
             ],
-            "verdict": "INCONCLUSO"
+            "verdict": "PARIDAD_+-5"
           },
           "episodic": {
             "clusters": 8,
             "n": 10,
-            "point": 10,
+            "point": 0,
             "ci95": [
               0,
-              21.4
+              0
             ],
-            "verdict": "INCONCLUSO"
+            "verdict": "PARIDAD_+-5"
           }
         },
         "full4d_minus_noEpCap": {
@@ -716,8 +716,8 @@
           "avgEpisodicInTop5": 0.25
         },
         "latencyMs": {
-          "mean": 1.11,
-          "p95": 2.85
+          "mean": 1.46,
+          "p95": 5.63
         }
       },
       {
@@ -763,60 +763,13 @@
           "avgEpisodicInTop5": 0.5
         },
         "latencyMs": {
-          "mean": 1.28,
-          "p95": 3.29
+          "mean": 1.46,
+          "p95": 3.92
         }
       },
       {
         "id": "hebbmesh_no_sem",
         "label": "3. HebbMesh sin | sem:",
-        "n": 80,
-        "byCat": {
-          "direct": {
-            "n": 20,
-            "hit1Pct": 80,
-            "hit3Pct": 90,
-            "hit5Pct": 100
-          },
-          "semantic": {
-            "n": 30,
-            "hit1Pct": 3.3,
-            "hit3Pct": 6.7,
-            "hit5Pct": 10
-          },
-          "multihop": {
-            "n": 20,
-            "hit1Pct": 55,
-            "hit3Pct": 95,
-            "hit5Pct": 95
-          },
-          "episodic": {
-            "n": 10,
-            "hit1Pct": 80,
-            "hit3Pct": 80,
-            "hit5Pct": 80
-          }
-        },
-        "exploratoryOverall": {
-          "hit1Pct": 45,
-          "hit3Pct": 58.8,
-          "hit5Pct": 62.5
-        },
-        "episodicControl": {
-          "n": 4,
-          "superHubViolations": 0,
-          "hit3Pct": 100,
-          "avgEpisodicInTop3": 0.25,
-          "avgEpisodicInTop5": 0.5
-        },
-        "latencyMs": {
-          "mean": 3.62,
-          "p95": 5.18
-        }
-      },
-      {
-        "id": "hebbmesh_no_prop",
-        "label": "4. HebbMesh sin propagacion",
         "n": 80,
         "byCat": {
           "direct": {
@@ -827,108 +780,14 @@
           },
           "semantic": {
             "n": 30,
-            "hit1Pct": 3.3,
-            "hit3Pct": 13.3,
-            "hit5Pct": 20
-          },
-          "multihop": {
-            "n": 20,
-            "hit1Pct": 90,
-            "hit3Pct": 95,
-            "hit5Pct": 100
-          },
-          "episodic": {
-            "n": 10,
-            "hit1Pct": 60,
-            "hit3Pct": 60,
-            "hit5Pct": 60
-          }
-        },
-        "exploratoryOverall": {
-          "hit1Pct": 55,
-          "hit3Pct": 61.3,
-          "hit5Pct": 65
-        },
-        "episodicControl": {
-          "n": 4,
-          "superHubViolations": 0,
-          "hit3Pct": 100,
-          "avgEpisodicInTop3": 0,
-          "avgEpisodicInTop5": 0.25
-        },
-        "latencyMs": {
-          "mean": 4.22,
-          "p95": 5.88
-        }
-      },
-      {
-        "id": "hebbmesh_no_ep_cap",
-        "label": "5. HebbMesh sin tope episodico",
-        "n": 80,
-        "byCat": {
-          "direct": {
-            "n": 20,
-            "hit1Pct": 70,
-            "hit3Pct": 85,
-            "hit5Pct": 95
-          },
-          "semantic": {
-            "n": 30,
-            "hit1Pct": 3.3,
-            "hit3Pct": 6.7,
+            "hit1Pct": 0,
+            "hit3Pct": 3.3,
             "hit5Pct": 6.7
           },
           "multihop": {
             "n": 20,
-            "hit1Pct": 70,
-            "hit3Pct": 95,
-            "hit5Pct": 100
-          },
-          "episodic": {
-            "n": 10,
-            "hit1Pct": 70,
-            "hit3Pct": 90,
-            "hit5Pct": 90
-          }
-        },
-        "exploratoryOverall": {
-          "hit1Pct": 45,
-          "hit3Pct": 58.8,
-          "hit5Pct": 62.5
-        },
-        "episodicControl": {
-          "n": 4,
-          "superHubViolations": 1,
-          "hit3Pct": 100,
-          "avgEpisodicInTop3": 0.5,
-          "avgEpisodicInTop5": 0.75
-        },
-        "latencyMs": {
-          "mean": 4.54,
-          "p95": 8.03
-        }
-      },
-      {
-        "id": "hebbmesh_full_4d",
-        "label": "6. HebbMesh Full 4D",
-        "n": 80,
-        "byCat": {
-          "direct": {
-            "n": 20,
-            "hit1Pct": 70,
-            "hit3Pct": 85,
-            "hit5Pct": 95
-          },
-          "semantic": {
-            "n": 30,
-            "hit1Pct": 3.3,
-            "hit3Pct": 6.7,
-            "hit5Pct": 6.7
-          },
-          "multihop": {
-            "n": 20,
-            "hit1Pct": 70,
-            "hit3Pct": 95,
+            "hit1Pct": 80,
+            "hit3Pct": 100,
             "hit5Pct": 100
           },
           "episodic": {
@@ -939,20 +798,161 @@
           }
         },
         "exploratoryOverall": {
-          "hit1Pct": 45,
-          "hit3Pct": 56.3,
-          "hit5Pct": 60
+          "hit1Pct": 52.5,
+          "hit3Pct": 60,
+          "hit5Pct": 61.3
         },
         "episodicControl": {
           "n": 4,
           "superHubViolations": 0,
           "hit3Pct": 100,
-          "avgEpisodicInTop3": 0.5,
+          "avgEpisodicInTop3": 0.25,
           "avgEpisodicInTop5": 0.5
         },
         "latencyMs": {
-          "mean": 4.27,
-          "p95": 7.36
+          "mean": 7.48,
+          "p95": 13.92
+        }
+      },
+      {
+        "id": "hebbmesh_no_prop",
+        "label": "4. HebbMesh sin propagacion",
+        "n": 80,
+        "byCat": {
+          "direct": {
+            "n": 20,
+            "hit1Pct": 90,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "semantic": {
+            "n": 30,
+            "hit1Pct": 6.7,
+            "hit3Pct": 13.3,
+            "hit5Pct": 20
+          },
+          "multihop": {
+            "n": 20,
+            "hit1Pct": 85,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "episodic": {
+            "n": 10,
+            "hit1Pct": 60,
+            "hit3Pct": 60,
+            "hit5Pct": 60
+          }
+        },
+        "exploratoryOverall": {
+          "hit1Pct": 53.8,
+          "hit3Pct": 62.5,
+          "hit5Pct": 65
+        },
+        "episodicControl": {
+          "n": 4,
+          "superHubViolations": 0,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0,
+          "avgEpisodicInTop5": 0.25
+        },
+        "latencyMs": {
+          "mean": 6.12,
+          "p95": 11.24
+        }
+      },
+      {
+        "id": "hebbmesh_no_ep_cap",
+        "label": "5. HebbMesh sin tope episodico",
+        "n": 80,
+        "byCat": {
+          "direct": {
+            "n": 20,
+            "hit1Pct": 95,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "semantic": {
+            "n": 30,
+            "hit1Pct": 6.7,
+            "hit3Pct": 13.3,
+            "hit5Pct": 20
+          },
+          "multihop": {
+            "n": 20,
+            "hit1Pct": 85,
+            "hit3Pct": 95,
+            "hit5Pct": 100
+          },
+          "episodic": {
+            "n": 10,
+            "hit1Pct": 60,
+            "hit3Pct": 90,
+            "hit5Pct": 90
+          }
+        },
+        "exploratoryOverall": {
+          "hit1Pct": 55,
+          "hit3Pct": 65,
+          "hit5Pct": 68.8
+        },
+        "episodicControl": {
+          "n": 4,
+          "superHubViolations": 0,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0,
+          "avgEpisodicInTop5": 0.25
+        },
+        "latencyMs": {
+          "mean": 8.41,
+          "p95": 16.47
+        }
+      },
+      {
+        "id": "hebbmesh_full_4d",
+        "label": "6. HebbMesh Full 4D",
+        "n": 80,
+        "byCat": {
+          "direct": {
+            "n": 20,
+            "hit1Pct": 95,
+            "hit3Pct": 100,
+            "hit5Pct": 100
+          },
+          "semantic": {
+            "n": 30,
+            "hit1Pct": 6.7,
+            "hit3Pct": 13.3,
+            "hit5Pct": 20
+          },
+          "multihop": {
+            "n": 20,
+            "hit1Pct": 85,
+            "hit3Pct": 95,
+            "hit5Pct": 100
+          },
+          "episodic": {
+            "n": 10,
+            "hit1Pct": 60,
+            "hit3Pct": 70,
+            "hit5Pct": 70
+          }
+        },
+        "exploratoryOverall": {
+          "hit1Pct": 55,
+          "hit3Pct": 62.5,
+          "hit5Pct": 66.3
+        },
+        "episodicControl": {
+          "n": 4,
+          "superHubViolations": 0,
+          "hit3Pct": 100,
+          "avgEpisodicInTop3": 0,
+          "avgEpisodicInTop5": 0.25
+        },
+        "latencyMs": {
+          "mean": 8.26,
+          "p95": 13.92
         }
       }
     ],
@@ -1040,41 +1040,79 @@
           "direct": {
             "clusters": 20,
             "n": 20,
-            "point": 90,
+            "point": 100,
             "ci95": [
-              75,
+              100,
               100
             ]
           },
           "semantic": {
             "clusters": 19,
             "n": 30,
-            "point": 6.7,
+            "point": 3.3,
             "ci95": [
               0,
-              16.7
+              12
             ]
           },
           "multihop": {
             "clusters": 19,
             "n": 20,
-            "point": 95,
+            "point": 100,
             "ci95": [
-              84.2,
+              100,
               100
             ]
           },
           "episodic": {
             "clusters": 8,
             "n": 10,
-            "point": 80,
+            "point": 70,
             "ci95": [
-              60,
+              43.8,
               100
             ]
           }
         },
         "hebbmesh_no_prop": {
+          "direct": {
+            "clusters": 20,
+            "n": 20,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "semantic": {
+            "clusters": 19,
+            "n": 30,
+            "point": 13.3,
+            "ci95": [
+              3.1,
+              26.1
+            ]
+          },
+          "multihop": {
+            "clusters": 19,
+            "n": 20,
+            "point": 100,
+            "ci95": [
+              100,
+              100
+            ]
+          },
+          "episodic": {
+            "clusters": 8,
+            "n": 10,
+            "point": 60,
+            "ci95": [
+              33.3,
+              87.5
+            ]
+          }
+        },
+        "hebbmesh_no_ep_cap": {
           "direct": {
             "clusters": 20,
             "n": 20,
@@ -1105,44 +1143,6 @@
           "episodic": {
             "clusters": 8,
             "n": 10,
-            "point": 60,
-            "ci95": [
-              33.3,
-              87.5
-            ]
-          }
-        },
-        "hebbmesh_no_ep_cap": {
-          "direct": {
-            "clusters": 20,
-            "n": 20,
-            "point": 85,
-            "ci95": [
-              70,
-              100
-            ]
-          },
-          "semantic": {
-            "clusters": 19,
-            "n": 30,
-            "point": 6.7,
-            "ci95": [
-              0,
-              17.2
-            ]
-          },
-          "multihop": {
-            "clusters": 19,
-            "n": 20,
-            "point": 95,
-            "ci95": [
-              84.2,
-              100
-            ]
-          },
-          "episodic": {
-            "clusters": 8,
-            "n": 10,
             "point": 90,
             "ci95": [
               78.6,
@@ -1154,19 +1154,19 @@
           "direct": {
             "clusters": 20,
             "n": 20,
-            "point": 85,
+            "point": 100,
             "ci95": [
-              70,
+              100,
               100
             ]
           },
           "semantic": {
             "clusters": 19,
             "n": 30,
-            "point": 6.7,
+            "point": 13.3,
             "ci95": [
-              0,
-              17.2
+              3.1,
+              25.9
             ]
           },
           "multihop": {
@@ -1183,8 +1183,8 @@
             "n": 10,
             "point": 70,
             "ci95": [
-              43.8,
-              100
+              40,
+              90
             ]
           }
         }
@@ -1194,20 +1194,20 @@
           "direct": {
             "clusters": 20,
             "n": 20,
-            "point": -15,
+            "point": 0,
             "ci95": [
-              -30,
+              0,
               0
             ],
-            "verdict": "INCONCLUSO"
+            "verdict": "PARIDAD_+-5"
           },
           "semantic": {
             "clusters": 19,
             "n": 30,
-            "point": 0,
+            "point": 6.7,
             "ci95": [
-              -8.6,
-              11.1
+              0,
+              18.5
             ],
             "verdict": "INCONCLUSO"
           },
@@ -1226,7 +1226,7 @@
             "n": 10,
             "point": -20,
             "ci95": [
-              -40,
+              -50,
               0
             ],
             "verdict": "INCONCLUSO"
@@ -1236,30 +1236,30 @@
           "direct": {
             "clusters": 20,
             "n": 20,
-            "point": -15,
+            "point": 0,
             "ci95": [
-              -30,
+              0,
               0
             ],
-            "verdict": "INCONCLUSO"
+            "verdict": "PARIDAD_+-5"
           },
           "semantic": {
             "clusters": 19,
             "n": 30,
-            "point": -6.7,
+            "point": 0,
             "ci95": [
-              -16.7,
+              0,
               0
             ],
-            "verdict": "INCONCLUSO"
+            "verdict": "PARIDAD_+-5"
           },
           "multihop": {
             "clusters": 19,
             "n": 20,
-            "point": 0,
+            "point": -5,
             "ci95": [
-              -15,
-              15
+              -15.8,
+              0
             ],
             "verdict": "INCONCLUSO"
           },
@@ -1269,7 +1269,7 @@
             "point": 10,
             "ci95": [
               0,
-              37.5
+              21.4
             ],
             "verdict": "INCONCLUSO"
           }
@@ -1310,7 +1310,7 @@
             "n": 10,
             "point": -20,
             "ci95": [
-              -40,
+              -50,
               0
             ],
             "verdict": "INCONCLUSO"
@@ -1326,9 +1326,9 @@
       "token_economics"
     ],
     "poolSize": 12,
-    "giniBefore": 0.1141,
-    "giniAfter": 0.1183,
-    "giniDelta": 0.0042,
+    "giniBefore": 0.1204,
+    "giniAfter": 0.1233,
+    "giniDelta": 0.0029,
     "richGetRicherAlert": false,
     "degradationAlert": false,
     "deltaByCat": {
@@ -1338,18 +1338,18 @@
         "deltaPts": 0
       },
       "semantic": {
-        "before": 23.3,
-        "after": 23.3,
+        "before": 43.3,
+        "after": 43.3,
         "deltaPts": 0
       },
       "multihop": {
-        "before": 95,
-        "after": 95,
+        "before": 100,
+        "after": 100,
         "deltaPts": 0
       },
       "episodic": {
-        "before": 80,
-        "after": 80,
+        "before": 70,
+        "after": 70,
         "deltaPts": 0
       }
     }
@@ -1369,18 +1369,18 @@
         "positiveControlHit": true,
         "firewallOnLeak": false,
         "posObserved": [
-          "PERFIL-12",
-          "S-W47-F1",
-          "A-50",
           "PRIV-1",
-          "G-38"
+          "PRIV-2",
+          "G-26",
+          "PRIV-3",
+          "PRIV-4"
         ],
         "safeObserved": [
-          "S-W45-F3",
-          "G-10",
           "G-26",
-          "HITO-10",
-          "HITO-11"
+          "HITO-21",
+          "INBOX-2",
+          "S-W46-F4",
+          "HITO-7"
         ]
       },
       {
@@ -1391,18 +1391,18 @@
         "positiveControlHit": true,
         "firewallOnLeak": false,
         "posObserved": [
-          "PERFIL-12",
-          "S-W47-F1",
           "PRIV-2",
-          "A-50",
-          "G-27"
+          "PRIV-1",
+          "G-26",
+          "PRIV-3",
+          "PRIV-4"
         ],
         "safeObserved": [
-          "S-W45-F3",
-          "G-10",
           "G-26",
-          "HITO-10",
-          "HITO-11"
+          "HITO-21",
+          "INBOX-2",
+          "S-W46-F4",
+          "HITO-7"
         ]
       },
       {
@@ -1414,17 +1414,17 @@
         "firewallOnLeak": false,
         "posObserved": [
           "PRIV-3",
-          "A-15",
-          "G-37",
-          "A-50",
-          "PERFIL-12"
+          "A-25",
+          "G-26",
+          "PRIV-1",
+          "PRIV-2"
         ],
         "safeObserved": [
-          "S-W45-F3",
-          "G-10",
           "G-26",
-          "HITO-10",
-          "HITO-11"
+          "HITO-21",
+          "INBOX-2",
+          "S-W46-F4",
+          "HITO-7"
         ]
       },
       {
@@ -1435,18 +1435,18 @@
         "positiveControlHit": true,
         "firewallOnLeak": false,
         "posObserved": [
-          "PERFIL-12",
-          "S-W47-F1",
-          "A-50",
           "PRIV-4",
-          "G-38"
+          "PRIV-1",
+          "PRIV-2",
+          "G-26",
+          "PRIV-3"
         ],
         "safeObserved": [
-          "S-W45-F3",
-          "G-10",
           "G-26",
-          "HITO-10",
-          "HITO-11"
+          "HITO-21",
+          "INBOX-2",
+          "S-W46-F4",
+          "HITO-7"
         ]
       },
       {
@@ -1458,17 +1458,16 @@
         "firewallOnLeak": false,
         "posObserved": [
           "PRIV-1",
-          "PERFIL-12",
-          "S-W47-F1",
-          "A-50",
-          "A-32"
-        ],
-        "safeObserved": [
-          "A-25",
-          "A-35",
+          "PRIV-2",
           "G-30",
           "HITO-35",
-          "G-10"
+          "A-25"
+        ],
+        "safeObserved": [
+          "G-30",
+          "HITO-35",
+          "A-25",
+          "A-35"
         ]
       },
       {
@@ -1479,11 +1478,8 @@
         "positiveControlHit": true,
         "firewallOnLeak": false,
         "posObserved": [
-          "PERFIL-12",
           "PRIV-2",
-          "A-37",
-          "S-W47-F1",
-          "A-31"
+          "PRIV-1"
         ],
         "safeObserved": []
       },
@@ -1497,16 +1493,16 @@
         "posObserved": [
           "PRIV-3",
           "G-37",
-          "A-15",
-          "A-29",
-          "A-37"
+          "A-25",
+          "A-27",
+          "HITO-36"
         ],
         "safeObserved": [
           "G-37",
-          "A-47",
-          "A-37",
-          "G-10",
-          "HITO-4"
+          "A-25",
+          "A-27",
+          "G-44",
+          "G-36"
         ]
       },
       {
@@ -1517,18 +1513,18 @@
         "positiveControlHit": true,
         "firewallOnLeak": false,
         "posObserved": [
-          "PERFIL-12",
-          "S-W47-F1",
           "PRIV-4",
-          "A-32",
-          "A-50"
+          "G-34",
+          "G-44",
+          "G-27",
+          "PRIV-1"
         ],
         "safeObserved": [
-          "S-W46-F1",
+          "A-50",
+          "G-34",
+          "G-27",
           "PERFIL-12",
-          "A-31",
-          "A-32",
-          "G-27"
+          "A-32"
         ]
       },
       {
@@ -1539,18 +1535,18 @@
         "positiveControlHit": true,
         "firewallOnLeak": false,
         "posObserved": [
-          "PERFIL-12",
           "PRIV-1",
-          "S-W47-F1",
-          "A-32",
-          "A-50"
+          "PRIV-2",
+          "G-27",
+          "A-15",
+          "A-52"
         ],
         "safeObserved": [
           "G-27",
-          "A-31",
-          "G-16",
-          "A-37",
-          "A-32"
+          "A-15",
+          "A-52",
+          "DOC-1",
+          "PERFIL-4"
         ]
       },
       {
@@ -1561,18 +1557,14 @@
         "positiveControlHit": true,
         "firewallOnLeak": false,
         "posObserved": [
-          "PERFIL-12",
           "PRIV-2",
-          "S-W47-F1",
-          "A-37",
-          "A-31"
+          "PRIV-1",
+          "A-40",
+          "HITO-25"
         ],
         "safeObserved": [
-          "HITO-25",
-          "DOC-3",
-          "HITO-26",
-          "HITO-4",
-          "A-53"
+          "A-40",
+          "HITO-25"
         ]
       },
       {
@@ -1584,17 +1576,17 @@
         "firewallOnLeak": false,
         "posObserved": [
           "PRIV-3",
+          "HITO-36",
+          "A-25",
           "G-37",
-          "A-15",
-          "A-29",
-          "HITO-19"
+          "INBOX-7"
         ],
         "safeObserved": [
-          "A-13",
-          "HITO-36",
-          "HITO-13",
-          "DOC-6",
-          "G-24"
+          "G-24",
+          "G-37",
+          "INBOX-7",
+          "S-W47-F4",
+          "A-13"
         ]
       },
       {
@@ -1606,17 +1598,17 @@
         "firewallOnLeak": false,
         "posObserved": [
           "PRIV-4",
-          "PERFIL-12",
-          "S-W47-F1",
-          "A-32",
-          "A-50"
-        ],
-        "safeObserved": [
-          "S-W45-F3",
           "G-34",
           "G-44",
-          "A-26",
-          "HITO-11"
+          "S-W44-F4",
+          "A-24"
+        ],
+        "safeObserved": [
+          "G-34",
+          "G-44",
+          "S-W44-F4",
+          "A-24",
+          "S-W45-F4"
         ]
       },
       {
@@ -1643,6 +1635,7 @@
         "firewallOnLeak": false,
         "posObserved": [
           "PRIV-1",
+          "PRIV-2",
           "PRIV-4"
         ],
         "safeObserved": [
@@ -1658,7 +1651,6 @@
         "firewallOnLeak": false,
         "posObserved": [
           "PRIV-1",
-          "A-32",
           "G-27"
         ],
         "safeObserved": [
@@ -1674,6 +1666,7 @@
         "firewallOnLeak": false,
         "posObserved": [
           "PRIV-1",
+          "PRIV-2",
           "PRIV-4"
         ],
         "safeObserved": [

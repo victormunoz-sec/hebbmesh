@@ -89,8 +89,9 @@ export function parseMetadata(lineRaw = '') {
   let clean = String(lineRaw || '').replace(/<!--.*?-->/g, '').trim();
   let echo = '';
   let sem = [];
+  let sessionId = '';
 
-  // Peel trailing metadata suffixes (`| sem: ...`, `| eco: ...`) ignoring `|` inside inline backticks
+  // Peel trailing metadata suffixes (`| sem: ...`, `| eco: ...`, `| session: ...`) ignoring `|` inside inline backticks
   const codeRanges = [...clean.matchAll(/`[^`]+`/g)].map((m) => [m.index, m.index + m[0].length]);
   const inCode = (idx) => codeRanges.some(([s, e]) => idx >= s && idx < e);
   const pipeIdxs = [];
@@ -113,6 +114,12 @@ export function parseMetadata(lineRaw = '') {
       clean = clean.slice(0, idx).trim();
       continue;
     }
+    const mSess = !sessionId && tail.match(/^\|\s*session(?:id)?:\s*(.+)$/i);
+    if (mSess) {
+      sessionId = mSess[1].trim();
+      clean = clean.slice(0, idx).trim();
+      continue;
+    }
     break;
   }
 
@@ -132,7 +139,7 @@ export function parseMetadata(lineRaw = '') {
     }
   }
 
-  return { clean: clean.replace(/\|\s*$/, '').trim(), echo, sem };
+  return { clean: clean.replace(/\|\s*$/, '').trim(), echo, sem, sessionId };
 }
 
 export function extractKeyConcepts(textRaw = '', max = 10) {
@@ -298,7 +305,7 @@ export function parseMemoryDirectory(memoryDir, options = {}) {
   for (const line of milesRaw.split(/\r?\n/)) {
     if (!/^\s*-\s+\[/.test(line)) continue;
     idxM++;
-    const { clean, echo, sem } = parseMetadata(line.replace(/^\s*-\s+\[[^\]]+\]\s*/, ''));
+    const { clean, echo, sem, sessionId } = parseMetadata(line.replace(/^\s*-\s+\[[^\]]+\]\s*/, ''));
     if (!clean) continue;
     const code = `HITO-${idxM}`;
     const id = `n_HITO_${idxM}`;
@@ -308,6 +315,7 @@ export function parseMemoryDirectory(memoryDir, options = {}) {
       title: clean.slice(0, 90),
       summary: clean.slice(0, 180),
       ...(echo ? { echo } : {}),
+      ...(sessionId ? { sessionId } : {}),
       ...(!disableSeeds && sem.length ? { sem } : {}),
       tags: extractTags(clean),
       dim4, coord3d, weight, valid: true, private: false,
@@ -636,6 +644,27 @@ function weaveEdgesAndDendrites(neurons, prevNet = null, decay = false, disableP
         .sort((a, b) => b[1] - a[1])
         .slice(0, 16)
     );
+  }
+
+  // Native Temporal NEXT Edges (v1.3): bidirectional links between consecutive nodes sharing the same sessionId
+  // Active by default whenever `sessionId` (or `session`) is present; 0.0 effect if no node has sessionId.
+  const linkTemporalNext = options.linkTemporalNext !== false;
+  const temporalNextWeight = round2(Number(options.temporalNextWeight ?? 0.72));
+  if (linkTemporalNext && temporalNextWeight > 0) {
+    const lastBySession = new Map();
+    for (const n of list) {
+      const sid = n.sessionId ?? n.session;
+      if (sid === undefined || sid === null || String(sid).trim() === '') continue;
+      const key = String(sid).trim();
+      const prev = lastBySession.get(key);
+      if (prev && prev.id !== n.id) {
+        if (disablePrivacyFirewall || Boolean(prev.private) === Boolean(n.private)) {
+          if ((prev.edges[n.id] || 0) < temporalNextWeight) prev.edges[n.id] = temporalNextWeight;
+          if ((n.edges[prev.id] || 0) < temporalNextWeight) n.edges[prev.id] = temporalNextWeight;
+        }
+      }
+      lastBySession.set(key, n);
+    }
   }
 }
 

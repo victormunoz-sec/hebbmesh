@@ -1,6 +1,6 @@
 {
   "name": "hebbmesh",
-  "version": "1.1.0",
+  "version": "1.7.0",
   "description": "Zero-Bloat 4D Synaptic Memory over Markdown with Zero-Embedding Seeding, O(1) Hebbian SQLite WAL, 3D A* Synaptic Bridging, and Real-Time 3D Viewer.",
   "type": "module",
   "license": "AGPL-3.0-or-later",
@@ -11,6 +11,7 @@
   "scripts": {
     "demo": "node demo.mjs",
     "bench": "node bench/benchmark.mjs",
+    "bench:v1.7": "node bench/benchmark_v1.7.mjs",
     "compile": "node src/engine.mjs compile ./demo/memory",
     "spark": "node src/engine.mjs spark ./demo/memory",
     "bridge": "node src/engine.mjs bridge ./demo/memory"

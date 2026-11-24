@@ -1,8 +1,9 @@
 # HebbMesh
 
 **Zero-Bloat 4D Synaptic Memory over Plain Markdown.**  
-*Zero Docker · Zero Vector DBs · Zero npm Dependencies · Native `node:sqlite` WAL · AMPA/NMDA + GABA Gating (v1.2).*  
-**Technical Report (v1.2 · Zenodo DOI):** [10.5281/zenodo.24473999](https://doi.org/10.5281/zenodo.24473999) *(supersedes v1.1: [10.5281/zenodo.24451147](https://doi.org/10.5281/zenodo.24451147))*
+*Zero Docker · Zero Vector DBs · Zero LLM Calls · Zero npm Dependencies · Native `node:sqlite` WAL (`v1.7 Zero-Inference`).*  
+**Technical Report (Paper 3 · v1.7 Zero-Inference · Zenodo DOI):** [10.5281/zenodo.24514028](https://doi.org/10.5281/zenodo.24514028)  
+**Technical Report (Paper 1 · v1.2 · Zenodo DOI):** [10.5281/zenodo.24473999](https://doi.org/10.5281/zenodo.24473999) *(supersedes v1.1: [10.5281/zenodo.24451147](https://doi.org/10.5281/zenodo.24451147))*
 
 > **Why HebbMesh?** Most AI agent memory stacks either dump raw Markdown into your context window (burning tokens) or force you to maintain Docker, Postgres/Qdrant, and heavy local embedding runtimes. **HebbMesh** treats plain Markdown files as your 20-year source of truth and compiles them into a 4D/3D associative synaptic graph in **~39 ms** with **0 external dependencies**.
 
@@ -25,6 +26,7 @@ node demo.mjs
 node bench/benchmark.mjs       # v1.1 baseline suite (80 blind queries, 33 clusters)
 node bench/ablation_v1.2.mjs   # v1.2 M0-M4 ablation suite on dev_set
 node bench/benchmark_v1.2.mjs  # v1.2 preregistered blind suite (80 queries: Sonnet 5.5 + DeepSeek V4 Flash)
+node bench/benchmark_v1.7.mjs  # v1.7 Zero-Inference suite (Suite B + F-01 + 20-case CMI Red Team; optional --locomo <path>)
 ```
 
 ---
@@ -70,6 +72,40 @@ When your agent saves a new lesson or note, append 3–5 synonyms or metaphors i
 - **A-01 `[V]` Idempotent Stripe Webhooks:** Persist `event.id` before mutating balances. | sem: double charge, duplicate payment, billing bug
 ```
 HebbMesh automatically compiles those seeds into high-weight dendrites (`0.80`) with **0 MB** of embedding models.
+
+---
+
+## HebbMesh v1.7 — Zero-Inference Architecture
+
+**`src/engine_v1.7.mjs` (`1.7.0-HebbMesh-4D-ZeroInference`)** brings deterministic, zero-inference multi-turn dialogue and adversarial memory hardening to the public engine with **0 npm dependencies, 0 embeddings, and 0 LLM calls**:
+
+- **F2b_025 Tiered Tags & U3 Session Indexing:** Preserves `1.0` core tags (`18` default / `48` appearance-ordered tokens in session streams with `IMAGE_BOILERPLATE` filtering) and expands Tier-2 body tokens up to `128` at `0.25` weight.
+- **F4 Working Memory `NEXT` + U1 Pre-Merged Turn Context:** Bidirectional `1`-hop `NEXT` bridges between consecutive session turns plus pre-merged `t-1` (`0.40`) and `t-2` same-speaker (`0.25`) rare-token context (`sameSpkFwd = 0.42`, `sameSpkBwd = 0.35`).
+- **U2 Authorship vs. Vocative Gating & U4 Stopwords:** Attenuates non-author speaker name mentions (`mentionMult = 0.60`) and filters high-frequency conversational stopwords (`EXTRA_STD_STOP`), with optional `S1_WB` title word-boundary matching (`{ useWordBoundary: true }`).
+- **CMI_ZERO_REG Anti-Poisoning & Plasticity:** Deprioritizes invalidated memories (`validFalseMult = 0.30`, obsolete propagation brakes `0.35 / 0.20`, obsolete mass reset), weights recency (`0.38` over `coord3d.y`), and throttles keyword stuffing in ephemeral nodes (`> 15` tags floored at `0.85`).
+- **PMI_Safe Offline Co-Occurrence & P1b_PureCov Pauli Reranking:** Builds a lazy `valid=true` offline PMI table strictly isolated by Privacy Firewall `F-01` (`weight = 0.22`, top-1 position shielded), followed by greedy Pauli coverage reranking (`gamma = 0.65, alpha = 0.08, beta = 0.22, poolSize = 40`, top-1 position intact).
+
+### Verified v1.7 Results (`node bench/benchmark_v1.7.mjs`)
+
+| Suite / Metric | Result | Notes |
+|---|---|---|
+| **LoCoMo-10 Global (`n = 1,982`)** | **74.3% Hit@5** · **81.5% Hit@10** | `68.9%` Rec@5 · `0.5550` MRR (`5.79 ms/q` coronacion baseline) |
+| **LoCoMo-10 Multi-Hop (`n = 282`)** | **60.3% Hit@5** | Up from `54.3%` (`+6.0 pts` vs B0 baseline) |
+| **LoCoMo-10 Open-Domain (`n = 92`)** | **44.6% Hit@5** | Up from `38.0%` (`+6.6 pts` vs B0 baseline) |
+| **CMI Red Team (`20` cases)** | **20/20 PASS** | `8/8` Plasticity · `6/6` Anti-Stuffing · `6/6` Authority L3 |
+| **Suite B Zero-Regression (`demo/memory`)** | **PASS** | `v1.1`: `68.8% / 75.0%` (`@1/@3`) · `v1.2`: `78.8% / 92.5%` (`@1/@3`) |
+| **Privacy Firewall (`F-01`)** | **0/16 leaks** | `16/16` Positive Control · `0` lateral dendrite leaks |
+
+```bash
+# Default Suite B + F-01 + 20-case CMI Red Team:
+npm run bench:v1.7
+
+# Optional full LoCoMo-10 verification (pointing to your local locomo10.json):
+node bench/benchmark_v1.7.mjs --locomo /path/to/locomo10.json
+
+# CLI usage with v1.7 engine:
+node src/engine_v1.7.mjs spark ./demo/memory "stripe webhook"
+```
 
 ---
 
@@ -190,7 +226,22 @@ Most open-source AI memory prototypes ignore security boundaries. **HebbMesh** i
 
 ## Citation
 
-If you reference HebbMesh, its pre-registered ablation protocol, Zero-Embedding Seeding (`| sem:`), or AMPA/NMDA + GABA gated propagation (`v1.2`), please cite the Technical Report:
+If you reference **HebbMesh v1.7 (Zero-Inference)**, Pauli coverage reranking (`P1b_PureCov`), CMI hardening, or Universal Dialogue Physics (`U1–U4`), please cite Paper 3:
+
+```bibtex
+@techreport{munozjara2026hebbmesh_v17,
+  author      = {Mu{\~n}oz Jara, Victor},
+  title       = {Zero-Inference Synaptic Memory: Eliminating Embeddings and LLM Calls via Quantum Phase Gating, Pauli Coverage, and Universal Dialogue Physics (HebbMesh v1.4d--v1.7)},
+  institution = {Independent AI Systems \& Security Research},
+  year        = {2026},
+  month       = nov,
+  version     = {1.0},
+  doi         = {10.5281/zenodo.24514028},
+  url         = {https://doi.org/10.5281/zenodo.24514028}
+}
+```
+
+If you reference the foundational `v1.2` architecture, Zero-Embedding Seeding (`| sem:`), or AMPA/NMDA + GABA gated propagation, please cite Paper 1:
 
 ```bibtex
 @techreport{munozjara2026hebbmesh,

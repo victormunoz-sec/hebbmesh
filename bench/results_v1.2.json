@@ -1,6 +1,6 @@
 {
   "protocol": "PROTOCOLO_PREREGISTRO_v1.2",
-  "timestamp": "2026-11-23T14:35:22.161Z",
+  "timestamp": "2026-11-24T19:54:46.250Z",
   "shaVerification": {
     "pass": true,
     "details": {
@@ -515,7 +515,7 @@
   },
   "conditionA": {
     "name": "regenerated_blind",
-    "compileMs": 42.84,
+    "compileMs": 146.69,
     "totalNeurons": 187,
     "totalEdges": 1468,
     "variants": [
@@ -567,8 +567,8 @@
           "avgEpisodicInTop5": 0.5
         },
         "latencyMs": {
-          "mean": 1.04,
-          "p95": 1.44
+          "mean": 6.6,
+          "p95": 15.22
         }
       },
       {
@@ -619,8 +619,8 @@
           "avgEpisodicInTop5": 0.25
         },
         "latencyMs": {
-          "mean": 1.02,
-          "p95": 1.43
+          "mean": 2.75,
+          "p95": 7.65
         }
       },
       {
@@ -671,8 +671,8 @@
           "avgEpisodicInTop5": 0
         },
         "latencyMs": {
-          "mean": 6.33,
-          "p95": 10.9
+          "mean": 20.53,
+          "p95": 57.52
         }
       },
       {
@@ -723,8 +723,8 @@
           "avgEpisodicInTop5": 0.25
         },
         "latencyMs": {
-          "mean": 5.79,
-          "p95": 8.76
+          "mean": 16.84,
+          "p95": 30.31
         }
       },
       {
@@ -775,8 +775,8 @@
           "avgEpisodicInTop5": 0.25
         },
         "latencyMs": {
-          "mean": 5.5,
-          "p95": 7.78
+          "mean": 25.82,
+          "p95": 87.71
         }
       },
       {
@@ -827,8 +827,8 @@
           "avgEpisodicInTop5": 0.25
         },
         "latencyMs": {
-          "mean": 5.33,
-          "p95": 7.91
+          "mean": 17.51,
+          "p95": 36.35
         }
       }
     ],
@@ -1333,7 +1333,7 @@
   },
   "conditionB": {
     "name": "inline_corpus",
-    "compileMs": 36.42,
+    "compileMs": 76.87,
     "totalNeurons": 187,
     "totalEdges": 1466,
     "variants": [
@@ -1385,8 +1385,8 @@
           "avgEpisodicInTop5": 0.5
         },
         "latencyMs": {
-          "mean": 1.07,
-          "p95": 1.53
+          "mean": 2.44,
+          "p95": 5.71
         }
       },
       {
@@ -1437,8 +1437,8 @@
           "avgEpisodicInTop5": 0.25
         },
         "latencyMs": {
-          "mean": 1.08,
-          "p95": 1.49
+          "mean": 2.11,
+          "p95": 4.93
         }
       },
       {
@@ -1489,8 +1489,8 @@
           "avgEpisodicInTop5": 0
         },
         "latencyMs": {
-          "mean": 4.78,
-          "p95": 5.74
+          "mean": 6.8,
+          "p95": 9.7
         }
       },
       {
@@ -1541,8 +1541,8 @@
           "avgEpisodicInTop5": 0
         },
         "latencyMs": {
-          "mean": 4.37,
-          "p95": 5.62
+          "mean": 6.74,
+          "p95": 10.11
         }
       },
       {
@@ -1593,8 +1593,8 @@
           "avgEpisodicInTop5": 0
         },
         "latencyMs": {
-          "mean": 4.17,
-          "p95": 5.68
+          "mean": 8.3,
+          "p95": 13.14
         }
       },
       {
@@ -1645,8 +1645,8 @@
           "avgEpisodicInTop5": 0
         },
         "latencyMs": {
-          "mean": 3.88,
-          "p95": 5.29
+          "mean": 8.01,
+          "p95": 12.7
         }
       }
     ],

@@ -1,0 +1,101 @@
+{
+  "protocol": "HEBBMESH_v1.7_BENCHMARK",
+  "timestamp": "2026-11-24T19:55:11.408Z",
+  "totalElapsedMs": 1555.7,
+  "network": {
+    "totalNeurons": 187,
+    "totalEdges": 1468,
+    "compileMs": 103.4
+  },
+  "gates": {
+    "zeroRegStrict": true,
+    "f01Pass": true,
+    "cmiPass": true
+  },
+  "suiteB": {
+    "v11_blind": {
+      "n": 80,
+      "hit1": 68.8,
+      "hit3": 75,
+      "hit5": 77.5,
+      "meanMs": 1.83,
+      "p95Ms": 4.71,
+      "byCat": {
+        "direct": {
+          "n": 20,
+          "hit1": 95,
+          "hit3": 100,
+          "hit5": 100
+        },
+        "semantic": {
+          "n": 30,
+          "hit1": 33.3,
+          "hit3": 43.3,
+          "hit5": 46.7
+        },
+        "multihop": {
+          "n": 20,
+          "hit1": 95,
+          "hit3": 100,
+          "hit5": 100
+        },
+        "episodic": {
+          "n": 10,
+          "hit1": 70,
+          "hit3": 70,
+          "hit5": 80
+        }
+      }
+    },
+    "v12_blind": {
+      "n": 80,
+      "hit1": 78.8,
+      "hit3": 92.5,
+      "hit5": 92.5,
+      "meanMs": 1.76,
+      "p95Ms": 3.84,
+      "byCat": {
+        "direct": {
+          "n": 20,
+          "hit1": 90,
+          "hit3": 100,
+          "hit5": 100
+        },
+        "semantic": {
+          "n": 30,
+          "hit1": 60,
+          "hit3": 80,
+          "hit5": 80
+        },
+        "multihop": {
+          "n": 20,
+          "hit1": 90,
+          "hit3": 100,
+          "hit5": 100
+        },
+        "episodic": {
+          "n": 10,
+          "hit1": 90,
+          "hit3": 100,
+          "hit5": 100
+        }
+      }
+    },
+    "f01_firewall": {
+      "totalProbes": 16,
+      "positiveControl": 16,
+      "leaks": 0,
+      "lateralDendriteLeaks": 0,
+      "pass": true
+    }
+  },
+  "cmi": {
+    "g1_plasticity": "8/8",
+    "g2_poisoning": "6/6",
+    "g3_authorityL3": "6/6",
+    "totalOk": 20,
+    "totalN": 20,
+    "pass": true,
+    "failures": []
+  }
+}

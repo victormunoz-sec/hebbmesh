@@ -1,52 +1,52 @@
 {
   "protocol": "PROTOCOLO_QUANTUM_v1.3",
-  "timestamp": "2026-11-23T15:55:18.656Z",
+  "timestamp": "2026-11-24T01:46:30.488Z",
   "seed": 20261123,
-  "totalBenchmarkMs": 12295.55,
+  "totalBenchmarkMs": 38137.92,
   "block1_turboScale": {
     "N_1000": {
       "N": 1000,
       "totalEdges": 6648,
-      "parseMs": 78.11,
-      "weaveMs": 122.19,
-      "compileTotalMs": 200.3,
+      "parseMs": 244.76,
+      "weaveMs": 1,
+      "compileTotalMs": 130.17,
       "sqliteSizeKB": 1148,
-      "rssMB": 92.91,
-      "heapUsedMB": 29.94,
+      "rssMB": 92.24,
+      "heapUsedMB": 27.24,
       "latencyMs": {
-        "mean": 3.75,
-        "p50": 2.58,
-        "p95": 12,
-        "p99": 15.09
+        "mean": 2.3,
+        "p50": 1.84,
+        "p95": 3.75,
+        "p99": 6.97
       },
       "v12Baseline": {
         "compileTotalMs": 321.53,
         "weaveMs": 146.47,
         "latencyMean": 10.53,
         "liveSanityN1000": {
-          "v12LiveCompileMs": 316.85,
-          "v12LiveLatencyMean": 10.03
+          "v12LiveCompileMs": 1038.88,
+          "v12LiveLatencyMean": 25.14
         }
       },
       "speedup": {
-        "latencyRatio": "2.8x faster",
-        "weaveRatio": "1.2x faster"
+        "latencyRatio": "4.6x faster",
+        "weaveRatio": "146.5x faster"
       }
     },
     "N_5000": {
       "N": 5000,
       "totalEdges": 8240,
-      "parseMs": 231.53,
-      "weaveMs": 200.35,
-      "compileTotalMs": 431.88,
+      "parseMs": 244.56,
+      "weaveMs": 30.94,
+      "compileTotalMs": 275.5,
       "sqliteSizeKB": 3456,
-      "rssMB": 151.39,
-      "heapUsedMB": 47.83,
+      "rssMB": 151.34,
+      "heapUsedMB": 63.12,
       "latencyMs": {
-        "mean": 11.47,
-        "p50": 9.08,
-        "p95": 21.01,
-        "p99": 26.47
+        "mean": 7.05,
+        "p50": 6.02,
+        "p95": 12.86,
+        "p99": 14.2
       },
       "v12Baseline": {
         "compileTotalMs": 2198.61,
@@ -54,24 +54,24 @@
         "latencyMean": 36.77
       },
       "speedup": {
-        "latencyRatio": "3.2x faster",
-        "weaveRatio": "8.6x faster"
+        "latencyRatio": "5.2x faster",
+        "weaveRatio": "55.7x faster"
       }
     },
     "N_10000": {
       "N": 10000,
       "totalEdges": 15840,
-      "parseMs": 289.79,
-      "weaveMs": 429.87,
-      "compileTotalMs": 719.66,
+      "parseMs": 334.61,
+      "weaveMs": 99.76,
+      "compileTotalMs": 434.37,
       "sqliteSizeKB": 6680,
-      "rssMB": 237.02,
-      "heapUsedMB": 139.26,
+      "rssMB": 233.82,
+      "heapUsedMB": 147.54,
       "latencyMs": {
-        "mean": 27,
-        "p50": 21.78,
-        "p95": 50.88,
-        "p99": 56.7
+        "mean": 17.24,
+        "p50": 11.45,
+        "p95": 24.87,
+        "p99": 27.14
       },
       "v12Baseline": {
         "compileTotalMs": 9326.58,
@@ -79,8 +79,8 @@
         "latencyMean": 85.06
       },
       "speedup": {
-        "latencyRatio": "3.2x faster",
-        "weaveRatio": "19.6x faster"
+        "latencyRatio": "4.9x faster",
+        "weaveRatio": "84.5x faster"
       }
     }
   },
@@ -91,34 +91,34 @@
         "hit1": 68.8,
         "hit3": 75,
         "hit5": 77.5,
-        "meanMs": 12.2,
-        "p95Ms": 24.08
+        "meanMs": 6.08,
+        "p95Ms": 9.92
       },
       "v13_turbo": {
         "hit1": 68.8,
         "hit3": 75,
         "hit5": 77.5,
-        "meanMs": 2.71,
-        "p95Ms": 7.31
+        "meanMs": 0.96,
+        "p95Ms": 1.8
       },
       "v13_full": {
         "hit1": 68.8,
         "hit3": 75,
         "hit5": 77.5,
-        "meanMs": 1.83,
-        "p95Ms": 4.4
+        "meanMs": 0.92,
+        "p95Ms": 1.79
       },
       "deltaTurboVsV12": {
         "hit1": 0,
         "hit3": 0,
         "hit5": 0,
-        "latencySpeedup": 4.5
+        "latencySpeedup": 6.3
       },
       "deltaFullVsV12": {
         "hit1": 0,
         "hit3": 0,
         "hit5": 0,
-        "latencySpeedup": 6.7
+        "latencySpeedup": 6.6
       },
       "zeroRegression": true
     },
@@ -128,34 +128,34 @@
         "hit1": 78.8,
         "hit3": 91.3,
         "hit5": 91.3,
-        "meanMs": 12.48,
-        "p95Ms": 25.42
+        "meanMs": 5.65,
+        "p95Ms": 9.1
       },
       "v13_turbo": {
         "hit1": 78.8,
         "hit3": 91.3,
         "hit5": 91.3,
-        "meanMs": 3.13,
-        "p95Ms": 10.87
+        "meanMs": 1.52,
+        "p95Ms": 2.93
       },
       "v13_full": {
         "hit1": 78.8,
         "hit3": 91.3,
         "hit5": 91.3,
-        "meanMs": 2.65,
-        "p95Ms": 5.04
+        "meanMs": 1.41,
+        "p95Ms": 2.37
       },
       "deltaTurboVsV12": {
         "hit1": 0,
         "hit3": 0,
         "hit5": 0,
-        "latencySpeedup": 4
+        "latencySpeedup": 3.7
       },
       "deltaFullVsV12": {
         "hit1": 0,
         "hit3": 0,
         "hit5": 0,
-        "latencySpeedup": 4.7
+        "latencySpeedup": 4
       },
       "zeroRegression": true
     }
