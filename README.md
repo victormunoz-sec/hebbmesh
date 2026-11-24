@@ -1,128 +1,131 @@
 # HebbMesh
 
-**Zero-Bloat 4D Synaptic Memory over Plain Markdown.**  
-*Zero Docker · Zero Vector DBs · Zero LLM Calls · Zero npm Dependencies · Native `node:sqlite` WAL (`v1.7 Zero-Inference`).*  
-**Technical Report (Paper 3 · v1.7 Zero-Inference · Zenodo DOI):** [10.5281/zenodo.24514028](https://doi.org/10.5281/zenodo.24514028)  
-**Technical Report (Paper 1 · v1.2 · Zenodo DOI):** [10.5281/zenodo.24473999](https://doi.org/10.5281/zenodo.24473999) *(supersedes v1.1: [10.5281/zenodo.24451147](https://doi.org/10.5281/zenodo.24451147))*
+**Zero-Inference Synaptic Memory over Plain Markdown (`v1.7`).**  
+*Zero Embeddings · Zero LLM Calls · Zero Docker · Zero npm Dependencies · Native `node:sqlite` WAL · `< 6 ms` CPU Retrieval.*  
+**Paper 3 (v1.7 Zero-Inference · Zenodo DOI):** [10.5281/zenodo.24514028](https://doi.org/10.5281/zenodo.24514028) *(English & Spanish PDFs)*  
+**Paper 1 (v1.2 Foundation · Zenodo DOI):** [10.5281/zenodo.24473999](https://doi.org/10.5281/zenodo.24473999) *(supersedes v1.1: [10.5281/zenodo.24451147](https://doi.org/10.5281/zenodo.24451147))*
 
-> **Why HebbMesh?** Most AI agent memory stacks either dump raw Markdown into your context window (burning tokens) or force you to maintain Docker, Postgres/Qdrant, and heavy local embedding runtimes. **HebbMesh** treats plain Markdown files as your 20-year source of truth and compiles them into a 4D/3D associative synaptic graph in **~39 ms** with **0 external dependencies**.
+> **What is HebbMesh?** Most AI agent memory stacks either dump raw Markdown into your prompt (burning tokens) or force you to run vector databases, embeddings, Docker, or extra LLM calls just to recall past context. **HebbMesh v1.7** is a standalone, 100% deterministic memory engine built over plain Markdown files and native `node:sqlite`. It retrieves the exact memories your agent needs in **under 6 milliseconds** on a normal CPU—with **0 embeddings, 0 LLM calls, and 0 external packages**.
 
-![HebbMesh 4D Synaptic Observatory — Live Zero-Embedding Spark and 3D A* Bridge](./assets/hebbmesh-demo.gif)
+![HebbMesh 4D Synaptic Observatory — Live Zero-Inference Spark and 3D A* Bridge](./assets/hebbmesh-demo.gif)
 
 ---
 
-## 60-Second Quickstart
+## Verified Benchmark Results (`HebbMesh v1.7` — Zero-Inference)
 
-Requires **Node.js >= 22.5** (for native `node:sqlite`). No `npm install` needed.
+Evaluated on **LoCoMo-10** (`n = 1,982` queries across `5,882` multi-session turns), our **20-case CMI Anti-Poisoning Red Team**, and **Suite B** blind zero-regression controls (`v1.1`, `v1.2`, and `F-01` Privacy Firewall):
 
+| Benchmark / Metric | Classical BM25 | HebbMesh v1.5b | **HebbMesh v1.7 (Current)** | Notes |
+|---|---:|---:|---:|---|
+| **LoCoMo-10 Global `Hit@5`** | 55.4% | 65.6% | **74.3%** (`+18.9 pts` vs BM25) | `81.5%` Hit@10 · `68.9%` Recall@5 · `0.5550` MRR |
+| **LoCoMo-10 Multi-Hop `Hit@5`** | 33.0% | 54.3% | **60.3%** (`+27.3 pts` vs BM25) | `31.8%` Recall@5 (`n = 282`) |
+| **LoCoMo-10 Open-Domain `Hit@5`** | — | 38.0% | **44.6%** | `34.3%` Recall@5 (`n = 92`) |
+| **LoCoMo-10 Single-Hop / Adv `Hit@5`** | — | 69.7% / 69.3% | **79.4% / 81.2%** | Temporal: `72.0%` (`+4.4 pts`) |
+| **Query Latency (CPU, 0 GPU)** | — | 5.02 ms | **5.79 ms/q** (`6.23 ms` pkg) | Isolated JIT-warmed (`p50 = 5.46 ms`) |
+| **CMI Anti-Poisoning Red Team** | — | 20/20 | **20/20 PASS** | `8/8` Plasticity · `6/6` Anti-Stuffing · `6/6` Authority |
+| **Privacy Firewall (`F-01`)** | — | 0/16 leaks | **0/16 leaks** | `16/16` positive control · `0` lateral dendrite leaks |
+| **Suite B Blind Zero-Regression** | — | PASS | **PASS (`0.0` reg)** | `v1.1`: `68.8%/75.0%` · `v1.2`: `78.8%/92.5%` (`@1/@3`) |
+
+---
+
+## Install and Run in 60 Seconds
+
+**Requirements:** Only **Node.js >= 22.5** (uses built-in `node:sqlite`). **No `npm install`, no Docker, no API keys.**
+
+### Step 1 — Clone the repository
 ```bash
 git clone https://github.com/victormunoz-sec/hebbmesh.git
 cd hebbmesh
-
-# 1. Run the live 3D Brain Viewer + synthetic demo (100% offline, 127.0.0.1:4322)
-node demo.mjs
-
-# 2. Run the reproducible head-to-head benchmarks vs SQLite FTS5 (BM25)
-node bench/benchmark.mjs       # v1.1 baseline suite (80 blind queries, 33 clusters)
-node bench/ablation_v1.2.mjs   # v1.2 M0-M4 ablation suite on dev_set
-node bench/benchmark_v1.2.mjs  # v1.2 preregistered blind suite (80 queries: Sonnet 5.5 + DeepSeek V4 Flash)
-node bench/benchmark_v1.7.mjs  # v1.7 Zero-Inference suite (Suite B + F-01 + 20-case CMI Red Team; optional --locomo <path>)
 ```
 
----
+### Step 2 — Try `v1.7` immediately on the included demo memory
+```bash
+# Search the sample memory using the v1.7 Zero-Inference engine (<6 ms):
+node src/engine_v1.7.mjs spark ./demo/memory "stripe webhook duplicate charge"
 
-## How to Use HebbMesh in Your Own Agent (3 Ways)
+# Get JSON output (ready for scripts, MCP servers, or agent hooks):
+node src/engine_v1.7.mjs spark ./demo/memory "stripe webhook duplicate charge" --json
 
-### 1. Plug into Claude Code, OpenCode, Cursor, or Antigravity (CLI / Session Hook)
-Stop dumping 40 KB of stale history into `CLAUDE.md` or `AGENTS.md`. Point HebbMesh at your own Markdown folder and inject only the **5–6 relevant neurons (~150 tokens)** in ~3 ms:
+# Launch the 100% offline 3D Synaptic Brain Viewer (http://127.0.0.1:4322):
+node demo.mjs
+```
+
+### Step 3 — Use HebbMesh with Your Own Memory Folder
+
+Create a folder (e.g. `./my-memory/`) and add plain Markdown files—start with just one file like `lessons.md` or `milestones.md`:
+
+```markdown
+<!-- ./my-memory/lessons.md -->
+- **A-01 `[V]` Idempotent Stripe Webhooks:** Persist `event.id` before mutating balances. | sem: double charge, duplicate payment, billing bug
+- **A-02 `[V]` Never Push Without Approval:** Keep commits local until explicit user confirmation. | sem: git safety, deploy guard
+```
+
+*(The optional `| sem:` suffix adds 3–5 synonyms/concepts at write time so HebbMesh finds semantic matches with **0 MB** of embedding models.)*
+
+Then query your own folder from CLI or embed it in **3 lines of Node.js**:
 
 ```bash
-# Human-readable context injection (great for SessionStart hooks)
-node src/engine.mjs spark ./my-memory "stripe webhook duplicate charge"
+# CLI (great for Claude Code, Cursor, OpenCode, or Antigravity SessionStart hooks):
+node src/engine_v1.7.mjs spark ./my-memory "how do we prevent double charges?"
 
-# Machine-readable JSON (for Python / Node / MCP wrappers)
-node src/engine.mjs spark ./my-memory "stripe webhook duplicate charge" --json
-
-# Discover hidden 3D A* bridge between two separate topics
-node src/engine.mjs bridge ./my-memory "stripe webhook" "cloudflare waf"
+# Discover a hidden 3D A* bridge between two separate topics:
+node src/engine_v1.7.mjs bridge ./my-memory "stripe webhook" "cloudflare waf"
 ```
 
-### 2. Embed in Any Custom Node.js Bot or Agent (3 Lines)
-No Docker, no Qdrant, no OpenAI embedding calls:
-
 ```js
-import { activateNetwork, findBridge } from './src/engine.mjs';
+import { activateNetwork } from './src/engine_v1.7.mjs';
 
 // Call right before sending the prompt to Claude, Gemini, DeepSeek, or Ollama:
 const mem = activateNetwork('./my-memory', userMessage, { topK: 5 });
 const context = mem.winners.map((w) => `[${w.code}] ${w.summary}`).join('\n');
 ```
 
-### 3. Visualize Your Own Markdown Second Brain Offline
-Drop plain `.md` files (`lessons.md`, `graph.md`, `milestones.md`, `profile.md`, `inbox.md`, `knowledge/*.md`, `synthesis/YYYY-Wnn.md`) into any folder and launch the 3D Viewer directly on your data:
-
-```bash
-node demo.mjs ./my-memory
-# -> Opens 100% offline 3D Synaptic Observatory at http://127.0.0.1:4322
-```
-
-**Tip — Write Memories with Zero-Embedding Seeds (`| sem:`):**
-When your agent saves a new lesson or note, append 3–5 synonyms or metaphors inline:
-```markdown
-- **A-01 `[V]` Idempotent Stripe Webhooks:** Persist `event.id` before mutating balances. | sem: double charge, duplicate payment, billing bug
-```
-HebbMesh automatically compiles those seeds into high-weight dendrites (`0.80`) with **0 MB** of embedding models.
+**Supported optional files inside `./my-memory/`:**
+- `lessons.md` (`A-xx` rules & learnings with `[V]` valid / `[S]` superseded status)
+- `graph.md` (`G-xx` entities & temporal facts)
+- `milestones.md` (`HITO-xx` chronological events or chat turns with optional `| session: S1`)
+- `profile.md` (`PERFIL-xx` user preferences & routines)
+- `inbox.md` (`INBOX-xx` quick capture notes)
+- `knowledge/*.md` (`DOC-xx` longer reference docs)
+- `private_vault.md` (`PRIV-xx` strictly isolated by Privacy Firewall `F-01`)
 
 ---
 
-## HebbMesh v1.7 — Zero-Inference Architecture
-
-**`src/engine_v1.7.mjs` (`1.7.0-HebbMesh-4D-ZeroInference`)** brings deterministic, zero-inference multi-turn dialogue and adversarial memory hardening to the public engine with **0 npm dependencies, 0 embeddings, and 0 LLM calls**:
-
-- **F2b_025 Tiered Tags & U3 Session Indexing:** Preserves `1.0` core tags (`18` default / `48` appearance-ordered tokens in session streams with `IMAGE_BOILERPLATE` filtering) and expands Tier-2 body tokens up to `128` at `0.25` weight.
-- **F4 Working Memory `NEXT` + U1 Pre-Merged Turn Context:** Bidirectional `1`-hop `NEXT` bridges between consecutive session turns plus pre-merged `t-1` (`0.40`) and `t-2` same-speaker (`0.25`) rare-token context (`sameSpkFwd = 0.42`, `sameSpkBwd = 0.35`).
-- **U2 Authorship vs. Vocative Gating & U4 Stopwords:** Attenuates non-author speaker name mentions (`mentionMult = 0.60`) and filters high-frequency conversational stopwords (`EXTRA_STD_STOP`), with optional `S1_WB` title word-boundary matching (`{ useWordBoundary: true }`).
-- **CMI_ZERO_REG Anti-Poisoning & Plasticity:** Deprioritizes invalidated memories (`validFalseMult = 0.30`, obsolete propagation brakes `0.35 / 0.20`, obsolete mass reset), weights recency (`0.38` over `coord3d.y`), and throttles keyword stuffing in ephemeral nodes (`> 15` tags floored at `0.85`).
-- **PMI_Safe Offline Co-Occurrence & P1b_PureCov Pauli Reranking:** Builds a lazy `valid=true` offline PMI table strictly isolated by Privacy Firewall `F-01` (`weight = 0.22`, top-1 position shielded), followed by greedy Pauli coverage reranking (`gamma = 0.65, alpha = 0.08, beta = 0.22, poolSize = 40`, top-1 position intact).
-
-### Verified v1.7 Results (`node bench/benchmark_v1.7.mjs`)
-
-| Suite / Metric | Result | Notes |
-|---|---|---|
-| **LoCoMo-10 Global (`n = 1,982`)** | **74.3% Hit@5** · **81.5% Hit@10** | `68.9%` Rec@5 · `0.5550` MRR (`5.79 ms/q` coronacion baseline) |
-| **LoCoMo-10 Multi-Hop (`n = 282`)** | **60.3% Hit@5** | Up from `54.3%` (`+6.0 pts` vs B0 baseline) |
-| **LoCoMo-10 Open-Domain (`n = 92`)** | **44.6% Hit@5** | Up from `38.0%` (`+6.6 pts` vs B0 baseline) |
-| **CMI Red Team (`20` cases)** | **20/20 PASS** | `8/8` Plasticity · `6/6` Anti-Stuffing · `6/6` Authority L3 |
-| **Suite B Zero-Regression (`demo/memory`)** | **PASS** | `v1.1`: `68.8% / 75.0%` (`@1/@3`) · `v1.2`: `78.8% / 92.5%` (`@1/@3`) |
-| **Privacy Firewall (`F-01`)** | **0/16 leaks** | `16/16` Positive Control · `0` lateral dendrite leaks |
+## Reproduce All Benchmarks
 
 ```bash
-# Default Suite B + F-01 + 20-case CMI Red Team:
+# 1. Run v1.7 Zero-Inference suite (Suite B + F-01 Firewall + 20-case CMI Red Team):
 npm run bench:v1.7
 
-# Optional full LoCoMo-10 verification (pointing to your local locomo10.json):
+# 2. Run full LoCoMo-10 verification (pointing to your local locomo10.json):
 node bench/benchmark_v1.7.mjs --locomo /path/to/locomo10.json
 
-# CLI usage with v1.7 engine:
-node src/engine_v1.7.mjs spark ./demo/memory "stripe webhook"
+# 3. Run historical v1.2 and v1.1 blind suites vs SQLite FTS5 (BM25):
+node bench/benchmark_v1.2.mjs
+node bench/benchmark.mjs
 ```
 
 ---
 
-## Preregistered Blind Benchmarks (`v1.2` vs `v1.1`)
+## What Changed in `v1.7` (Zero-Inference Engine)
+
+`src/engine_v1.7.mjs` (`1.7.0-HebbMesh-4D-ZeroInference`) combines our neuro-gated core with four dataset-agnostic **Universal Dialogue Physics** principles and CMI hardening:
+
+1. **Same-Speaker Thread Continuity (`U1` + `F4`):** In alternating dialogues, each turn pre-merges rare context from the immediately preceding turn (`t-1`, `0.40`) and the previous turn by the **same speaker** (`t-2`, `0.25`), plus bidirectional `NEXT` and same-speaker bridges (`0.42 / 0.35`).
+2. **Authorship vs. Vocative Gating (`U2`):** Distinguishes the actual author of a turn (`1.0`) from greetings/mentions of another participant (`0.60`), reducing noise without breaking adversarial queries.
+3. **Full Attachment & Tail Indexing (`U3` + `F2b_025`):** Preserves `1.0` core tags (`18` default in structured notes / `48` appearance-ordered tokens in session streams so image captions or tail facts are never demoted to `0.25`) plus Tier-2 body expansion up to `128` tokens.
+4. **Standard Stopwords (`U4`), Offline `PMI_Safe`, Pauli Reranking (`P1b_PureCov`), & `CMI_ZERO_REG`:** Filters missing conversational pronouns/modals, builds a firewall-isolated `valid=true` offline PMI table (`pos=0` shielded), applies greedy marginal-coverage Pauli reranking (`gamma=0.65, alpha=0.08, beta=0.22`), and defends against obsolete/stuffed memory injection (`20/20 CMI`).
+
+---
+
+<details>
+<summary><strong>Historical Preregistered Benchmarks (v1.2 &amp; v1.1 Blind Suites — Click to Expand)</strong></summary>
 
 ### v1.2 Preregistered Blind Validation (Dual-LLM External Set: Sonnet 5.5 + DeepSeek V4 Flash)
 
-In `v1.1`, unnormalized 2-hop spreading activation degraded zero-overlap `Semantic@3` by `-20.0 pts` (`43.3% -> 23.3%`) due to supercritical gain (`~3.3x/hop`) and unpruned high-DF cliques. **`v1.2` (`src/engine.mjs`, `v1.2.0-HebbMesh-4D`)** resolves this with five neuro-computational zero-embedding mechanisms:
-- **M0 (Semantic Synaptogenesis & Clique Pruning):** weaves `| sem:` (`0.85`) and `concepts` (`0.90`) into edges while tightening `dfMax` from `13%` (`df<=24`) to `<=5%` (`df<=max(6, round(0.05*N))`) with quadratic IDF.
-- **M1 (Sparse Out-Fan + Sub-Stochastic Normalization + Refractory Period):** emits only to `top 3` strong neighbors (`w >= 0.58`), normalized by `max(1.8, sumTopM)` to guarantee spectral radius `< 1` without underflow.
-- **M2 (AMPA vs. NMDA Coincidence Detection + Parental Dominance):** direct hits (`AMPA`) get bounded tie-break boost without dethroning their sole parent; non-direct neighbors (`NMDA`) require `>= 2` distinct seeds (`kParents >= 2`, modeling the `Mg2+` block) to eliminate orphan lexical drift.
-- **M3 (Competitive Lateral GABA Inhibition — k-WTA):** only the `top 4` direct seeds above `0.45 * maxDirect` emit.
-- **M4 (4D Inter-Lobe Firewall):** attenuates spurious technical-to-affective cross-lobe jumps (`0.55x`).
+In `v1.1`, unnormalized 2-hop spreading activation degraded zero-overlap `Semantic@3` by `-20.0 pts` (`43.3% -> 23.3%`) due to supercritical gain (`~3.3x/hop`) and unpruned high-DF cliques. **`v1.2` (`src/engine.mjs`, `v1.2.0-HebbMesh-4D`)** resolves this with five neuro-computational zero-embedding mechanisms (`M0–M4`): semantic synaptogenesis (`df <= 5%`), Sparse Out-Fan `top 3`, AMPA/NMDA coincidence gating (`kParents >= 2`), GABA `k-WTA`, and a 4D inter-lobe firewall.
 
-Evaluated in a **single pre-registered run** (`PROTOCOLO_PREREGISTRO_v1.2.md`, 5/5 SHA-256 hashes verified pre-execution) on a fresh **80-query blind set** (`demo/queries_blind_v1.2.json`: 40 queries from **Claude Sonnet 5.5** + 40 queries from **DeepSeek V4 Flash**, 80 clusters, `0` overlap with `v1.1`, Hebbian learning OFF, 10,000x cluster bootstrap).
-
-Run `node bench/benchmark_v1.2.mjs` to reproduce:
+Evaluated in a **single pre-registered run** (`PROTOCOLO_PREREGISTRO_v1.2.md`, 5/5 SHA-256 hashes verified) on a fresh **80-query blind set** (`40` Claude Sonnet 5.5 + `40` DeepSeek V4 Flash, `0` overlap with `v1.1`).
 
 #### Condition A (Principal — Blind Regenerated Seeds `seeds_regenerated.json`, `N = 80`)
 
@@ -135,21 +138,10 @@ Run `node bench/benchmark_v1.2.mjs` to reproduce:
 | **5. HebbMesh v1.2 Full (`A4`: M0–M4)** | **85% / 100%** | **60.0% / 76.7%** | **90% / 100%** | **100% / 100%** | **78.8% / 91.3%** | **5.50 / 7.78 ms** | **0/4** |
 | **6. HebbMesh v1.2 Full + GABA suave** | 85% / 100% | 60.0% / 76.7% | 90% / 100% | 100% / 100% | 78.8% / 91.3% | 5.33 / 7.91 ms | 0/4 |
 
-- **Condition B (Comparative — Inline Corpus `| sem:`):** `HebbMesh v1.2 (A4)` reaches **87.5% Overall@3** (`4.17 ms` mean; `3.88 ms` with `GABA suave`), outperforming `SQLite FTS5 + | sem:` (`76.3%`, **+11.2 pts**) and `no_prop` (`86.3%`, +1.2 pts, with `Episodic@1` rising `70% -> 80%`).
-- **Source-Model Split (Condition A):** On the stricter **Sonnet 5.5** partition (`20.0%` zero-overlap semantic, `1.27` mean token overlap), `HebbMesh v1.2 (A4)` reaches **90.0% Overall@3** (`73.3% Semantic@3`, `100% Episodic@3`) vs `82.5%` for `FTS5 + | sem:` (`60.0% Semantic@3`, `80% Episodic@3`). On **DeepSeek V4 Flash** (`6.7%` zero-overlap, `2.73` mean overlap), `A4` reaches **92.5% Overall@3 / 85.0% Overall@1** vs `87.5% / 72.5%` for `FTS5 + | sem:`.
-- **Statistical & Honesty Notes (10,000x Cluster Bootstrap, 95% CI, `±5 pts` margin):**
-  - `A4 − no_prop`: **exact parity `[0.0, 0.0]`** across all 4 categories on `@3` (the `-20 pts` propagation regression from `v1.1` is fully eliminated), with `+3.3 pts` on `Semantic@1` and `+1.3 pts` on `Overall@1`.
-  - `A4 − FTS5+|sem:`: strong directional lead (`+6.3 pts Overall@3`, CI `[0.0, +12.5]`; `+10.0 pts Semantic@3`, CI `[-3.3, +23.3]`; `+10.0 pts Episodic@3`, CI `[0.0, +30.0]`), classified conservatively as `INCONCLUSO` at 95% CI due to `N = 80` sample size.
-  - **Second Domain & Scale Stress Test (`bench/scale_v1.2.mjs`, Clinical/Biomedical, `N = 1k–10k`):** On `2,020` clinical neurons (`200` queries), `v1.2 (A4)` reaches **100% MultiHop@3 and 100% Episodic@3** vs **0%** for `FTS5 + | sem:` and `no_prop` (**+50.0 pts Overall@3**, 95% CI `[+43, +57]`, `SUPERIOR`, `0/20` privacy leaks). Profiling `10,000` neurons revealed NMDA propagation takes only **`0.93 ms`**; adding an in-memory inverted index + `dfMax <= 40` in experimental `src/engine_v1.3.mjs` (alongside Turrigiano homeostasis & quantum phase interference previewed for upcoming Paper 3) brings `10,000`-neuron compilation from `9.33 s` down to **`432 ms`** (`6.68 MB` SQLite) and query latency down to **`~12.8 ms`** (`p95 21.1 ms < 25 ms`) with `0.0` regression on real blind sets.
-  - **Privacy Firewall (F-01):** `16/16` Positive Control (Firewall OFF) vs **`0/16` leaks** (Firewall ON) and `0` lateral dendrite leaks.
+- **Condition B (Inline `| sem:`):** `HebbMesh v1.2 (A4)` reaches **87.5% Overall@3** (`4.17 ms`) vs `76.3%` for `SQLite FTS5 + | sem:` (**+11.2 pts**).
+- **Scale Stress Test (`bench/scale_v1.2.mjs`, Clinical/Biomedical, `N = 1k–10k`):** On `2,020` clinical neurons (`200` queries), `v1.2 (A4)` reaches **100% MultiHop@3 and 100% Episodic@3** vs **0%** for `FTS5 + | sem:` (**+50.0 pts Overall@3**, `0/20` privacy leaks). At `10,000` neurons, `src/engine_v1.3.mjs` compiles in `432 ms` (`6.68 MB` SQLite) with `~12.8 ms` query latency.
 
----
-
-### v1.1 Historical Baseline (`demo/queries_blind.json`, 80 queries, 33 clusters — now `dev_set`)
-
-Evaluated under `PROTOCOLO_PREREGISTRO.md` (`bench/benchmark.mjs`, `bench/results_v1.1.json`) on the same 187-neuron corpus with 30 adversarial 0%-stem-overlap semantic queries (`dev_set` for `v1.2` ablation `bench/ablation_v1.2.mjs`, where `v1.2 A4` restored `Direct@1` `75% -> 95%`, `Semantic@3` `23.3% -> 43.3%`, and `MultiHop@1` `70% -> 95%` in `4.27 ms`):
-
-#### Condition A (`v1.1` Baseline — Blind Regenerated Seeds `seeds_regenerated.json`)
+### v1.1 Historical Baseline (`demo/queries_blind.json`, 80 queries, 33 clusters)
 
 | Engine / Variant | Direct@3 | Semantic@3 | MultiHop@3 | Episodic@3 | Mean Latency | p95 Latency | Ep. Violations |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -160,9 +152,7 @@ Evaluated under `PROTOCOLO_PREREGISTRO.md` (`bench/benchmark.mjs`, `bench/result
 | **5. HebbMesh sin tope episodico (maxEp=Inf)** | 100% | 23.3% | 95% | 90% | 4.24 ms | 6.79 ms | 1/4 |
 | **6. HebbMesh Full 4D (`v1.1` unnormalized)** | 100% | 23.3% | 95% | 80% | 3.52 ms | 5.04 ms | 0/4 |
 
-- **Hebbian Drift Stability (`v1.1`, 50 repeated queries across 2 active clusters):** Edge Gini coefficient moved from 0.1141 to 0.1183 (+0.0042 delta, zero rich-get-richer runaway); 0.0 pts hit@3 degradation across all 4 categories.
-
-**Footprint:** `456 KB` SQLite WAL index (`.hebbmesh.sqlite`) · `~43 ms` compile · `128.9 MB` RSS · `0` external npm dependencies · `0` network calls.
+</details>
 
 ---
 
