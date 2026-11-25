@@ -203,7 +203,8 @@ Most open-source AI memory prototypes ignore security boundaries. **HebbMesh** i
 ## Dual Licensing (Open Source + Commercial)
 
 - **Open Source:** Licensed under **GNU AGPL-3.0-or-later** ([`LICENSE`](./LICENSE)). Free to inspect, study, benchmark, and self-host.
-- **Commercial License:** Embedding HebbMesh inside proprietary SaaS platforms, closed-source agent fleets, or commercial products without AGPL source-disclosure obligations requires a Commercial License ([`COMMERCIAL_LICENSE.md`](./COMMERCIAL_LICENSE.md)).
+- **Commercial License:** Embedding HebbMesh inside proprietary SaaS platforms, closed-source agent fleets, or commercial products without AGPL source-disclosure obligations requires a Commercial License ([`COMMERCIAL_LICENSE.md`](./COMMERCIAL_LICENSE.md)) — contact `victormunoz.research@gmail.com`.
+- **Contributions:** All Pull Requests require acceptance of the Contributor License Agreement in [`CONTRIBUTING.md`](./CONTRIBUTING.md) to keep dual-licensing clean.
 
 ---
 
