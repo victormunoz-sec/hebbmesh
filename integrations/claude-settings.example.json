@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ./hebbmesh/src/engine_v1.7.mjs spark ./my-memory \"current project priorities\" --json",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

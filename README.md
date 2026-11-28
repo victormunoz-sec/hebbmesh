@@ -91,6 +91,16 @@ const context = mem.winners.map((w) => `[${w.code}] ${w.summary}`).join('\n');
 
 ---
 
+## Drop-In Agent Setup (Claude Code / Cursor / OpenCode / Antigravity)
+
+Adopt HebbMesh **additively** without overwriting your existing `CLAUDE.md`, `AGENTS.md`, or hooks:
+
+- **Agent rules (zero-overwrite):** Import `@./hebbmesh/integrations/agent-rules.md` inside your own `CLAUDE.md`, or append [`integrations/agent-rules.md`](./integrations/agent-rules.md) to your existing `AGENTS.md` / Cursor rules.
+- **Claude Code hook:** Merge [`integrations/claude-settings.example.json`](./integrations/claude-settings.example.json) into your existing `.claude/settings.json` `hooks` object (adjust `./my-memory` to your memory folder).
+- **Antigravity hook:** Merge the `"hebbmesh-memory"` block from [`integrations/antigravity-hooks.example.json`](./integrations/antigravity-hooks.example.json) into your existing `.agents/hooks.json`.
+
+---
+
 ## Reproduce All Benchmarks
 
 ```bash
